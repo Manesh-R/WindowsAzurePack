@@ -1,13 +1,7 @@
 #Audio files, which are generated
-Audio/
 App_Data/
-Chekhov.Web/App_Data/aspnet-StoryBuilder-20130713223931.mdf
-Chekhov.Web/App_Data/aspnet-StoryBuilder-20130713223931_log.ldf
-StoryAssets/
 Packages/
 PerfLogs/
-SubmissionInfo/
-Stories/
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
