@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<uiManifest>
+  <!--StorageSample Management-->
+  <extension name="StorageSampleAdminExtension"
+             baseUri="~/Content/StorageSampleAdmin">
+    <scripts>
+      <script src="~/Scripts/StorageSample.Resources.js" />
+      <script src="~/Scripts/StorageSample.Constants.js" />
+      
+      <script src="~/Scripts/StorageSample.Controller.js" />
+      <script src="~/Scripts/StorageSample.Menu.js" />
+      <script src="~/Scripts/StorageSample.Actions.js" />
+
+      <script src="~/Scripts/StorageSample.LocationsTab.js" />
+      <script src="~/Scripts/StorageSample.QuickStartTab.js" />
+      <script src="~/Scripts/StorageSample.SettingsTab.js" />
+      <script src="~/StorageSampleAdminExtension.js" />
+
+      <!--Self registration-->
+      <script src="~/extensions.data.js" />
+    </scripts>
+    <stylesheets>
+      <stylesheet src="~/Styles/StorageSampleAdmin.css"/>
+      <stylesheet src="~/Styles/StorageSampleControls.css"/>
+    </stylesheets>
+    <templates>
+      <template name="locationsTab"
+                src="~/Templates/Tabs/LocationsTab.html" />
+      <template name="locationsTabEmpty"
+                src="~/Templates/Tabs/LocationsTabEmpty.html" />
+      <template name="quickStartTab"
+                src="~/Templates/Tabs/QuickStartTab.html" />
+      <template name="quickStartTabContent"
+                src="~/Templates/Tabs/QuickStartTabContent.html" />
+      <template name="settingsTab"
+                src="~/Templates/Tabs/SettingsTab.html" />
+      <template name="registerEndpoint"
+                src="~/Templates/Dialogs/RegisterEndpoint.html" />
+      <template name="locationQuickCreate"
+          src="~/Templates/Menu/StorageSample.Menu.Location.QuickCreate.html" />
+    </templates>
+  </extension>
+</uiManifest>

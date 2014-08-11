@@ -1,0 +1,53 @@
+﻿<div class="hw-settingsTab">
+    <div id="hw-settings" class="waz-config">
+        <h2>Storage Sample Resource Provider Settings Information</h2>
+
+        <div class="waz-config-section">
+        <div class="waz-config-setting">
+            <label for="endpointUrl">
+                Endpoint URL
+            </label>
+
+            <div class="waz-config-setting-value">
+                <input style="width:250px;"
+                       type="text"
+                       id="hw-endpointUrl"
+                       value=""
+                       maxlength="512"
+                       class="fx-textbox fx-validation fx-editablecontrol" ,
+                       data-val="true" data-val-required="Required"
+                       data-val-length-max="512"
+                       data-val-regex="Not URL" data-val-regex-pattern="^(http|https):\/\/(.*)$" />
+            </div>
+        </div>
+        <div class="waz-config-setting">
+            <label for="username">
+                Username
+            </label>
+            <div class="waz-config-setting-value">
+                <input style="width:250px;"
+                       type="text"
+                       id="hw-username"
+                       data-val="true"
+                       data-val-length-max="128"
+                       data-val-required="Required"
+                       value="" />
+            </div>
+        </div>
+        <div class="waz-config-setting">
+            <label for="password">
+                Password
+            </label>
+            <div class="waz-config-setting-value">
+                <input style="width:250px;"
+                       type="password"
+                       id="hw-password"
+                       data-val="true"
+                       data-val-length-max="128"
+                       data-val-required="Required"
+                       value="" />
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
