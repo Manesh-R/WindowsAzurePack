@@ -2,13 +2,13 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <AssemblyName>Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension</AssemblyName>
-    <RootNamespace>Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension</RootNamespace>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADB067C9-C4FE-483C-BA6C-6C06FAD70116}</ProjectGuid>
+    <ProjectGuid>{FD2B705E-7262-4BB6-871B-B9C7845C6C06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension</RootNamespace>
+    <AssemblyName>Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -38,8 +38,7 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Management.Common.HttpClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.WindowsAzure.Management.Common.HttpClient">
       <HintPath>..\References\Microsoft.WindowsAzure.Management.Common.HttpClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzurePack.Samples">
@@ -50,7 +49,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
@@ -85,37 +83,31 @@
   <ItemGroup>
     <Compile Include="BearerMessageProcessingHandler.cs" />
     <Compile Include="ClientFactory.cs" />
-    <Compile Include="Controllers\StorageSampleAdminController.cs" />
-    <Compile Include="Models\EndpointModel.cs" />
+    <Compile Include="Controllers\StorageSampleTenantController.cs" />
     <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\ContainerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\extensions.data.js" />
-    <Content Include="Content\StorageSampleAdminExtension.js" />
-    <Content Include="Content\Images\quickstart.png" />
-    <Content Include="Content\Images\quickstart_connectto.png" />
-    <Content Include="Content\Scripts\StorageSample.Constants.js" />
-    <Content Include="Content\Scripts\StorageSample.Actions.js" />
-    <Content Include="Content\Scripts\StorageSample.Menu.js" />
-    <Content Include="Content\Scripts\StorageSample.Controller.js" />
-    <Content Include="Content\Scripts\StorageSample.LocationsTab.js" />
-    <Content Include="Content\Scripts\StorageSample.QuickStartTab.js" />
-    <Content Include="Content\Scripts\StorageSample.SettingsTab.js" />
-    <Content Include="Content\Scripts\StorageSample.Resources.js" />
-    <Content Include="Content\StorageSampleAdmin.png" />
-    <Content Include="Content\Styles\StorageSampleAdmin.css" />
-    <Content Include="Content\Styles\StorageSampleControls.css" />
-    <Content Include="Content\Templates\Dialogs\RegisterEndpoint.html" />
-    <Content Include="Content\Templates\Menu\StorageSample.Menu.Location.QuickCreate.html" />
-    <Content Include="Content\Templates\Tabs\LocationsTab.html" />
-    <Content Include="Content\Templates\Tabs\LocationsTabEmpty.html" />
-    <Content Include="Content\Templates\Tabs\QuickStartTab.html" />
-    <Content Include="Content\Templates\Tabs\QuickStartTabContent.html" />
+    <Content Include="Content\StorageSampleTenant.png" />
+    <Content Include="Content\StorageSampleTenantExtension.js" />
+    <Content Include="Content\Scripts\StorageSampleTenant.Controller.js" />
+    <Content Include="Content\Scripts\StorageSampleTenant.ContainersTab.js" />
+    <Content Include="Content\Scripts\StorageSampleTenant.SettingsTab.js" />
+    <Content Include="Content\Scripts\ViewModel\HW.ViewModels.QuickCreate.js" />
+    <Content Include="Content\Styles\StorageSampleTenant.css" />
+    <Content Include="Content\Templates\Dialogs\CreateContainer.html" />
+    <Content Include="Content\Templates\Dialogs\CustomCreatePreview.html" />
+    <Content Include="Content\Templates\Menu\ContainerQuickCreate.html" />
+    <Content Include="Content\Templates\Tabs\ContainersTab.html" />
+    <Content Include="Content\Templates\Tabs\ContainersTabEmpty.html" />
     <Content Include="Content\Templates\Tabs\SettingsTab.html" />
-    <Content Include="Manifests\StorageSampleAdminUiManifest.xml" />
+    <Content Include="Manifests\StorageSampleTenantUiManifest.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApiClient\ApiClient.csproj">
       <Project>{cc16eeda-663b-4e41-8047-0aaed4a03680}</Project>
@@ -124,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Views\ServiceOffer\storageSampleOffer.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,13 +2,13 @@
     "use strict";
 
     var extensions = [{
-        name: "StorageSampleAdminExtension",
+        name: "StorageSampleTenantExtension",
         displayName: "Storage Sample",
-        iconUri: "/Content/StorageSampleAdmin/StorageSampleAdmin.png",
+        iconUri: "/Content/StorageSampleTenant/StorageSampleTenant.png",
         iconShowCount: false,
         iconTextOffset: 11,
         iconInvertTextColor: true,
-        displayOrderHint: 51
+        displayOrderHint: 2 // Display it right after WebSites extension (order 1)
     }];
 
     global.Shell.Internal.ExtensionProviders.addLocal(extensions);

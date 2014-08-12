@@ -36,7 +36,8 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         public const string AdminSettings = RegisteredPath + "/settings";
         public const string AdminLocations = RegisteredPath + "/locations";
 
-        public const string Containers = "{0}/" + RegisteredPath + "/containers";
+        public const string TenantContainers = "{0}/" + RegisteredPath + "/containers";
+        public const string TenantLocations = "d0c86023-1500-44a7-bb57-757295dacdea/" + RegisteredPath + "/locations";
 
         public Uri BaseEndpoint { get; set; }
         public HttpClient httpClient;
@@ -148,31 +149,45 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         #endregion
 
         #region Tenant APIs
+
         /// <summary>
-        /// ListContainers supposed to return list of file shares per subscription stored in Storage Sample Resource Provider 
-        /// Per subscription shares not implemented for this sample so its returning static common file shares for all subscriptions
+        /// GetLocationList return list of file servers hosted in Storage Sample Resource Provider
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Location>> GetLocationListForTenantAsync()
+        {
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantLocations));
+
+            var response = await this.httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseContentRead);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsAsync<List<Location>>();
+        }
+
+        /// <summary>
+        /// ListContainers supposed to return list of containers per subscription stored in Storage Sample Resource Provider 
+        /// Per subscription shares not implemented for this sample so its returning static common containers for all subscriptions
         /// </summary> 
         public async Task<List<Container>> ListContainersAsync(string subscriptionId = null)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateUri(subscriptionId));
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
             return await this.GetAsync<List<Container>>(requestUrl);            
         }
         
         /// <summary>
-        /// CreateContainer allows to create new file share for given subscription 
+        /// CreateContainer allows to create new container for given subscription 
         /// </summary>        
         public async Task CreateContainerAsync(string subscriptionId, Container containerNameToCreate)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateUri(subscriptionId));
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
             await this.PostAsync<Container>(requestUrl, containerNameToCreate);            
         }        
 
         /// <summary>
-        /// UpdateContainer allows to update existing file share for given subscription 
+        /// UpdateContainer allows to update existing container for given subscription 
         /// </summary>        
         public async Task UpdateContainerAsync(string subscriptionId, Container containerNameToUpdate)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateUri(subscriptionId));
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
             await this.PutAsync<Container>(requestUrl, containerNameToUpdate);            
         }        
         #endregion
@@ -217,9 +232,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
             return uriBuilder.Uri;
         }
 
-        private static string CreateUri(string subscriptionId)
+        private static string CreateTenantContainersUri(string subscriptionId)
         {
-            return string.Format(CultureInfo.InvariantCulture, StorageSampleClient.Containers, subscriptionId);
+            return string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantContainers, subscriptionId);
         }
         #endregion
     }

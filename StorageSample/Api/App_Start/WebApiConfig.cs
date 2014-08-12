@@ -33,6 +33,16 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api
                 defaults: new { controller = "Locations" });
 
             config.Routes.MapHttpRoute(
+                name: "TenantContainers",
+                routeTemplate: "subscriptions/{subscriptionId}/containers",
+                defaults: new { controller = "Containers" });
+
+            config.Routes.MapHttpRoute(
+                name: "TenantLocations",
+                routeTemplate: "subscriptions/{subscriptionId}/locations",
+                defaults: new { controller = "Locations" });
+
+            config.Routes.MapHttpRoute(
                name: "StorageSampleQuota",
                routeTemplate: "admin/quota",
                defaults: new { controller = "Quota" });

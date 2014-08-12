@@ -80,20 +80,20 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
         {
             this.ValidateInput(newSettings);
 
-            ResourceProvider helloWorldResourceProvider;
+            ResourceProvider storageSampleResourceProvider;
             string errorMessage = string.Empty;
 
             try
             {
                 //Check if resource provider is already registered or not
-                helloWorldResourceProvider = await ClientFactory.AdminManagementClient.GetResourceProviderAsync(StorageSampleClient.RegisteredServiceName, Guid.Empty.ToString());
+                storageSampleResourceProvider = await ClientFactory.AdminManagementClient.GetResourceProviderAsync(StorageSampleClient.RegisteredServiceName, Guid.Empty.ToString());
             }
             catch (ManagementClientException exception)
             {
                 // 404 means the Storage Sample resource provider is not yet configured, return an empty record.
                 if (exception.StatusCode == HttpStatusCode.NotFound)
                 {
-                    helloWorldResourceProvider = null;
+                    storageSampleResourceProvider = null;
                 }
                 else
                 {
@@ -102,18 +102,18 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
                 }
             }
 
-            if (helloWorldResourceProvider != null)
+            if (storageSampleResourceProvider != null)
             {
                 //Resource provider already registered so lets update endpoint
-                helloWorldResourceProvider.AdminEndpoint = newSettings.ToAdminEndpoint();
-                helloWorldResourceProvider.TenantEndpoint = newSettings.ToTenantEndpoint();
-                helloWorldResourceProvider.NotificationEndpoint = newSettings.ToNotificationEndpoint();
-                helloWorldResourceProvider.UsageEndpoint = newSettings.ToUsageEndpoint();
+                storageSampleResourceProvider.AdminEndpoint = newSettings.ToAdminEndpoint();
+                storageSampleResourceProvider.TenantEndpoint = newSettings.ToTenantEndpoint();
+                storageSampleResourceProvider.NotificationEndpoint = newSettings.ToNotificationEndpoint();
+                storageSampleResourceProvider.UsageEndpoint = newSettings.ToUsageEndpoint();
             }
             else
             {
                 //Resource provider not registered yet so lets register new one now
-                helloWorldResourceProvider = new ResourceProvider()
+                storageSampleResourceProvider = new ResourceProvider()
                 {
                     Name = StorageSampleClient.RegisteredServiceName,
                     DisplayName = "Storage Sample",
@@ -141,7 +141,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
             {
                 // Resource Provider Verification to ensure given endpoint and username/password is correct
                 // Only validate the admin RP since we don't have a tenant subscription to do it.
-                var result = await ClientFactory.AdminManagementClient.VerifyResourceProviderAsync(helloWorldResourceProvider, testList);
+                var result = await ClientFactory.AdminManagementClient.VerifyResourceProviderAsync(storageSampleResourceProvider, testList);
                 if (result.HasFailures)
                 {
                     throw new HttpException("Invalid endpoint or bad username/password");
@@ -153,9 +153,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
             }
 
             //Finally Create Or Update resource provider
-            Task<ResourceProvider> rpTask = (string.IsNullOrEmpty(helloWorldResourceProvider.Name) || String.IsNullOrEmpty(helloWorldResourceProvider.InstanceId))
-                                                ? ClientFactory.AdminManagementClient.CreateResourceProviderAsync(helloWorldResourceProvider)
-                                                : ClientFactory.AdminManagementClient.UpdateResourceProviderAsync(helloWorldResourceProvider.Name, helloWorldResourceProvider.InstanceId, helloWorldResourceProvider);
+            Task<ResourceProvider> rpTask = (string.IsNullOrEmpty(storageSampleResourceProvider.Name) || String.IsNullOrEmpty(storageSampleResourceProvider.InstanceId))
+                                                ? ClientFactory.AdminManagementClient.CreateResourceProviderAsync(storageSampleResourceProvider)
+                                                : ClientFactory.AdminManagementClient.UpdateResourceProviderAsync(storageSampleResourceProvider.Name, storageSampleResourceProvider.InstanceId, storageSampleResourceProvider);
 
             try
             {
@@ -225,10 +225,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
                 throw new ArgumentNullException("Username");
             }
 
-            if (String.IsNullOrEmpty(newSettings.Password))
-            {
-                throw new ArgumentNullException("Password");
-            }
+            // Note: We do not run validation on password, as password is not null, only when a change is required.
         }
     }
 }

@@ -26,38 +26,33 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContrac
     public class Container
     {
         /// <summary>
-        /// Name of the file share
+        /// Id of the container
         /// </summary>
         [DataMember(Order = 1)]
-        public string Name { get; set; }
+        public int ContainerId { get; set; }
 
         /// <summary>
-        /// SubscriptionId of user who created this file share
+        /// Name of the container
         /// </summary>
         [DataMember(Order = 2)]
+        public string ContainerName { get; set; }
+
+        /// <summary>
+        /// SubscriptionId of user who created this container
+        /// </summary>
+        [DataMember(Order = 3)]
         public string SubscriptionId { get; set; }
 
         /// <summary>
-        /// Name of the file server where file share resides
-        /// </summary>
-        [DataMember(Order = 3)]
-        public string FileServerName { get; set; }
-
-        /// <summary>
-        /// Size of the file share
+        /// Name of the file server where container resides
         /// </summary>
         [DataMember(Order = 4)]
-        public int Size { get; set; }
+        public string LocationId { get; set; }
 
         /// <summary>
-        /// Id of the file share
+        /// Size of the container
         /// </summary>
         [DataMember(Order = 5)]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the extension data.
-        /// </summary>
-        public ExtensionDataObject ExtensionData { get; set; }
+        public string URL { get; set; }
     }
 }

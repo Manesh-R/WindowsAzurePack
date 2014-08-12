@@ -3,7 +3,7 @@
 (function (global, $, shell, exp, resources, constants, undefined) {
     "use strict";
 
-    var helloWorldExtensionActivationInit,
+    var storageSampleExtensionActivationInit,
         navigation;   
 
     function clearCommandBar() {
@@ -48,7 +48,7 @@
         global.StorageSampleAdminExtension.LocationsTab.loadTab(renderData, renderArea);
     }
 
-    global.helloWorldExtension = global.StorageSampleAdminExtension || {};
+    global.storageSampleExtension = global.StorageSampleAdminExtension || {};
 
     navigation = {
         tabs: [
@@ -75,10 +75,10 @@
         ]
     };
 
-    helloWorldExtensionActivationInit = function () {
-        var helloWorldExtension = $.extend(this, global.StorageSampleAdminExtension);
+    storageSampleExtensionActivationInit = function () {
+        var storageSampleExtension = $.extend(this, global.StorageSampleAdminExtension);
 
-        $.extend(helloWorldExtension, {
+        $.extend(storageSampleExtension, {
             displayName: "Storage Sample",
             viewModelUris: [
                 global.StorageSampleAdminExtension.Controller.adminSettingsUrl,
@@ -114,19 +114,19 @@
             }
         });
 
-        helloWorldExtension.onApplicationStart = onApplicationStart;        
-        helloWorldExtension.setCommands = clearCommandBar();
+        storageSampleExtension.onApplicationStart = onApplicationStart;        
+        storageSampleExtension.setCommands = clearCommandBar();
 
-        Shell.UI.Pivots.registerExtension(helloWorldExtension, function () {
+        Shell.UI.Pivots.registerExtension(storageSampleExtension, function () {
             Exp.Navigation.initializePivots(this, navigation);
         });
 
-        // Finally activate helloWorldExtension 
-        $.extend(global.StorageSampleAdminExtension, Shell.Extensions.activate(helloWorldExtension));
+        // Finally activate storageSampleExtension 
+        $.extend(global.StorageSampleAdminExtension, Shell.Extensions.activate(storageSampleExtension));
     };
 
     Shell.Namespace.define("StorageSampleAdminExtension", {
-        init: helloWorldExtensionActivationInit
+        init: storageSampleExtensionActivationInit
     });
 
 })(this, jQuery, Shell, Exp, StorageSampleAdminExtension.Resources, StorageSampleAdminExtension.Constants);

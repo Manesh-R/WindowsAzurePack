@@ -35,7 +35,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
         }
 
         [HttpGet]
-        public List<Location> GetLocationList()
+        public List<Location> GetLocationList(string subscriptionId = null)
         {
             return locations;
         }
