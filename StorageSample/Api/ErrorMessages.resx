@@ -120,15 +120,6 @@
   <data name="EmptySubscription" xml:space="preserve">
     <value>Subscription cannot be null</value>
   </data>
-  <data name="FileServerAlreadyExist" xml:space="preserve">
-    <value>File server {0} already exists</value>
-  </data>
-  <data name="FileServerEmpty" xml:space="preserve">
-    <value>File server cannot be null</value>
-  </data>
-  <data name="FileServerNotFound" xml:space="preserve">
-    <value>File server {0} not found</value>
-  </data>
   <data name="ContainerAlreadyExists" xml:space="preserve">
     <value>File share {0} already exists</value>
   </data>

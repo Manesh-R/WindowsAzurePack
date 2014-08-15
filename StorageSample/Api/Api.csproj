@@ -106,6 +106,7 @@
     <Compile Include="Controllers\QuotaController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\UsageController.cs" />
+    <Compile Include="DataProvider\DataValidationUtil.cs" />
     <Compile Include="DataProvider\IContainerProvider.cs" />
     <Compile Include="DataProvider\ILocationProvider.cs" />
     <Compile Include="DataProvider\DataProviderFactory.cs" />

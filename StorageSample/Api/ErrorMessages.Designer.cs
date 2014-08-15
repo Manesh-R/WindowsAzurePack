@@ -97,33 +97,6 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File server {0} already exists.
-        /// </summary>
-        internal static string FileServerAlreadyExist {
-            get {
-                return ResourceManager.GetString("FileServerAlreadyExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File server cannot be null.
-        /// </summary>
-        internal static string FileServerEmpty {
-            get {
-                return ResourceManager.GetString("FileServerEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File server {0} not found.
-        /// </summary>
-        internal static string FileServerNotFound {
-            get {
-                return ResourceManager.GetString("FileServerNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Batch size must be 0 or larger..
         /// </summary>
         internal static string InvalidBatchSize {

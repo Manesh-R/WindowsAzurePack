@@ -44,17 +44,30 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 
         void ILocationProvider.CreateLocation(Location location)
         {
-            var existingLocation = (from s in locations where s.LocationName == location.LocationName select s).FirstOrDefault();
+            if (!DataValidationUtil.IsLocationValid(location))
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NullInput);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
 
+            var existingLocation = (from s in locations where s.LocationName.ToLower() == location.LocationName.ToLower() select s).FirstOrDefault();
             if (existingLocation != null)
             {
                 string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationAlreadyExist, location.LocationName);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             };
 
-            if (!Directory.Exists(location.NetworkSharePath))
+            if (!DataValidationUtil.IsNetworkShareReachable(location.NetworkSharePath))
             {
                 string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.NetworkSharePath);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
+
+            // Trim trailing slash and space from path.
+            location.NetworkSharePath = location.NetworkSharePath.TrimEnd(new char[] { ' ', '\\' });
+            if (DataValidationUtil.IsNetworkAlreadyMapped(location.NetworkSharePath, locations))
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NetworkShareAlreadyMapped, location.NetworkSharePath);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
