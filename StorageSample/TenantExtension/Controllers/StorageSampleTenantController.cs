@@ -63,12 +63,12 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
         /// <param name="subscriptionIds"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult> ListLocations()
+        public async Task<JsonResult> ListLocations(string subscriptionIds)
         {
             // Make the requests sequentially for simplicity
             var locations = new List<LocationModel>();
 
-            var locationsFromApi = await ClientFactory.StorageSampleClient.GetLocationListForTenantAsync();
+            var locationsFromApi = await ClientFactory.StorageSampleClient.GetLocationListForTenantAsync(subscriptionIds);
             locations.AddRange(locationsFromApi.Select(l => new LocationModel(l)));
 
             return this.JsonDataSet(locations);

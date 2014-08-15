@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\extensions.data.js" />
+    <Content Include="Content\Images\quickstart.png" />
     <Content Include="Content\StorageSampleTenant.png" />
     <Content Include="Content\StorageSampleTenantExtension.js" />
     <Content Include="Content\Scripts\StorageSampleTenant.Controller.js" />
@@ -105,9 +106,7 @@
     <Content Include="Content\Templates\Tabs\SettingsTab.html" />
     <Content Include="Manifests\StorageSampleTenantUiManifest.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ApiClient\ApiClient.csproj">
       <Project>{cc16eeda-663b-4e41-8047-0aaed4a03680}</Project>

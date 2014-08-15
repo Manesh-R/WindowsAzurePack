@@ -72,7 +72,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
         }
 
         [HttpPost]
-        public void CreateContainer(Container container)
+        public void CreateContainer(string subscriptionId, Container container)
         {
             if (container == null)
             {
@@ -84,7 +84,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 ContainerId = containers.Count,
                 LocationId = container.LocationId,
                 ContainerName = container.ContainerName,
-                SubscriptionId = container.SubscriptionId,
+                SubscriptionId = subscriptionId,
                 URL = container.URL
             });
         }

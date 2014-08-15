@@ -101,9 +101,12 @@
             label: "CREATE",
 
             opening: function () {
+                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
                 var promise = Shell.Net.ajaxPost({
                     url: global.StorageSampleTenantExtension.Controller.listLocationsUrl,
-                    data: {}
+                    data: {
+                        subscriptionIds: subscriptionRegisteredToService[0].id
+                    }
                 });
                 promise.done(function (response) {
                     var listOfLocations = response.data;
@@ -117,12 +120,12 @@
             },
 
             ok: function (object) {
-                var name = 'd0c86023-1500-44a7-bb57-757295dacdea';
+                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
+                var subscriptionId = subscriptionRegisteredToService[0].id;
                 var data = {};
-                data.subscriptionId = name;
+                data.subscriptionId = subscriptionId;
                 data.container = {};
                 data.container.ContainerName = object.fields['containerName'];
-                data.container.SubscriptionId = name;
                 data.container.LocationId = object.fields['selectedLocation'];
                 
                 var promise = Shell.Net.ajaxPost({

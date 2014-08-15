@@ -37,7 +37,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         public const string AdminLocations = RegisteredPath + "/locations";
 
         public const string TenantContainers = "{0}/" + RegisteredPath + "/containers";
-        public const string TenantLocations = "d0c86023-1500-44a7-bb57-757295dacdea/" + RegisteredPath + "/locations";
+        public const string TenantLocations = "{0}/" + RegisteredPath + "/locations";
 
         public Uri BaseEndpoint { get; set; }
         public HttpClient httpClient;
@@ -154,9 +154,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         /// GetLocationList return list of file servers hosted in Storage Sample Resource Provider
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Location>> GetLocationListForTenantAsync()
+        public async Task<List<Location>> GetLocationListForTenantAsync(string subscriptionId = null)
         {
-            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantLocations));
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantLocations, subscriptionId));
 
             var response = await this.httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseContentRead);
             response.EnsureSuccessStatusCode();
