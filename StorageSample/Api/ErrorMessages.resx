@@ -162,13 +162,7 @@
   <data name="NullOrEmptySubscriptionList" xml:space="preserve">
     <value>Subscription list for updated quota batch was null or empty.</value>
   </data>
-  <data name="ProductAlreadyExists" xml:space="preserve">
-    <value>Product {0} already exists</value>
-  </data>
-  <data name="ProductEmpty" xml:space="preserve">
-    <value>Product cannot be null</value>
-  </data>
-  <data name="ProductNotFound" xml:space="preserve">
-    <value>Product {0} not found</value>
+  <data name="NetworkShareAlreadyMapped" xml:space="preserve">
+    <value>Network share {0} is already mapped.</value>
   </data>
 </root>

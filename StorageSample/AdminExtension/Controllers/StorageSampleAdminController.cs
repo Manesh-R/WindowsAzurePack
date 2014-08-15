@@ -1,5 +1,5 @@
-﻿// ---------------------------------------------------------
-// Copyright (c) Terawe Corporation. All rights reserved.
+﻿// ----------------------------------------------------------------------------
+// Copyright (c) Terawe Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,9 +12,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ---------------------------------------------------------
+// ----------------------------------------------------------------------------
 
+using Microsoft.Azure.Portal.Configuration;
+using Microsoft.WindowsAzurePack.Samples;
+using Microsoft.WindowsAzurePack.Samples.DataContracts;
+using Microsoft.WindowsAzurePack.Samples.HelloWorld.Common;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -22,17 +27,15 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using Microsoft.Azure.Portal.Configuration;
-using Microsoft.WindowsAzurePack.Samples.DataContracts;
 using Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Models;
 using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient;
 using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
-using Microsoft.WindowsAzurePack.Samples;
-using Microsoft.WindowsAzurePack.Samples.HelloWorld.Common;
-
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Controllers
 {
+    /// <summary>
+    /// Controller class for AdminExtension.
+    /// </summary>
     [RequireHttps]
     [OutputCache(Location = OutputCacheLocation.None)]
     [PortalExceptionHandler]
@@ -170,19 +173,22 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
         }
 
         /// <summary>
-        /// Gets all File Servers.
+        /// Gets all Locations.
         /// </summary>
+        /// <remarks>
+        /// Think of location as 'Region' for blob storage. This is for demonstration only.
+        /// </remarks>
         [HttpPost]
         [ActionName("Locations")]
         public async Task<JsonResult> GetAllLocations()
         {
             try
             {
-                var fileServers = await ClientFactory.StorageSampleClient.GetLocationListAsync();
-                var fileServerModel = fileServers.Select(d => new LocationModel(d)).ToList();
-                return this.JsonDataSet(fileServerModel);
+                var localtions = await ClientFactory.StorageSampleClient.GetLocationListAsync();
+                var result = localtions.Select(d => new LocationModel(d)).ToList();
+                return this.JsonDataSet(result);
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException ex)
             {
                 // Returns an empty collection if the HTTP request to the API fails
                 return this.JsonDataSet(new LocationList());
@@ -201,10 +207,10 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
                 await ClientFactory.StorageSampleClient.AddLocationAsync(location);
                 return this.JsonDataSet(new object());
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException ex)
             {
-                // Returns an empty collection if the HTTP request to the API fails
-                return this.JsonDataSet(new object());
+                // http://msdn.microsoft.com/en-us/library/dn528486.aspx
+                throw new PortalException(ex.Message, ex, HttpStatusCode.BadRequest);
             }
         }
 

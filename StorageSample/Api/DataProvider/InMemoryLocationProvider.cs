@@ -1,5 +1,5 @@
-﻿// ---------------------------------------------------------------------------
-// Copyright (c) Terawe Corporation. All rights reserved.
+﻿// ----------------------------------------------------------------------------------------------
+// Copyright (c) Terawe Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,11 +12,12 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// ---------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
@@ -50,6 +51,12 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
                 string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationAlreadyExist, location.LocationName);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             };
+
+            if (!Directory.Exists(location.NetworkSharePath))
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.NetworkSharePath);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
 
             CurrentMaxLocationId++;
             locations.Add(new Location
