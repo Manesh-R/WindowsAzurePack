@@ -21,12 +21,13 @@ using System.Web.Http;
 using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 using IO = System.IO;
 using System.Globalization;
+using Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
 {
     public class ContainersController : ApiController
     {
-        public static List<Container> containers = new List<Container>();
+        private static List<Container> containers = new List<Container>();
 
         [HttpGet]
         public List<Container> ListContainers(string subscriptionId)
@@ -36,11 +37,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 throw new ArgumentNullException(subscriptionId);
             }
 
-            var shares = from share in containers
-                         where string.Equals(share.SubscriptionId, subscriptionId, StringComparison.OrdinalIgnoreCase)
-                         select share;
-
-            return shares.ToList();
+            return DataProviderFactory.ContainerInstance.GetContainers(subscriptionId);
         }
 
         [HttpPut]
@@ -56,19 +53,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.ContainerEmpty);
             }
 
-            var container = (from share in containers
-                             where share.ContainerId == containerToUpdate.ContainerId && string.Equals(share.SubscriptionId, containerToUpdate.SubscriptionId, StringComparison.OrdinalIgnoreCase)
-                             select share).FirstOrDefault();
-
-            if (container != null)
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.ContainerNotFound, container.ContainerName);
-                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, message);
-            }
-
-            container.ContainerName = containerToUpdate.ContainerName;
-            container.LocationId = containerToUpdate.LocationId;
-            container.URL = containerToUpdate.URL;
+            DataProviderFactory.ContainerInstance.UpdateContainer(subscriptionId, containerToUpdate);
         }
 
         [HttpPost]
@@ -79,14 +64,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.ContainerEmpty);
             }
 
-            containers.Add(new Container
-            {
-                ContainerId = containers.Count,
-                LocationId = container.LocationId,
-                ContainerName = container.ContainerName,
-                SubscriptionId = subscriptionId,
-                URL = container.URL
-            });
+            DataProviderFactory.ContainerInstance.CreateContainer(subscriptionId, container);
         }
     }
 }

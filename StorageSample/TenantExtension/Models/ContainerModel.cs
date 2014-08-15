@@ -62,12 +62,12 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
         /// <summary>
         /// Gets or sets the name.
         // </summary>
-        public string ContainerName { get; set; }              
+        public string ContainerName { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the display name of the file server 
         /// </summary>
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the subscription id
@@ -78,7 +78,5 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
         /// Gets or sets the value of the container size
         /// </summary>
         public string URL { get; set; }
-
-       
     }
 }

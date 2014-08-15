@@ -102,6 +102,7 @@
 
             opening: function () {
                 var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
+
                 var promise = Shell.Net.ajaxPost({
                     url: global.StorageSampleTenantExtension.Controller.listLocationsUrl,
                     data: {
@@ -117,13 +118,19 @@
             },
 
             open: function () {
+                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
+
+                // TODO: Ideally if there is only one subscription, user shouldn't be prompted.
+                var subscriptionDropDown = $('#hw-qc-container-subscription');
+                var subscriptionOptions = $.templates("<option value=\"{{>id}}\">{{>OfferFriendlyName}}</option>").render(subscriptionRegisteredToService);
+                subscriptionDropDown.append(subscriptionOptions);
             },
 
             ok: function (object) {
-                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
-                var subscriptionId = subscriptionRegisteredToService[0].id;
+                var name = object.fields['containerName'];
                 var data = {};
-                data.subscriptionId = subscriptionId;
+                data.subscriptionId = object.fields['selectedSubscription'];
+
                 data.container = {};
                 data.container.ContainerName = object.fields['containerName'];
                 data.container.LocationId = object.fields['selectedLocation'];
@@ -143,6 +150,7 @@
                 );
 
                 promise.done(function () {
+                    StorageSampleTenantExtension.ContainersTab.forceRefreshGridData();
                     return true;
                 });
                 promise.fail(function () {

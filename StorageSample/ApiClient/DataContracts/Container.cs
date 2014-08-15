@@ -47,7 +47,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContrac
         /// Name of the file server where container resides
         /// </summary>
         [DataMember(Order = 4)]
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
 
         /// <summary>
         /// Size of the container
