@@ -121,13 +121,13 @@
     <value>Subscription cannot be null</value>
   </data>
   <data name="ContainerAlreadyExists" xml:space="preserve">
-    <value>File share {0} already exists</value>
+    <value>Container {0} already exists</value>
   </data>
   <data name="ContainerEmpty" xml:space="preserve">
-    <value>File share cannot be null</value>
+    <value>Container cannot be null</value>
   </data>
   <data name="ContainerNotFound" xml:space="preserve">
-    <value>File share {0} not found</value>
+    <value>Container {0} not found</value>
   </data>
   <data name="InvalidBatchSize" xml:space="preserve">
     <value>Batch size must be 0 or larger.</value>
@@ -155,5 +155,8 @@
   </data>
   <data name="NetworkShareAlreadyMapped" xml:space="preserve">
     <value>Network share {0} is already mapped.</value>
+  </data>
+  <data name="ContainerNotEmpty" xml:space="preserve">
+    <value>Container has files in it.</value>
   </data>
 </root>

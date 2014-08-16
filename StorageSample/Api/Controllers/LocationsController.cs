@@ -40,6 +40,23 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.LocationEmpty);
             }
 
+            // TODO: Fix issue around HTTP POST method.
+            if (location.LocationId == 0)
+            {
+                // Treat this as Add Location
+                InMemoryLocationProvider.Instance.CreateLocation(location);
+                return;
+            }
+
+            var locations = DataProviderFactory.LocationInstance.GetLocations();
+            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).FirstOrDefault();
+
+            if (existingLocation == null)
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.LocationName);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
+
             DataProviderFactory.LocationInstance.UpdateLocation(location);
         }
 
@@ -51,6 +68,34 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.LocationEmpty);
             }
 
+            if (!DataValidationUtil.IsLocationValid(location))
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NullInput);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
+
+            var locations = DataProviderFactory.LocationInstance.GetLocations();
+            var existingLocation = (from s in locations where s.LocationName.ToLower() == location.LocationName.ToLower() select s).FirstOrDefault();
+            if (existingLocation != null)
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationAlreadyExist, location.LocationName);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            };
+
+            if (!DataValidationUtil.IsNetworkShareReachable(location.NetworkSharePath))
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.NetworkSharePath);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
+
+            // Trim trailing slash and space from path.
+            location.NetworkSharePath = location.NetworkSharePath.TrimEnd(new char[] { ' ', '\\' });
+            if (DataValidationUtil.IsNetworkAlreadyMapped(location.NetworkSharePath, locations))
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NetworkShareAlreadyMapped, location.NetworkSharePath);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
+            }
+
             DataProviderFactory.LocationInstance.CreateLocation(location);
         }
 
@@ -60,6 +105,15 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
             if (location == null || location.LocationId == 0)
             {
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.LocationEmpty);
+            }
+
+            var locations = DataProviderFactory.LocationInstance.GetLocations();
+            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).FirstOrDefault();
+
+            if (existingLocation == null)
+            {
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.LocationName);
+                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
             DataProviderFactory.LocationInstance.DeleteLocation(location);

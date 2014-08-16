@@ -24,11 +24,15 @@ using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 {
+    /// <summary>
+    /// Container data provider with process memory as storage. If we restart IIS, information is lost.
+    /// </summary>
     public class InMemoryContainerProvider : IContainerProvider
     {
-        private static InMemoryContainerProvider instance = new InMemoryContainerProvider();
-
+        // We will start ID with 1000+, so that it looks good on UI.
         private static int CurrentMaxContainerId = 1000;
+
+        private static InMemoryContainerProvider instance = new InMemoryContainerProvider();
 
         private static List<Container> containers = new List<Container>();
 
@@ -39,11 +43,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 
         List<Container> IContainerProvider.GetContainers(string subscriptionId)
         {
-            var shares = from share in containers
-                         where string.Equals(share.SubscriptionId, subscriptionId, StringComparison.OrdinalIgnoreCase)
-                         select share;
-
-            return shares.ToList();
+            return (from container in containers
+                    where string.Equals(container.SubscriptionId, subscriptionId, StringComparison.OrdinalIgnoreCase)
+                    select container).ToList();
         }
 
         void IContainerProvider.CreateContainer(string subscriptionId, Container container)
@@ -63,19 +65,14 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 
         void IContainerProvider.UpdateContainer(string subscriptionId, Container containerToUpdate)
         {
-            var container = (from share in containers
-                             where share.ContainerId == containerToUpdate.ContainerId && string.Equals(share.SubscriptionId, containerToUpdate.SubscriptionId, StringComparison.OrdinalIgnoreCase)
-                             select share).FirstOrDefault();
+            var existing = (from c in containers
+                             where c.ContainerId == containerToUpdate.ContainerId && string.Equals(c.SubscriptionId, containerToUpdate.SubscriptionId, StringComparison.OrdinalIgnoreCase)
+                             select c).First();
 
-            if (container != null)
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.ContainerNotFound, container.ContainerName);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            }
-
-            container.ContainerName = containerToUpdate.ContainerName;
-            container.LocationId = containerToUpdate.LocationId;
-            container.URL = containerToUpdate.URL;
+            // Actually, we will not allow any updates to the container properties for now.
+            ////existing.ContainerName = containerToUpdate.ContainerName;
+            ////existing.LocationId = containerToUpdate.LocationId;
+            ////existing.URL = containerToUpdate.URL;
         }
 
         void IContainerProvider.DeleteContainer(string subscriptionId, Container container)

@@ -22,6 +22,9 @@ using System.Threading.Tasks;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 {
+    /// <summary>
+    /// Writing the data provider through a factory, so that we can switch to SQL data provider later easily.
+    /// </summary>
     public class DataProviderFactory
     {
         public static IContainerProvider ContainerInstance

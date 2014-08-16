@@ -61,7 +61,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File share {0} already exists.
+        ///   Looks up a localized string similar to Container {0} already exists.
         /// </summary>
         internal static string ContainerAlreadyExists {
             get {
@@ -70,7 +70,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File share cannot be null.
+        ///   Looks up a localized string similar to Container cannot be null.
         /// </summary>
         internal static string ContainerEmpty {
             get {
@@ -79,7 +79,16 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File share {0} not found.
+        ///   Looks up a localized string similar to Container has files in it..
+        /// </summary>
+        internal static string ContainerNotEmpty {
+            get {
+                return ResourceManager.GetString("ContainerNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Container {0} not found.
         /// </summary>
         internal static string ContainerNotFound {
             get {

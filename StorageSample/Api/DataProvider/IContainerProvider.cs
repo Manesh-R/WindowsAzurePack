@@ -25,7 +25,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 
         void CreateContainer(string subscriptionId, Container container);
 
-        void UpdateContainer(string subscriptionId, Container containerToUpdate);
+        void UpdateContainer(string subscriptionId, Container container);
 
         void DeleteContainer(string subscriptionId, Container container);
     }

@@ -23,7 +23,8 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api
         public static void Register(HttpConfiguration config)
         {
             // All Admin methods that are called via AdminSite are coming to 'admin' route.
-            // This is because when resource provider is registered, we used 'AdminForwardingAddress' = "http://$hostName/admin";
+            // This is because when resource provider is registered, we used following.
+            //  'AdminForwardingAddress' = "http://$hostName/admin";
             config.Routes.MapHttpRoute(
                name: "AdminSettings",
                routeTemplate: "admin/settings",
@@ -32,16 +33,6 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api
             config.Routes.MapHttpRoute(
                 name: "AdminLocations",
                 routeTemplate: "admin/locations",
-                defaults: new { controller = "Locations" });
-
-            config.Routes.MapHttpRoute(
-                name: "TenantContainers",
-                routeTemplate: "subscriptions/{subscriptionId}/containers",
-                defaults: new { controller = "Containers" });
-
-            config.Routes.MapHttpRoute(
-                name: "TenantLocations",
-                routeTemplate: "subscriptions/{subscriptionId}/locations",
                 defaults: new { controller = "Locations" });
 
             config.Routes.MapHttpRoute(
@@ -58,6 +49,22 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api
                name: "Subscription",
                routeTemplate: "admin/subscriptions",
                defaults: new { controller = "Subscriptions" });
+
+            // All tenant methods will have incoming route as subscriptions/{subscriptionId}
+            // This is based on the registeration done for resource provider.
+            //     'TenantSourceUriTemplate' = '{subid}/services/storagesample/{*path}';
+            //     'TenantTargetUriTemplate' = 'subscriptions/{subid}/{*path}';
+            // This means that tenant portal will send request to source uri template, and tenant api site will 
+            // forward it to StorageSample API after transforming uri to target uri template.
+            config.Routes.MapHttpRoute(
+                name: "TenantContainers",
+                routeTemplate: "subscriptions/{subscriptionId}/containers",
+                defaults: new { controller = "Containers" });
+
+            config.Routes.MapHttpRoute(
+                name: "TenantLocations",
+                routeTemplate: "subscriptions/{subscriptionId}/locations",
+                defaults: new { controller = "Locations" });
 
             config.Routes.MapHttpRoute(
                name: "Usage",

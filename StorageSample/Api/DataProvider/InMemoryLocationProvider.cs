@@ -24,11 +24,15 @@ using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 {
+    /// <summary>
+    /// Location data provider with process memory as storage. If we restart IIS, information is lost.
+    /// </summary>
     public class InMemoryLocationProvider : ILocationProvider
     {
-        private static InMemoryLocationProvider instance = new InMemoryLocationProvider();
-
+        // We will start ID with 1000+, so that it looks good on UI.
         private static int CurrentMaxLocationId = 1000;
+
+        private static InMemoryLocationProvider instance = new InMemoryLocationProvider();
 
         public static List<Location> locations = new List<Location>();
 
@@ -44,33 +48,6 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 
         void ILocationProvider.CreateLocation(Location location)
         {
-            if (!DataValidationUtil.IsLocationValid(location))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NullInput);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            }
-
-            var existingLocation = (from s in locations where s.LocationName.ToLower() == location.LocationName.ToLower() select s).FirstOrDefault();
-            if (existingLocation != null)
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationAlreadyExist, location.LocationName);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            };
-
-            if (!DataValidationUtil.IsNetworkShareReachable(location.NetworkSharePath))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.NetworkSharePath);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            }
-
-            // Trim trailing slash and space from path.
-            location.NetworkSharePath = location.NetworkSharePath.TrimEnd(new char[] { ' ', '\\' });
-            if (DataValidationUtil.IsNetworkAlreadyMapped(location.NetworkSharePath, locations))
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NetworkShareAlreadyMapped, location.NetworkSharePath);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            }
-
             CurrentMaxLocationId++;
             locations.Add(new Location
             {
@@ -84,40 +61,21 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 
         void ILocationProvider.UpdateLocation(Location location)
         {
-            // TODO: Fix issue around HTTP POST method.
-            if (location.LocationId == 0)
-            {
-                // Treat this as Add Location
-                InMemoryLocationProvider.Instance.CreateLocation(location);
-                return;
-            }
+            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).First();
+            existingLocation.TotalSpace = location.TotalSpace;
+            existingLocation.FreeSpace = location.FreeSpace;
 
-            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).FirstOrDefault();
-
-            if (existingLocation == null)
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.LocationName);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            }
-            else
-            {
-                existingLocation.LocationName = location.LocationName;
-                existingLocation.TotalSpace = location.TotalSpace;
-                existingLocation.FreeSpace = location.FreeSpace;
-                existingLocation.NetworkSharePath = location.NetworkSharePath;
-            }
+            // For now, we only allow updating free and total space. 
+            // We do not allow the location name or path to be edited, as files will be already written there.
+            ////existingLocation.LocationName = location.LocationName;
+            ////existingLocation.NetworkSharePath = location.NetworkSharePath;
         }
 
         void ILocationProvider.DeleteLocation(Location location)
         {
-            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).FirstOrDefault();
-
+            // Call will come here only if the location is valid.
+            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).First();
             if (existingLocation != null)
-            {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.LocationName);
-                throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
-            }
-            else
             {
                 locations.Remove(existingLocation);
             }
