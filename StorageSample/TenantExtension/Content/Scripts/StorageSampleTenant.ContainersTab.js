@@ -5,27 +5,7 @@
     "use strict";
 
     var observableGrid,
-        selectedRow,
-        statusIcons = {
-            Registered: {
-                text: "Registered",
-                iconName: "complete"
-            },
-            Default: {
-                iconName: "spinner"
-            }
-        };
-
-    function dateFormatter(value) {
-        try {
-            if (value) {
-                return $.datepicker.formatDate("m/d/yy", value);
-            }
-        }
-        catch (err) { }  // Display "-" if the date is in an unrecoginzed format.
-
-        return "-";
-    }
+        selectedRow;
 
     function onRowSelected(row) {
         if (row) {
@@ -36,86 +16,41 @@
 
     function updateContextualCommands(domain) {
         Exp.UI.Commands.Contextual.clear();
-        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("showDnsManager", "Connect", Exp.UI.CommandIconDescriptor.getWellKnown("browse"), true, null, onShowDnsManager));
-        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("viewDomainInfo", "Info", Exp.UI.CommandIconDescriptor.getWellKnown("viewinfo"), true, null, onViewInfo));
+        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("viewContainerInfo", "View Info", Exp.UI.CommandIconDescriptor.getWellKnown("viewinfo"), true, null, onViewInfo));
+        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("deleteContainer", "Delete", Exp.UI.CommandIconDescriptor.getWellKnown("delete"), true, null, onDelete));
         Exp.UI.Commands.update();
     }
 
-    // Command handlers
-    function onShowDnsManager() {
-        var userInfo = global.DomainTenantExtension.Controller.getCurrentUserInfo(),
-            portalUrl;
-
-        if (!userInfo.GoDaddyShopperPasswordChanged) {
-            changePassword(userInfo);
-        } else {
-            portalUrl = global.DomainTenantExtension.Controller.getCurrentUserInfo().GoDaddyCustomerPortalUrl;
-            window.open(portalUrl, "_blank");
-        }
+    // Command handler : Delete
+    function onDelete() {
     }
 
-    function onViewInfo(item) {
-        cdm.stepWizard({
-            extension: "DomainTenantExtension",
-            steps: [
-                {
-                    template: "viewInfo",
-                    contactInfo: global.DomainTenantExtension.Controller.getCurrentUserInfo(),
-                    domain: selectedRow
-                }
-            ]
-        },
-        { size: "mediumplus" });
-    }
+    // Command handler : View Info
+    function onViewInfo() {
+        var data = {
+            name: selectedRow.ContainerName,
+            // TODO: Get user friendly name of subscription from Exp.Rdfe
+            subscription: selectedRow.SubscriptionId,
+            url: selectedRow.URL,
 
-    function changePassword(currentUserInfo) {
-        var promise,
-            wizardContainerSelector = ".dm-selectPassword";
-
-        cdm.stepWizard({
-            extension: "DomainTenantExtension",
-            steps: [
-                {
-                    template: "selectPassword",
-                    data: {
-                        customerId: currentUserInfo.GoDaddyShopperId
-                    },
-                    onStepActivate: function () {
-                        Shell.UI.Validation.setValidationContainer(wizardContainerSelector);
-                    }
-                }
-            ],
-
-            onComplete: function () {
-                if (!Shell.UI.Validation.validateContainer(wizardContainerSelector)) {
-                    return false;
-                }
-
-                currentUserInfo.GoDaddyShopperPassword = $("#dm-password").val();
-                currentUserInfo.GoDaddyShopperPasswordChanged = true;
-                promise = global.DomainTenantExtension.Controller.updateUserInfo(currentUserInfo);
-
-                global.waz.interaction.showProgress(
-                    promise,
-                    {
-                        initialText: "Reseting password...",
-                        successText: "Successfully reset the password.",
-                        failureText: "Failed to reset the password."
-                    }
-                );
-
-                promise.done(function () {
-                    global.DomainTenantExtension.Controller.invalidateUserInfoCache();
-                    var portalUrl = global.DomainTenantExtension.Controller.getCurrentUserInfo().GoDaddyCustomerPortalUrl;
-                    window.open(portalUrl, "_blank");
-                });
+            resources: {
+                header: 'Container Details',
+                subHeader: 'Location Information',
+                nameLabel: 'Name',
+                subscriptionLabel: 'Subscription',
+                urlLabel: 'Fully Qualified URL',
             }
-        },
-        { size: "small" });
-    }
+        };
 
-    function openQuickCreate() {
-        Exp.Drawer.openMenu("AccountsAdminMenuItem/CreateContainer");
+        cdm.stepWizard({
+            extension: "StorageSampleTenantExtension",
+            steps: [
+                    {
+                        template: "containerInfoDialog",
+                        data: data
+                    }
+            ]
+        });
     }
 
     // Public
@@ -154,15 +89,16 @@
                 { name: "Name", field: "ContainerName", sortable: false },
                 { name: "Location", field: "LocationId", filterable: false, sortable: false },
                 { name: "Subscription Id", field: "SubscriptionId", filterable: false, sortable: false },
-                { name: "URL", field: "URL", filterable: false, sortable: false }
-            ];
+                { name: "URL", field: "URL", filterable: false, sortable: false },
+                { name: "ID", field: "ContainerId", sortable: false },
+        ];
 
         observableGrid = renderArea.find(".gridContainer")
             .wazObservableGrid("destroy")
             .wazObservableGrid({
                 lastSelectedRow: null,
                 data: localDataSet,
-                keyField: "name",
+                keyField: "id",
                 columns: columns,
                 gridOptions: {
                     rowSelect: onRowSelected
@@ -186,9 +122,9 @@
     }
 
     function cleanUp() {
-        if (grid) {
-            grid.wazObservableGrid("destroy");
-            grid = null;
+        if (observableGrid) {
+            observableGrid.wazObservableGrid("destroy");
+            observableGrid = null;
         }
     }
 
@@ -196,7 +132,6 @@
     global.StorageSampleTenantExtension.ContainersTab = {
         loadTab: loadTab,
         cleanUp: cleanUp,
-        statusIcons: statusIcons,
-        forceRefreshGridData: forceRefreshGridData
+        forceRefreshGridData: forceRefreshGridData,
     };
 })(jQuery, this);

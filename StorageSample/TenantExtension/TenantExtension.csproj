@@ -98,12 +98,12 @@
     <Content Include="Content\Scripts\StorageSampleTenant.SettingsTab.js" />
     <Content Include="Content\Scripts\ViewModel\HW.ViewModels.QuickCreate.js" />
     <Content Include="Content\Styles\StorageSampleTenant.css" />
-    <Content Include="Content\Templates\Dialogs\CreateContainer.html" />
-    <Content Include="Content\Templates\Dialogs\CustomCreatePreview.html" />
-    <Content Include="Content\Templates\Menu\ContainerQuickCreate.html" />
-    <Content Include="Content\Templates\Tabs\ContainersTab.html" />
-    <Content Include="Content\Templates\Tabs\ContainersTabEmpty.html" />
-    <Content Include="Content\Templates\Tabs\SettingsTab.html" />
+    <Content Include="Content\Templates\ContainerCreateDialog.html" />
+    <Content Include="Content\Templates\ContainerInfoDialog.html" />
+    <Content Include="Content\Templates\ContainerQuickCreateMenu.html" />
+    <Content Include="Content\Templates\ContainersTab.html" />
+    <Content Include="Content\Templates\ContainersTabEmpty.html" />
+    <Content Include="Content\Templates\UsageTab.html" />
     <Content Include="Manifests\StorageSampleTenantUiManifest.xml" />
   </ItemGroup>
   <ItemGroup />

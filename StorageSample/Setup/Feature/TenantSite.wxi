@@ -89,51 +89,42 @@
     </Directory>
     <Directory Id="T_Templates"
                Name="Templates">
-      <Directory Id="T_Dialogs"
-                 Name="Dialogs">
-        <Component Id="T_CreateContainer.html"
-                   Guid="{23990529-9E15-4EA5-9FB0-DBDDC70709A4}">
-          <File Id="T_CreateContainer.html"
-                KeyPath="yes"
-                Source="$(var.TenantExtensionRoot)\Content\Templates\Dialogs\CreateContainer.html" />
-        </Component>
-        <Component Id="T_CustomCreatePreview.html"
-                   Guid="{4BCA96AE-9CA5-4DA7-8546-2198EB21105F}">
-          <File Id="T_CustomCreatePreview.html"
-                KeyPath="yes"
-                Source="$(var.TenantExtensionRoot)\Content\Templates\Dialogs\CustomCreatePreview.html" />
-        </Component>
-      </Directory>
-      <Directory Id="T_Tabs"
-                 Name="Tabs">
-        <Component Id="T_ContainersTab.html"
+      <Component  Id="T_ContainerCreateDialog.html"
+                  Guid="{23990529-9E15-4EA5-9FB0-DBDDC70709A4}">
+        <File Id="T_ContainerCreateDialog.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainerCreateDialog.html" />
+      </Component>
+      <Component Id="T_ContainerInfoDialog.html"
+                 Guid="{4BCA96AE-9CA5-4DA7-8546-2198EB21105F}">
+        <File Id="T_ContainerInfoDialog.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainerInfoDialog.html" />
+      </Component>
+      <Component Id="T_ContainerQuickCreateMenu.html"
                    Guid="{7D5182AB-F023-45EB-968F-4AD26A862120}">
-          <File Id="T_ContainersTab.html"
-                KeyPath="yes"
-                Source="$(var.TenantExtensionRoot)\Content\Templates\Tabs\ContainersTab.html" />
-        </Component>
-        <Component Id="T_ContainersTabEmpty.html"
-                   Guid="{16379994-9799-4885-9699-B043E2CDF2C6}">
-          <File Id="T_ContainersTabEmpty.html"
-                KeyPath="yes"
-                Source="$(var.TenantExtensionRoot)\Content\Templates\Tabs\ContainersTabEmpty.html" />
-        </Component>
-        <Component Id="T_SettingsTab.html"
-                   Guid="{C2ED945D-2867-487D-B712-1EBF6D919906}">
-          <File Id="T_SettingsTab.html"
-                KeyPath="yes"
-                Source="$(var.TenantExtensionRoot)\Content\Templates\Tabs\SettingsTab.html" />
-        </Component>
-      </Directory>
-      <Directory Id="T_Menu"
-                Name="Menu">
-        <Component Id="T_ContainerQuickCreate.html"
+        <File Id="T_ContainerQuickCreateMenu.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainerQuickCreateMenu.html" />
+      </Component>
+      <Component Id="T_ContainersTab.html"
+                 Guid="{16379994-9799-4885-9699-B043E2CDF2C6}">
+        <File Id="T_ContainersTab.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainersTab.html" />
+      </Component>
+      <Component Id="T_ContainersTabEmpty.html"
+                 Guid="{C2ED945D-2867-487D-B712-1EBF6D919906}">
+        <File Id="T_ContainersTabEmpty.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainersTabEmpty.html" />
+      </Component>
+      <Component Id="T_UsageTab.html"
                    Guid="{1fe63807-89b2-4eb0-ab0c-1e4067fa2d72}">
-          <File Id="T_ContainerQuickCreate.html"
-                KeyPath="yes"
-                Source="$(var.TenantExtensionRoot)\Content\Templates\Menu\ContainerQuickCreate.html" />
-        </Component>        
-      </Directory>
+        <File Id="T_UsageTab.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\UsageTab.html" />
+      </Component>
     </Directory>
   </DirectoryRef>
   <DirectoryRef Id="TenantSiteManifestsDir">
@@ -156,12 +147,12 @@
     <ComponentRef Id="T_StorageSampleTenant.SettingsTab.js" />
     <ComponentRef Id="T_HW.ViewModels.QuickCreate.js" />
     <ComponentRef Id="T_StorageSampleTenant.css" />
-    <ComponentRef Id="T_CreateContainer.html" />
-    <ComponentRef Id="T_CustomCreatePreview.html" />
+    <ComponentRef Id="T_ContainerCreateDialog.html" />
+    <ComponentRef Id="T_ContainerInfoDialog.html" />
+    <ComponentRef Id="T_ContainerQuickCreateMenu.html" />
     <ComponentRef Id="T_ContainersTab.html" />
     <ComponentRef Id="T_ContainersTabEmpty.html" />
-    <ComponentRef Id="T_SettingsTab.html" />
+    <ComponentRef Id="T_UsageTab.html" />
     <ComponentRef Id="T_StorageSampleTenantUiManifest.xml" />
-    <ComponentRef Id="T_ContainerQuickCreate.html" />    
   </ComponentGroup>
 </Include>

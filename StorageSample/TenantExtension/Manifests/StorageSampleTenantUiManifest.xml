@@ -17,18 +17,27 @@
       <stylesheet src="~/Styles/StorageSampleTenant.css"/>
     </stylesheets>
     <templates>
-      <template name="customCreatePreview"
-                src="~/Templates/Dialogs/CustomCreatePreview.html" />
-      <template name="CreateContainer"
-                src="~/Templates/Dialogs/CreateContainer.html" />
+      <!-- Dialog opened from the CONTAINERS TAB, where there are no containers -->
+      <template name="ContainerCreateDialog"
+                src="~/Templates/ContainerCreateDialog.html" />
+
+      <!-- Dialog opened from the contextual command for a selected row in CONTAINERS tab -->
+      <template name="ContainerInfoDialog"
+                src="~/Templates/ContainerInfoDialog.html" />
+
+      <!-- Quick create menu launched from +NEW -->
+      <template name="ContainerQuickCreateMenu"
+                src="~/Templates/ContainerQuickCreateMenu.html" />
+      
+      <!-- Tab view (grid) pages for CONTAINERS -->
       <template name="ContainersTab"
-                src="~/Templates/Tabs/ContainersTab.html" />
+                src="~/Templates/ContainersTab.html" />
       <template name="ContainersTabEmpty"
-                src="~/Templates/Tabs/ContainersTabEmpty.html" />
-      <template name="settingsTab"
-                src="~/Templates/Tabs/SettingsTab.html" />
-    <template name="quickCreateContainer"
-                src="~/Templates/Menu/ContainerQuickCreate.html" />
+                src="~/Templates/ContainersTabEmpty.html" />
+      
+      <!-- Tab view for USAGE -->
+      <template name="UsageTab"
+                src="~/Templates/UsageTab.html" />
     </templates>
   </extension>
 </uiManifest>

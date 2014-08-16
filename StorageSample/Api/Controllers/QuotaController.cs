@@ -25,6 +25,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
     /// <summary>
     /// Controller class with all methods pertaining to Quota
     /// </summary>
+    /// <remarks>
+    /// TODO: http://msdn.microsoft.com/en-us/library/dn448747.aspx
+    /// </remarks>
     public class QuotaController : ApiController
     {
         /// <summary>

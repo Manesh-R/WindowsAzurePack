@@ -35,7 +35,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
         }
 
         [HttpGet]
-        public List<Container> ListContainers(string subscriptionId)
+        public List<Container> ListContainers(string subscriptionId = null)
         {
             if (string.IsNullOrWhiteSpace(subscriptionId))
             {
@@ -101,7 +101,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         public void DeleteContainer(string subscriptionId, Container container)
         {
             if (container == null)
