@@ -31,7 +31,7 @@
             {
                 id: "containers",
                 displayName: "File Shares",
-                template: "containersTab",
+                template: "ContainersTab",
                 activated: containersTab
             }            
         ],
@@ -97,7 +97,7 @@
             name: "QuickCreate",
             displayName: "Create Container",
             description: "Create new container",
-            template: "quickCreateContainer",
+            template: "ContainerQuickCreateMenu",
             label: "CREATE",
 
             opening: function () {

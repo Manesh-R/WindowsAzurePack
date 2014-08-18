@@ -5,7 +5,16 @@
     "use strict";
 
     var observableGrid,
-        selectedRow;
+        selectedRow,
+        statusIcons = {
+            Registered: {
+                text: "Registered",
+                iconName: "complete"
+            },
+            Default: {
+                iconName: "spinner"
+            }
+        };
 
     function onRowSelected(row) {
         if (row) {
@@ -35,7 +44,7 @@
 
             resources: {
                 header: 'Container Details',
-                subHeader: 'Location Information',
+                subHeader: 'Properties',
                 nameLabel: 'Name',
                 subscriptionLabel: 'Subscription',
                 urlLabel: 'Fully Qualified URL',
@@ -46,7 +55,7 @@
             extension: "StorageSampleTenantExtension",
             steps: [
                     {
-                        template: "containerInfoDialog",
+                        template: "ContainerInfoDialog",
                         data: data
                     }
             ]
@@ -133,5 +142,6 @@
         loadTab: loadTab,
         cleanUp: cleanUp,
         forceRefreshGridData: forceRefreshGridData,
+        statusIcons: statusIcons
     };
 })(jQuery, this);
