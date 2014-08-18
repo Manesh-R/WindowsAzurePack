@@ -37,7 +37,7 @@
         var cachedSelectedRow = selectedRow;
         waz.interaction.confirm("Do you want to delete container {0}?".format(cachedSelectedRow.ContainerName))
             .done(function () {
-                var promise = controller.deleteContainer(cachedSelectedRow.SubscriptionId, cachedSelectedRow.ContainerId);
+                var promise = controller.deleteContainerAsync(cachedSelectedRow.SubscriptionId, cachedSelectedRow.ContainerId);
                 waz.interaction.showProgress(
                     promise,
                     {

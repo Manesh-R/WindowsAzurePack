@@ -4,9 +4,6 @@
 
     var baseUrl = "/StorageSampleTenant",
         containerListUrl = baseUrl + "/ListContainers",
-        containerDeleteUrl = baseUrl + "/DeleteContainer",
-        createContainerUrl = baseUrl + "/CreateContainer",
-        listLocationsUrl = baseUrl + "/ListLocations",
         constants = global.StorageSampleTenantExtension.Constants;
 
     function getContainersDataSet(triggerRefreshing) {
@@ -23,7 +20,21 @@
         return Exp.Data.getLocalDataSet(containerListUrl);
     }
 
-    function deleteContainer(subscriptionId, containerId) {
+    function createContainerAsync(subscriptionId, containerName, locationId) {
+        var data = {};
+        data.subscriptionId = subscriptionId;
+
+        data.container = {};
+        data.container.ContainerName = containerName;
+        data.container.LocationId = locationId;
+
+        return Shell.Net.ajaxPost({
+            data: data,
+            url: baseUrl + "/CreateContainer"
+        });
+    }
+
+    function deleteContainerAsync(subscriptionId, containerId) {
         return Shell.Net.ajaxPost({
                 data: {
                     subscriptionId: subscriptionId,
@@ -33,42 +44,21 @@
             });
     }
 
-    function makeAjaxCall(url, data) {
+    function getLocationsAsync() {
+        var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService(constants.serviceName);
         return Shell.Net.ajaxPost({
-            url: url,
-            data: data
+            url: baseUrl + "/ListLocations",
+            data: {
+                subscriptionIds: subscriptionRegisteredToService[0].id
+            }
         });
-    }
-
-    // TODO: Can we use the waz.dataWrapper in the sample?
-    function createContainer(subscriptionId, containerName, size, fileServerName) {
-        return new waz.dataWrapper(getContainersDataSet())
-            .add(
-            {
-                Name: containerName,
-                SubscriptionId: subscriptionId,
-                Size: size,
-                FileServerName: fileServerName
-            },
-            Shell.Net.ajaxPost({
-                data: {
-                    subscriptionId: subscriptionId,
-                    Name: containerName,
-                    Size: size,
-                    FileServerName: fileServerName
-                },
-                url: baseUrl + "/CreateContainer"
-            })
-        );
     }
 
     global.StorageSampleTenantExtension = global.StorageSampleTenantExtension || {};
     global.StorageSampleTenantExtension.Controller = {
-        createContainer: createContainer,
-        containerListUrl: containerListUrl,
-        listLocationsUrl: listLocationsUrl,
-        createContainerUrl: createContainerUrl,
         getContainersDataSet: getContainersDataSet,
-        deleteContainer: deleteContainer
+        createContainerAsync: createContainerAsync,
+        deleteContainerAsync: deleteContainerAsync,
+        getLocationsAsync: getLocationsAsync
     };
 })(jQuery, this);

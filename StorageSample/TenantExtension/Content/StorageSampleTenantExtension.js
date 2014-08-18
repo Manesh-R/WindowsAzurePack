@@ -6,6 +6,7 @@
     "use strict";
 
     var resources = [],
+        controller = global.StorageSampleTenantExtension.Controller,
         constants = global.StorageSampleTenantExtension.Constants,
         StorageSampleTenantExtensionActivationInit,
         navigation,
@@ -104,26 +105,19 @@
             label: "CREATE",
 
             opening: function () {
-                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
+            },
 
-                var promise = Shell.Net.ajaxPost({
-                    url: global.StorageSampleTenantExtension.Controller.listLocationsUrl,
-                    data: {
-                        subscriptionIds: subscriptionRegisteredToService[0].id
-                    }
-                });
+            open: function () {
+                var promise = controller.getLocationsAsync();
                 promise.done(function (response) {
                     var listOfLocations = response.data;
                     var locationDropDown = $('#hw-qc-share-server');
                     var options = $.templates("<option value=\"{{>LocationId}}\">{{>LocationName}}</option>").render(listOfLocations);
                     locationDropDown.append(options);
                 });
-            },
-
-            open: function () {
-                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample");
 
                 // TODO: Ideally if there is only one subscription, user shouldn't be prompted.
+                var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService(serviceName);
                 var subscriptionDropDown = $('#hw-qc-container-subscription');
                 var subscriptionOptions = $.templates("<option value=\"{{>id}}\">{{>OfferFriendlyName}}</option>").render(subscriptionRegisteredToService);
                 subscriptionDropDown.append(subscriptionOptions);
@@ -131,18 +125,7 @@
 
             ok: function (object) {
                 var name = object.fields['containerName'];
-                var data = {};
-                data.subscriptionId = object.fields['selectedSubscription'];
-
-                data.container = {};
-                data.container.ContainerName = object.fields['containerName'];
-                data.container.LocationId = object.fields['selectedLocation'];
-                
-                var promise = Shell.Net.ajaxPost({
-                    url: global.StorageSampleTenantExtension.Controller.createContainerUrl,
-                    data: data
-                });
-
+                var promise = controller.createContainerAsync(object.fields['selectedSubscription'], name, object.fields['selectedLocation']);
                 global.waz.interaction.showProgress(
                     promise,
                     {
