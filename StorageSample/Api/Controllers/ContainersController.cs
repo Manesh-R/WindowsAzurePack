@@ -102,16 +102,16 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
         }
 
         [HttpDelete]
-        public void DeleteContainer(string subscriptionId, Container container)
+        public void DeleteContainer(string subscriptionId, int containerId)
         {
-            if (container == null)
+            if (containerId == 0)
             {
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.ContainerEmpty);
             }
 
             // Let us ensure that the same container name is not repeated in same locations for same subscription.
             List<Container> containers = DataProviderFactory.ContainerInstance.GetContainers(subscriptionId);
-            var existing = containers.FirstOrDefault(c => c.SubscriptionId == subscriptionId && c.ContainerId == container.ContainerId);
+            var existing = containers.FirstOrDefault(c => c.SubscriptionId == subscriptionId && c.ContainerId == containerId);
             if (existing != null)
             {
                 if (Directory.GetFiles(existing.URL).Length > 0)
@@ -120,7 +120,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 }
 
                 Directory.Delete(existing.URL);
-                DataProviderFactory.ContainerInstance.DeleteContainer(subscriptionId, container);
+                DataProviderFactory.ContainerInstance.DeleteContainer(subscriptionId, containerId);
             }
         }
     }

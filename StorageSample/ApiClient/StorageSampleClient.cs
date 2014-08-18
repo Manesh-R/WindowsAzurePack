@@ -180,16 +180,25 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         {
             var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
             await this.PostAsync<Container>(requestUrl, containerNameToCreate);            
-        }        
+        }
 
         /// <summary>
         /// UpdateContainer allows to update existing container for given subscription 
         /// </summary>        
-        public async Task UpdateContainerAsync(string subscriptionId, Container containerNameToUpdate)
+        public async Task UpdateContainerAsync(string subscriptionId, Container container)
         {
             var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
-            await this.PutAsync<Container>(requestUrl, containerNameToUpdate);            
-        }        
+            await this.PutAsync<Container>(requestUrl, container);            
+        }
+
+        /// <summary>
+        /// CreateContainer allows to create new container for given subscription 
+        /// </summary>        
+        public async Task DeleteContainerAsync(string subscriptionId, int containerId)
+        {
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
+            await this.httpClient.DeleteAsync(requestUrl.ToString() + "?containerId=" + containerId);
+        }
         #endregion
 
         #region Private Methods
@@ -218,6 +227,15 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         private async Task PutAsync<T>(Uri requestUrl, T content)
         {            
             var response = await this.httpClient.PutAsJsonAsync<T>(requestUrl.ToString(), content);
+            response.EnsureSuccessStatusCode();
+        }
+
+        /// <summary>
+        /// Common method for making Delete calls
+        /// </summary>        
+        private async Task DeleteAsync(Uri requestUrl)
+        {
+            var response = await this.httpClient.DeleteAsync(requestUrl);
             response.EnsureSuccessStatusCode();
         }
 

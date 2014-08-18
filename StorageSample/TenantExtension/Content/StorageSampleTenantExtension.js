@@ -6,9 +6,10 @@
     "use strict";
 
     var resources = [],
+        constants = global.StorageSampleTenantExtension.Constants,
         StorageSampleTenantExtensionActivationInit,
         navigation,
-        serviceName = "storageSample";
+        serviceName = constants.serviceName;
 
     function onNavigateAway() {
         Exp.UI.Commands.Contextual.clear();
@@ -20,28 +21,15 @@
         global.StorageSampleTenantExtension.SettingsTab.loadTab(renderData, renderArea);
     }
 
-    function containersTab(extension, renderArea, renderData) {
+    function loadContainersTab(extension, renderArea, renderData) {
         global.StorageSampleTenantExtension.ContainersTab.loadTab(renderData, renderArea);
     }
 
     global.StorageSampleTenantExtension = global.StorageSampleTenantExtension || {};
 
-    navigation = {
-        tabs: [
-            {
-                id: "containers",
-                displayName: "File Shares",
-                template: "ContainersTab",
-                activated: containersTab
-            }            
-        ],
-        types: [
-        ]
-    };
-
     StorageSampleTenantExtensionActivationInit = function () {
         var subs = Exp.Rdfe.getSubscriptionList(),
-            subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService("storagesample"),
+            subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService(serviceName),
             storageSampleExtension = $.extend(this, global.StorageSampleTenantExtension);
 
         // Don't activate the extension if user doesn't have a plan that includes the service.
@@ -49,11 +37,13 @@
             return false; // Don't want to activate? Just bail
         }
 
+        global.StorageSampleTenantExtension.Controller.getContainersDataSet(true);
+
         $.extend(storageSampleExtension, {
-            viewModelUris: [storageSampleExtension.Controller.userInfoUrl],
-            displayName: "Storage Sample",
+            viewModelUris: [storageSampleExtension.Controller.containerListUrl],
+            displayName: constants.serviceDisplayName,
             navigationalViewModelUri: {
-                uri: storageSampleExtension.Controller.listContainersUrl,
+                uri: storageSampleExtension.Controller.containerListUrl,
                 ajaxData: function () {
                     return global.Exp.Rdfe.getSubscriptionIdsRegisteredToService(serviceName);
                 }
@@ -61,7 +51,7 @@
             displayStatus: global.waz.interaction.statusIconHelper(global.StorageSampleTenantExtension.ContainersTab.statusIcons, "Status"),
             menuItems: [
                 {
-                    name: "Containers",
+                    name: "StorageSampleMenuItem",
                     displayName: "Storage Sample",
                     url: "#Workspaces/StorageSampleTenantExtension",
                     preview: "createPreview",
@@ -85,7 +75,20 @@
         storageSampleExtension.navigation = navigation;
 
         Shell.UI.Pivots.registerExtension(storageSampleExtension, function () {
-            Exp.Navigation.initializePivots(this, this.navigation);
+            var navigation = {
+                tabs: [
+                    {
+                        id: "containers",
+                        displayName: "containers",
+                        template: "ContainersTab",
+                        activated: loadContainersTab
+                    }
+                ],
+                types: [
+                ]
+            };
+
+            Exp.Navigation.initializePivots(this, navigation);
         });
 
         // Finally activate and give "the" storageSampleExtension the activated extension since a good bit of code depends on it
@@ -94,7 +97,7 @@
 
     function getQuickCreateContainerMenuItem() {
         return {
-            name: "QuickCreate",
+            name: "QuickCreateContainer",
             displayName: "Create Container",
             description: "Create new container",
             template: "ContainerQuickCreateMenu",
@@ -150,7 +153,7 @@
                 );
 
                 promise.done(function () {
-                    StorageSampleTenantExtension.ContainersTab.forceRefreshGridData();
+                    StorageSampleTenantExtension.Controller.getContainersDataSet(true);
                     return true;
                 });
                 promise.fail(function () {

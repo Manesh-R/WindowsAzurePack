@@ -75,9 +75,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
             ////existing.URL = containerToUpdate.URL;
         }
 
-        void IContainerProvider.DeleteContainer(string subscriptionId, Container container)
+        void IContainerProvider.DeleteContainer(string subscriptionId, int containerId)
         {
-            throw new NotImplementedException();
+            containers.RemoveAll(c => c.ContainerId == containerId && c.SubscriptionId == subscriptionId);
         }
     }
 }

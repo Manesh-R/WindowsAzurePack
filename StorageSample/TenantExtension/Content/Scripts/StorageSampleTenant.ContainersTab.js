@@ -4,7 +4,9 @@
 (function ($, global, undefined) {
     "use strict";
 
-    var observableGrid,
+    var controller = global.StorageSampleTenantExtension.Controller,
+        constants  = global.StorageSampleTenantExtension.Constants,
+        observableGrid,
         selectedRow,
         statusIcons = {
             Registered: {
@@ -32,6 +34,21 @@
 
     // Command handler : Delete
     function onDelete() {
+        var cachedSelectedRow = selectedRow;
+        waz.interaction.confirm("Do you want to delete container {0}?".format(cachedSelectedRow.ContainerName))
+            .done(function () {
+                var promise = controller.deleteContainer(cachedSelectedRow.SubscriptionId, cachedSelectedRow.ContainerId);
+                waz.interaction.showProgress(
+                    promise,
+                    {
+                        initialText: "Deleting container {0}".format(cachedSelectedRow.ContainerName),
+                        successText: "Successfully deleted container {0}".format(cachedSelectedRow.ContainerName),
+                        failureText: "Failed to delete container {0}".format(cachedSelectedRow.ContainerName)
+                    });
+                promise.done(function () {
+                    StorageSampleTenantExtension.Controller.getContainersDataSet(true);
+                });
+            });
     }
 
     // Command handler : View Info
@@ -69,56 +86,38 @@
         // However, HelloWorld tenant is written which accepts a string array.
         // So tweaking in here to get only the subscription ids as an array and send it in POST.
 
-        var localDataSet = {
-            dataSetName: global.StorageSampleTenantExtension.Controller.listContainersUrl,
-            ajaxData: {
-                // Looks like there is a bug in code. They are returning attribute name if data is present.
-                // Anyways we should be good, as tenant will see this only if they have it in any subscription.
-                //
-                ////if (global.Shell.Environment.getIsOnPremMode()) {
-                ////    rdfeApi.getSubscriptionIdsRegisteredToService = function(serviceName) {
-                ////        var subscriptions = rdfeApi.getSubscriptionList();
-                ////        if (!subscriptions) {
-                ////            return [];
-                ////        }
-                ////        return {
-                ////            subscriptionIds: $.map(
-                ////                    rdfeApi.filterToSubscriptionsRegisteredToService(subscriptions, serviceName),
-                ////                    function(value) {
-                ////                        return value.id;
-                ////                    }
-                ////                )
-                ////        };
-                ////    };
-                subscriptionIds: Exp.Rdfe.getSubscriptionIdsRegisteredToService("storagesample").subscriptionIds
-                },
-            url: global.StorageSampleTenantExtension.Controller.listContainersUrl
-        },
-        columns = [
+        var containersData = controller.getContainersDataSet(true).data,
+            columns = [
+                { name: "ID", field: "ContainerId", sortable: false },
                 { name: "Name", field: "ContainerName", sortable: false },
                 { name: "Location", field: "LocationId", filterable: false, sortable: false },
                 { name: "Subscription Id", field: "SubscriptionId", filterable: false, sortable: false },
-                { name: "URL", field: "URL", filterable: false, sortable: false },
-                { name: "ID", field: "ContainerId", sortable: false },
-        ];
+                { name: "URL", field: "URL", filterable: false, sortable: false }
+            ];
 
         observableGrid = renderArea.find(".gridContainer")
             .wazObservableGrid("destroy")
             .wazObservableGrid({
                 lastSelectedRow: null,
-                data: localDataSet,
-                keyField: "id",
+                data: containersData,
+                keyField: "ContainerId",
                 columns: columns,
                 gridOptions: {
                     rowSelect: onRowSelected
                 },
                 emptyListOptions: {
                     extensionName: "StorageSampleTenantExtension",
-                    templateName: "ContainersTabEmpty"
+                    templateName: "ContainersTabEmpty",
+                    arrowLinkSelector: ("{0} .new-container-link").format(renderArea.selector),
+                    arrowLinkAction: openCreateQuickMenu
                 }
             });
     }
     
+    function openCreateQuickMenu() {
+        Exp.Drawer.openMenu("StorageSampleMenuItem/QuickCreateContainer");
+    }
+
     function forceRefreshGridData() {
         try {
             // When we navigate to the tab, sometimes this method is called before observableGrid is not intialized, which will throw exception.

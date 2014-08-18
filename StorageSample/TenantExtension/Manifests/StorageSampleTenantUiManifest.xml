@@ -4,6 +4,7 @@
   <extension name="StorageSampleTenantExtension"
              baseUri="~/Content/StorageSampleTenant">
     <scripts>
+      <script src="~/Scripts/StorageSampleTenant.Constants.js" />
       <script src="~/Scripts/ViewModel/HW.ViewModels.QuickCreate.js" />
       <script src="~/Scripts/StorageSampleTenant.Controller.js" />
       <script src="~/Scripts/StorageSampleTenant.ContainersTab.js" />

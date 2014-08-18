@@ -84,8 +84,20 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
         public async Task<JsonResult>  CreateContainer(string subscriptionId, ContainerModel container)
         {
             await ClientFactory.StorageSampleClient.CreateContainerAsync(subscriptionId, container.ToApiObject());
-
             return this.Json(container);
-        }       
+        }
+
+        /// <summary>
+        /// Create new container for subscription
+        /// </summary>
+        /// <param name="subscriptionId"></param>
+        /// <param name="containerToCreate"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<JsonResult> DeleteContainer(string subscriptionId, int containerId)
+        {
+            await ClientFactory.StorageSampleClient.DeleteContainerAsync(subscriptionId, containerId);
+            return this.Json(new object());
+        }
     }
 }

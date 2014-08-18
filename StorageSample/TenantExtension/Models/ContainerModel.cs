@@ -42,6 +42,8 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
             this.SubscriptionId = containerFromApi.SubscriptionId;
             this.LocationId = containerFromApi.LocationId;
             this.URL = containerFromApi.URL;
+            this.ContainerId = containerFromApi.ContainerId;
+            this.id = containerFromApi.ContainerId;
         }
 
         /// <summary>
@@ -55,7 +57,8 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
                 ContainerName = this.ContainerName,
                 LocationId = this.LocationId,
                 URL = this.URL,
-                SubscriptionId = this.SubscriptionId
+                SubscriptionId = this.SubscriptionId,
+                ContainerId = this.ContainerId
             };
         }
 
@@ -78,5 +81,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
         /// Gets or sets the value of the container size
         /// </summary>
         public string URL { get; set; }
+
+        public int ContainerId { get; set; }
+
+        public int id { get; set; }
     }
 }

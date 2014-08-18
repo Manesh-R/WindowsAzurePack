@@ -91,6 +91,7 @@
   <ItemGroup>
     <Content Include="Content\extensions.data.js" />
     <Content Include="Content\Images\quickstart.png" />
+    <Content Include="Content\Scripts\StorageSampleTenant.Constants.js" />
     <Content Include="Content\StorageSampleTenant.png" />
     <Content Include="Content\StorageSampleTenantExtension.js" />
     <Content Include="Content\Scripts\StorageSampleTenant.Controller.js" />

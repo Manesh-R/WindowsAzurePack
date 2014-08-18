@@ -50,6 +50,12 @@
     </Component>
     <Directory Id="T_Scripts"
                Name="Scripts">
+      <Component Id="T_StorageSampleTenant.Constants.js"
+                 Guid="{7E2BC4BE-1C06-4B5E-803C-79B1CA8BDFC8}">
+        <File Id="T_StorageSampleTenant.Constants.js"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Scripts\StorageSampleTenant.Constants.js" />
+      </Component>
       <Component Id="T_StorageSampleTenant.Controller.js"
                  Guid="{7E2BC4BE-1C06-4B5E-803C-79B1CA8BDEB7}">
         <File Id="T_StorageSampleTenant.Controller.js"
@@ -142,6 +148,7 @@
     <ComponentRef Id="T_extensions.data.js" />
     <ComponentRef Id="T_StorageSampleTenant.png" />
     <ComponentRef Id="T_StorageSampleTenantExtension.js" />
+    <ComponentRef Id="T_StorageSampleTenant.Constants.js" />
     <ComponentRef Id="T_StorageSampleTenant.Controller.js" />
     <ComponentRef Id="T_StorageSampleTenant.ContainersTab.js" />
     <ComponentRef Id="T_StorageSampleTenant.SettingsTab.js" />
