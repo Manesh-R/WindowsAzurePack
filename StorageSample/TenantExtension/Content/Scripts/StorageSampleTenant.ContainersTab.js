@@ -85,8 +85,16 @@
         // The way SQL Tenant fetches data is by providing the original 'SubscriptionPool'
         // However, HelloWorld tenant is written which accepts a string array.
         // So tweaking in here to get only the subscription ids as an array and send it in POST.
+        var containersDataSet = controller.getContainersDataSet(true);
 
-        var containersData = controller.getContainersDataSet(true).data,
+        // TODO: DataSet is coming as null initially. Need to troubleshoot and fix this one.
+        //       This problem is not there for SQL provider for example. Need to find out why it comes for StorageSampleTenant.
+        if (containersDataSet == null) {
+            setTimeout(function () { loadTab(extension, renderArea, initData); }, 1000);
+            return;
+        }
+
+        var containersData = containersDataSet.data,
             columns = [
                 { name: "ID", field: "ContainerId", sortable: false },
                 { name: "Name", field: "ContainerName", sortable: false },
