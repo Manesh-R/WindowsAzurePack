@@ -59,7 +59,7 @@
                     isEnabled: function () {
                         return {
                             enabled: true,
-                            description: "Create data services like Blob Storage Container, Hadoop etc."
+                            description: "Create data storage services"
                         }
                     },
                     subMenu: [

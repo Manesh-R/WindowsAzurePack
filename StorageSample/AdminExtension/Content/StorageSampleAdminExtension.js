@@ -98,7 +98,7 @@
                         //};
                         return {
                             enabled: true,
-                            description: "Create data services like Blob Storage, Hadoop etc."
+                            description: "Create data storage services."
                         }
                     },
                     subMenu: [

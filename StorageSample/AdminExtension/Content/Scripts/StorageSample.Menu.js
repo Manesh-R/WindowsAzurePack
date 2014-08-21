@@ -12,8 +12,8 @@
     function getQuickCreateLocationMenuItem() {
         return {
             name: "QuickCreate",
-            displayName: "Blob Location",
-            description: "Create a new blob storage location",
+            displayName: "Location",
+            description: "Create a new storage location mapping to a network share",
             template: "locationQuickCreate",
             label: "CREATE",
             data: null,

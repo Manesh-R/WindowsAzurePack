@@ -8,7 +8,7 @@
         ///Resources: global.Resources.getResources("Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Resources.StorageSampleAdminClientResources")
         Resources: {
             MenuFirstStoryDisplayName: "Storage Services Sample",
-            MenuRunbookQuickCreateDescription : "Create data services like Blob Storage, Hadoop etc."
+            MenuRunbookQuickCreateDescription : "Create data storage services"
         }
     });
 
