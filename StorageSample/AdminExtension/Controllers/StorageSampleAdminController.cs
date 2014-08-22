@@ -176,7 +176,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
         /// Gets all Locations.
         /// </summary>
         /// <remarks>
-        /// Think of location as 'Region' for blob storage. This is for demonstration only.
+        /// Think of location as 'Region' for storage. This is for demonstration only.
         /// </remarks>
         [HttpPost]
         [ActionName("Locations")]
