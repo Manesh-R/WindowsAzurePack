@@ -1,6 +1,6 @@
 WindowsAzurePack
 ================
-Starter Kit for Windows Azure Pack demonstrating how to author a custom resource provider. We are enabling a basic storage resource provider in this sample.
+Starter Kit for Windows Azure Pack from [Terawe] (http://terawe.com/WhatWeDo.html) demonstrating how to author a custom resource provider. We are enabling a basic storage resource provider in this sample.
 
 Features
 -------
