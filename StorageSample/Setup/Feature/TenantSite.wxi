@@ -68,6 +68,12 @@
               KeyPath="yes"
               Source="$(var.TenantExtensionRoot)\Content\Scripts\StorageSampleTenant.ContainersTab.js" />
       </Component>
+      <Component Id="T_StorageSampleTenant.StorageFilesTab.js"
+           Guid="{003E169B-1867-4A14-82F6-576156A3B615}">
+        <File Id="T_StorageSampleTenant.StorageFilesTab.js"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Scripts\StorageSampleTenant.StorageFilesTab.js" />
+      </Component>
       <Component Id="T_StorageSampleTenant.SettingsTab.js"
                  Guid="{B1CB5B7A-F20E-43B5-BB73-432106E15322}">
         <File Id="T_StorageSampleTenant.SettingsTab.js"
@@ -125,6 +131,18 @@
               KeyPath="yes"
               Source="$(var.TenantExtensionRoot)\Content\Templates\ContainersTabEmpty.html" />
       </Component>
+      <Component Id="T_StorageFilesTab.html"
+           Guid="{16379994-9799-4885-9699-B043E2CDF2D6}">
+        <File Id="T_StorageFilesTab.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\StorageFilesTab.html" />
+      </Component>
+      <Component Id="T_StorageFilesTabEmpty.html"
+                 Guid="{C2ED945D-2867-487D-B712-1EBF6D919916}">
+        <File Id="T_StorageFilesTabEmpty.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\StorageFilesTabEmpty.html" />
+      </Component>
       <Component Id="T_UsageTab.html"
                    Guid="{1fe63807-89b2-4eb0-ab0c-1e4067fa2d72}">
         <File Id="T_UsageTab.html"
@@ -151,6 +169,7 @@
     <ComponentRef Id="T_StorageSampleTenant.Constants.js" />
     <ComponentRef Id="T_StorageSampleTenant.Controller.js" />
     <ComponentRef Id="T_StorageSampleTenant.ContainersTab.js" />
+    <ComponentRef Id="T_StorageSampleTenant.StorageFilesTab.js" />
     <ComponentRef Id="T_StorageSampleTenant.SettingsTab.js" />
     <ComponentRef Id="T_HW.ViewModels.QuickCreate.js" />
     <ComponentRef Id="T_StorageSampleTenant.css" />
@@ -159,6 +178,8 @@
     <ComponentRef Id="T_ContainerQuickCreateMenu.html" />
     <ComponentRef Id="T_ContainersTab.html" />
     <ComponentRef Id="T_ContainersTabEmpty.html" />
+    <ComponentRef Id="T_StorageFilesTab.html" />
+    <ComponentRef Id="T_StorageFilesTabEmpty.html" />
     <ComponentRef Id="T_UsageTab.html" />
     <ComponentRef Id="T_StorageSampleTenantUiManifest.xml" />
   </ComponentGroup>

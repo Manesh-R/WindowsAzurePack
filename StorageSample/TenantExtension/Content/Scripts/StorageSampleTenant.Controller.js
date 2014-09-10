@@ -54,11 +54,22 @@
         });
     }
 
+    function getStorageFilesAsync(subscriptionId, containerId) {
+        return Shell.Net.ajaxPost({
+            data: {
+                subscriptionId: subscriptionId,
+                containerId: containerId
+            },
+            url: baseUrl + "/ListStorageFiles"
+        });
+    }
+
     global.StorageSampleTenantExtension = global.StorageSampleTenantExtension || {};
     global.StorageSampleTenantExtension.Controller = {
         getContainersDataSet: getContainersDataSet,
         createContainerAsync: createContainerAsync,
         deleteContainerAsync: deleteContainerAsync,
-        getLocationsAsync: getLocationsAsync
+        getLocationsAsync: getLocationsAsync,
+        getStorageFilesAsync: getStorageFilesAsync
     };
 })(jQuery, this);

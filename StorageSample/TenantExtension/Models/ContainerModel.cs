@@ -30,6 +30,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
         /// </summary>
         public ContainerModel()
         {
+            this.Type = "Container";
         }
 
         /// <summary>
@@ -44,6 +45,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
             this.URL = containerFromApi.URL;
             this.ContainerId = containerFromApi.ContainerId;
             this.id = containerFromApi.ContainerId;
+            this.Type = "Container";
         }
 
         /// <summary>
@@ -85,5 +87,10 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
         public int ContainerId { get; set; }
 
         public int id { get; set; }
+
+        /// <summary>
+        /// This property is required and should be set correct so that navigation to sub-tab will work properly.
+        /// </summary>
+        public string Type { get; set; }
     }
 }

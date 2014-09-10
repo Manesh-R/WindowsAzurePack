@@ -115,6 +115,15 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Container is not valid.
+        /// </summary>
+        internal static string InvalidContainerId {
+            get {
+                return ResourceManager.GetString("InvalidContainerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is not a valid record id. Please specify an int..
         /// </summary>
         internal static string InvalidLastId {

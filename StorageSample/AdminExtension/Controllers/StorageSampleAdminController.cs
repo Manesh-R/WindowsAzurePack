@@ -120,7 +120,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
                 {
                     Name = StorageSampleClient.RegisteredServiceName,
                     DisplayName = "Storage Sample",
-                    InstanceDisplayName = StorageSampleClient.RegisteredServiceName + " Instance",
+                    InstanceDisplayName = "Storage Sample",
                     Enabled = true,
                     PassThroughEnabled = true,
                     AllowAnonymousAccess = false,

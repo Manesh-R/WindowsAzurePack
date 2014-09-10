@@ -8,6 +8,7 @@
       <script src="~/Scripts/ViewModel/HW.ViewModels.QuickCreate.js" />
       <script src="~/Scripts/StorageSampleTenant.Controller.js" />
       <script src="~/Scripts/StorageSampleTenant.ContainersTab.js" />
+      <script src="~/Scripts/StorageSampleTenant.StorageFilesTab.js" />
       <script src="~/Scripts/StorageSampleTenant.SettingsTab.js" />
       <script src="~/StorageSampleTenantExtension.js" />
 
@@ -29,12 +30,18 @@
       <!-- Quick create menu launched from +NEW -->
       <template name="ContainerQuickCreateMenu"
                 src="~/Templates/ContainerQuickCreateMenu.html" />
-      
+
       <!-- Tab view (grid) pages for CONTAINERS -->
       <template name="ContainersTab"
                 src="~/Templates/ContainersTab.html" />
       <template name="ContainersTabEmpty"
                 src="~/Templates/ContainersTabEmpty.html" />
+
+      <!-- Tab view (grid) pages for StorageFiles -->
+      <template name="StorageFilesTab"
+                src="~/Templates/StorageFilesTab.html" />
+      <template name="StorageFilesTabEmpty"
+                src="~/Templates/StorageFilesTabEmpty.html" />
       
       <!-- Tab view for USAGE -->
       <template name="UsageTab"

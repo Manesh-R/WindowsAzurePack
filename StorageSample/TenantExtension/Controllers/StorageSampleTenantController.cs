@@ -99,5 +99,23 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
             await ClientFactory.StorageSampleClient.DeleteContainerAsync(subscriptionId, containerId);
             return this.Json(new object());
         }
+
+        /// <summary>
+        /// List files in a specific container.
+        /// </summary>
+        /// <param name="subscriptionId"></param>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<JsonResult> ListStorageFiles(string subscriptionId, int containerId)
+        {
+            if (string.IsNullOrEmpty(subscriptionId))
+            {
+                throw new HttpException("Subscription Id is not valid");
+            }
+
+            var files = await ClientFactory.StorageSampleClient.GetFileListForTenantAsync(subscriptionId, containerId);
+            return this.JsonDataSet(files);
+        }
     }
 }

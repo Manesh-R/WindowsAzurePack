@@ -96,7 +96,8 @@
 
         var containersData = containersDataSet.data,
             columns = [
-                { name: "ID", field: "ContainerId", sortable: false },
+                // We need to mark type of column as 'navigation' to enable drill-down.
+                { name: "ID", field: "ContainerId", sortable: false, type: "navigation", navigationField: "ContainerId" },
                 { name: "Name", field: "ContainerName", sortable: false },
                 { name: "Location", field: "LocationId", filterable: false, sortable: false },
                 { name: "Subscription Id", field: "SubscriptionId", filterable: false, sortable: false },

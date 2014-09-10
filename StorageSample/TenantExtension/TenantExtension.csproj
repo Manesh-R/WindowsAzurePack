@@ -92,6 +92,7 @@
     <Content Include="Content\extensions.data.js" />
     <Content Include="Content\Images\quickstart.png" />
     <Content Include="Content\Scripts\StorageSampleTenant.Constants.js" />
+    <Content Include="Content\Scripts\StorageSampleTenant.StorageFilesTab.js" />
     <Content Include="Content\StorageSampleTenant.png" />
     <Content Include="Content\StorageSampleTenantExtension.js" />
     <Content Include="Content\Scripts\StorageSampleTenant.Controller.js" />
@@ -102,7 +103,9 @@
     <Content Include="Content\Templates\ContainerCreateDialog.html" />
     <Content Include="Content\Templates\ContainerInfoDialog.html" />
     <Content Include="Content\Templates\ContainerQuickCreateMenu.html" />
+    <Content Include="Content\Templates\StorageFilesTab.html" />
     <Content Include="Content\Templates\ContainersTab.html" />
+    <Content Include="Content\Templates\StorageFilesTabEmpty.html" />
     <Content Include="Content\Templates\ContainersTabEmpty.html" />
     <Content Include="Content\Templates\UsageTab.html" />
     <Content Include="Manifests\StorageSampleTenantUiManifest.xml" />

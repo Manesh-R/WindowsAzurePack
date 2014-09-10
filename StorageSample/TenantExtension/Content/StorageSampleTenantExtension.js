@@ -10,7 +10,9 @@
         constants = global.StorageSampleTenantExtension.Constants,
         StorageSampleTenantExtensionActivationInit,
         navigation,
-        serviceName = constants.serviceName;
+        serviceName = constants.serviceName,
+        selectedContainerId,
+        selectedSubscriptionId;
 
     function onNavigateAway() {
         Exp.UI.Commands.Contextual.clear();
@@ -25,6 +27,88 @@
     function loadContainersTab(extension, renderArea, renderData) {
         global.StorageSampleTenantExtension.ContainersTab.loadTab(renderData, renderArea);
     }
+
+    function loadStorageFilesTab(extension, renderArea, renderData) {
+        var initData = {};
+        initData.subscriptionId = selectedSubscriptionId;
+        initData.containerId = selectedContainerId;
+
+        global.StorageSampleTenantExtension.StorageFilesTab.loadTab(extension, renderArea, initData);
+    }
+
+    // This method is responsible for populating the left items seen when sub-tab is loaded.
+    function loadContainersNavigationItemsDataFunction(data, originalPath, extension) {
+        var items = $.map(global.StorageSampleTenantExtension.Controller.getContainersDataSet().data,
+              function (value) {
+                  return $.extend(value, {
+                      name: value.ContainerId,  // This is the id of object.
+                      displayName: value.ContainerName,
+                      uniqueId: value.ContainerId,
+                      navigationPath: {
+                          type: value.Type,     // This is the type of object, you need to set this as a property in JSON data model.
+                          name: value.ContainerId
+                      }
+                  });
+              }
+          );
+
+        // Note: The following way of finding the subscription id for specific container id is not ideal.
+        // This is done more as a hack. 
+        var i, itemCount;
+        for (i = 0, itemCount = items.length; i < itemCount; i++) {
+            if (items[i] && items[i].ContainerId == selectedContainerId) {
+                selectedSubscriptionId = items[i].SubscriptionId;
+                break;
+            }
+        }
+
+        return {
+            data: items,
+            backNavigation: {
+                // This should be the id of the tab registered in navigation.
+                // Note most of these matching are case-sensitive, yes **SENSITIVE**
+                view: "containers" 
+            }
+        };
+    }
+
+    function onNavigating(context) {
+        var destinationItem = context.destination.item;
+
+        // We are navigating to drill downs for a container
+        if (destinationItem) {
+            if (destinationItem.type === "Container") { // This is the Type property value of JSON object.
+                selectedContainerId = destinationItem.name;
+            }
+        }
+    }
+
+    navigation = {
+        tabs: [
+            {
+                id: "containers",
+                displayName: "containers",
+                template: "ContainersTab",
+                activated: loadContainersTab
+            }
+        ],
+        types: [
+            {
+                name: "Container", // This is the type name of the object.
+                dataFunction: loadContainersNavigationItemsDataFunction,
+                tabs: [
+                        {
+                            id: "Files",
+                            displayName: "files",
+                            template: "StorageFilesTab",
+                            activated: function (extension, renderArea, renderData) {
+                                loadStorageFilesTab(extension, renderArea, renderData);
+                            }
+                        },
+                ]
+            }
+        ]
+    };
 
     global.StorageSampleTenantExtension = global.StorageSampleTenantExtension || {};
 
@@ -72,25 +156,16 @@
             }
         });
 
+        storageSampleExtension.onNavigating = onNavigating;
         storageSampleExtension.onNavigateAway = onNavigateAway;
         storageSampleExtension.navigation = navigation;
 
         Shell.UI.Pivots.registerExtension(storageSampleExtension, function () {
-            var navigation = {
-                tabs: [
-                    {
-                        id: "containers",
-                        displayName: "containers",
-                        template: "ContainersTab",
-                        activated: loadContainersTab
-                    }
-                ],
-                types: [
-                ]
-            };
-
             Exp.Navigation.initializePivots(this, navigation);
         });
+
+        // Need to register types, so that navigation to sub-levels can be enabled for tabs.
+        Exp.TypeRegistry.add(storageSampleExtension.name, navigation.types);
 
         // Finally activate and give "the" storageSampleExtension the activated extension since a good bit of code depends on it
         $.extend(global.StorageSampleTenantExtension, Shell.Extensions.activate(storageSampleExtension));

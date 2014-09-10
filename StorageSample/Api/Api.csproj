@@ -101,6 +101,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminSettingsController.cs" />
+    <Compile Include="Controllers\StorageFilesController.cs" />
     <Compile Include="Controllers\ContainersController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\QuotaController.cs" />

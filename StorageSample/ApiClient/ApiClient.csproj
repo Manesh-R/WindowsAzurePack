@@ -59,6 +59,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DataContracts\AdminSettings.cs" />
     <Compile Include="DataContracts\Container.cs" />
+    <Compile Include="DataContracts\StorageFileList.cs" />
+    <Compile Include="DataContracts\StorageFile.cs" />
     <Compile Include="DataContracts\LocationList.cs" />
     <Compile Include="DataContracts\ContainerList.cs" />
     <Compile Include="DataContracts\StorageSampleErrorResource.cs" />

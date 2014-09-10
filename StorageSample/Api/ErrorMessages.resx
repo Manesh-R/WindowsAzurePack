@@ -159,4 +159,7 @@
   <data name="ContainerNotEmpty" xml:space="preserve">
     <value>Container has files in it.</value>
   </data>
+  <data name="InvalidContainerId" xml:space="preserve">
+    <value>Container is not valid</value>
+  </data>
 </root>

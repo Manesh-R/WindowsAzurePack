@@ -38,6 +38,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
 
         public const string TenantContainers = "{0}/" + RegisteredPath + "/containers";
         public const string TenantLocations = "{0}/" + RegisteredPath + "/locations";
+        public const string TenantFilesInContainer = "{0}/" + RegisteredPath + "/containers/{1}/files";
 
         public Uri BaseEndpoint { get; set; }
         public HttpClient httpClient;
@@ -149,6 +150,19 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         #endregion
 
         #region Tenant APIs
+
+        /// <summary>
+        /// Get list of files with in a specific container.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<StorageFile>> GetFileListForTenantAsync(string subscriptionId, int containerId)
+        {
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFilesInContainer, subscriptionId, containerId));
+
+            var response = await this.httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseContentRead);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsAsync<List<StorageFile>>();
+        }
 
         /// <summary>
         /// GetLocationList return list of file servers hosted in Storage Sample Resource Provider
