@@ -1,0 +1,22 @@
+﻿<div class="fileUploadContainer">
+    <p class="fileUploadHeader">UPLOAD IMAGE FILE</p>
+    <div>
+        <!--This form needed for the upload to work.-->
+        <form id="storageFileUploadForm" class="aux-dialog-form">
+            <div class="aux-dialog-item">
+                <label for="uploadFileName">PNG Image File</label>
+                <input id="uploadImageFile" name="uploadImageFile" type="file" data-fxcontroltype="fxUpload"
+                       data-val="true" data-val-required="Please upload .png file" data-val-regex="Please upload .png file"
+                       data-val-regex-pattern="^.+\.png$" />
+            </div>
+            <div class="aux-dialog-item">
+                <label for="containerId">Container ID</label>
+                <input id="containerId" name="containerId" type="text" value="{{attr:data.containerId}}" readonly />
+            </div>
+            <div class="aux-dialog-item">
+                <label for="subscriptionId">Subscription ID</label>
+                <input id="subscriptionId" name="subscriptionId" type="text" value="{{attr:data.subscriptionId}}" readonly />
+            </div>
+        </form>
+    </div>
+</div>

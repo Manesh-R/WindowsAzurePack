@@ -143,6 +143,12 @@
               KeyPath="yes"
               Source="$(var.TenantExtensionRoot)\Content\Templates\StorageFilesTabEmpty.html" />
       </Component>
+      <Component Id="T_FileUploadWizard.html"
+           Guid="{C2ED945D-2867-487D-B726-1EBF6D919916}">
+        <File Id="T_FileUploadWizard.html"
+              KeyPath="yes"
+              Source="$(var.TenantExtensionRoot)\Content\Templates\FileUploadWizard.html" />
+      </Component>
       <Component Id="T_UsageTab.html"
                    Guid="{1fe63807-89b2-4eb0-ab0c-1e4067fa2d72}">
         <File Id="T_UsageTab.html"
@@ -180,6 +186,7 @@
     <ComponentRef Id="T_ContainersTabEmpty.html" />
     <ComponentRef Id="T_StorageFilesTab.html" />
     <ComponentRef Id="T_StorageFilesTabEmpty.html" />
+    <ComponentRef Id="T_FileUploadWizard.html" />
     <ComponentRef Id="T_UsageTab.html" />
     <ComponentRef Id="T_StorageSampleTenantUiManifest.xml" />
   </ComponentGroup>

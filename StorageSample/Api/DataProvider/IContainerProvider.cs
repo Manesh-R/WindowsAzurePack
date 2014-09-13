@@ -23,6 +23,8 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
     {
         List<Container> GetContainers(string subscriptionId = null);
 
+        Container GetContainer(string subscriptionId, int containerId);
+
         void CreateContainer(string subscriptionId, Container container);
 
         void UpdateContainer(string subscriptionId, Container container);

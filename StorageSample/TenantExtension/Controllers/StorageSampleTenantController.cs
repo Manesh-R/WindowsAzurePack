@@ -117,5 +117,36 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
             var files = await ClientFactory.StorageSampleClient.GetFileListForTenantAsync(subscriptionId, containerId);
             return this.JsonDataSet(files);
         }
+
+        /// <summary>
+        /// Upload file to a storage folder.
+        /// </summary>
+        /// <param name="subscriptionId"></param>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<JsonResult> UploadStorageFile(HttpPostedFileWrapper uploadImageFile, string subscriptionId, int containerId)
+        {
+            if (string.IsNullOrEmpty(subscriptionId))
+            {
+                throw new HttpException("Subscription Id is not valid");
+            }
+
+            if (uploadImageFile == null || uploadImageFile.ContentLength == 0)
+            {
+                throw new HttpException("Uploaded file is not valid");
+            }
+
+            string fileName = uploadImageFile.FileName.Substring(uploadImageFile.FileName.LastIndexOf('\\') + 1);
+
+            // Get uploaded file content.
+            System.IO.Stream inStream = uploadImageFile.InputStream;
+            byte[] fileData = new byte[uploadImageFile.ContentLength];
+            inStream.Read(fileData, 0, uploadImageFile.ContentLength);
+
+
+            await ClientFactory.StorageSampleClient.UploadForTenantAsync(subscriptionId, containerId, fileName, fileData);
+            return this.JsonDataSet(new object());
+        }
     }
 }

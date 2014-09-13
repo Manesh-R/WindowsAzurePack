@@ -100,6 +100,7 @@
     <Content Include="Content\Scripts\StorageSampleTenant.SettingsTab.js" />
     <Content Include="Content\Scripts\ViewModel\HW.ViewModels.QuickCreate.js" />
     <Content Include="Content\Styles\StorageSampleTenant.css" />
+    <Content Include="Content\Templates\FileUploadWizard.html" />
     <Content Include="Content\Templates\ContainerCreateDialog.html" />
     <Content Include="Content\Templates\ContainerInfoDialog.html" />
     <Content Include="Content\Templates\ContainerQuickCreateMenu.html" />

@@ -38,14 +38,12 @@
                 src="~/Templates/ContainersTabEmpty.html" />
 
       <!-- Tab view (grid) pages for StorageFiles -->
-      <template name="StorageFilesTab"
-                src="~/Templates/StorageFilesTab.html" />
-      <template name="StorageFilesTabEmpty"
-                src="~/Templates/StorageFilesTabEmpty.html" />
+      <template name="StorageFilesTab"             src="~/Templates/StorageFilesTab.html" />
+      <template name="StorageFilesTabEmpty"        src="~/Templates/StorageFilesTabEmpty.html" />
+      <template name="FileUploadWizard"            src="~/Templates/FileUploadWizard.html" />
       
       <!-- Tab view for USAGE -->
-      <template name="UsageTab"
-                src="~/Templates/UsageTab.html" />
+      <template name="UsageTab"                    src="~/Templates/UsageTab.html" />
     </templates>
   </extension>
 </uiManifest>

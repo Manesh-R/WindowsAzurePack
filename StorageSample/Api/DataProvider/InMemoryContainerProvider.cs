@@ -48,6 +48,11 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
                     select container).ToList();
         }
 
+        Container IContainerProvider.GetContainer(string subscriptionId, int containerId)
+        {
+            return containers.FirstOrDefault(c => c.ContainerId == containerId && c.SubscriptionId == subscriptionId);
+        }
+
         void IContainerProvider.CreateContainer(string subscriptionId, Container container)
         {
             containers.Add(new Container

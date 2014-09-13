@@ -165,6 +165,16 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         }
 
         /// <summary>
+        /// Upload file to storage folder.
+        /// </summary>
+        public async Task UploadForTenantAsync(string subscriptionId, int containerId, string fileName, byte[] fileContent)
+        {
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFilesInContainer, subscriptionId, containerId));
+            StorageFile file = new StorageFile() { StorageFileName = fileName, FileContent = fileContent };
+            await this.PostAsync<StorageFile>(requestUrl, file);
+        }
+
+        /// <summary>
         /// GetLocationList return list of file servers hosted in Storage Sample Resource Provider
         /// </summary>
         /// <returns></returns>

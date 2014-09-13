@@ -46,14 +46,36 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
             }
 
             // This is for demonstrating the sub-navigation. So returning dummy data always.
-            List<StorageFile> files = new List<StorageFile>();
-            if (containerId % 2 == 0)
+            
+            Container container = DataProviderFactory.ContainerInstance.GetContainer(subscriptionId, containerId);
+            string[] files = Directory.GetFiles(container.URL);
+
+            List<StorageFile> storageFiles = new List<StorageFile>();
+            foreach(string file in files)
             {
-                files.Add(new StorageFile() { StorageFileId = 2001, StorageFileName = "Education.png", TotalSize = 450 });
-                files.Add(new StorageFile() { StorageFileId = 2002, StorageFileName = "Students.png", TotalSize = 150 });
-                files.Add(new StorageFile() { StorageFileId = 2003, StorageFileName = "Lit4Life.png", TotalSize = 1090 });
+                FileInfo fileInfo = new FileInfo(file);
+                storageFiles.Add(new StorageFile() { StorageFileName = fileInfo.Name, TotalSize = fileInfo.Length });
             }
-            return files;
+
+            return storageFiles;
+        }
+
+        [HttpPost]
+        public void CreateFile(string subscriptionId, int containerId, StorageFile storageFile)
+        {
+            if (string.IsNullOrWhiteSpace(subscriptionId))
+            {
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.EmptySubscription);
+            }
+
+            if (containerId <= 0)
+            {
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.InvalidContainerId);
+            }
+
+            Container container = DataProviderFactory.ContainerInstance.GetContainer(subscriptionId, containerId);
+            string filePath = string.Format(@"{0}\{1}", container.URL, storageFile.StorageFileName);
+            File.WriteAllBytes(filePath, storageFile.FileContent);
         }
     }
 }

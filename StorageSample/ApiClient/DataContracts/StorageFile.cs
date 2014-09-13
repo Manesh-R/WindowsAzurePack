@@ -24,19 +24,22 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContrac
     [DataContract(Namespace = Constants.DataContractNamespaces.Default)]
     public class StorageFile
     {
-        [DataMember(Order = 1)]
-        public int StorageFileId { get; set; }
-
         /// <summary>
         /// Name of the file.
         /// </summary>
-        [DataMember(Order = 2)]
+        [DataMember(Order = 1)]
         public string StorageFileName { get; set; }
 
         /// <summary>
-        /// Size of file. (KB) 
+        /// Size of file. (Bytes)
+        /// </summary>
+        [DataMember(Order = 2)]
+        public long TotalSize { get; set; }
+
+        /// <summary>
+        /// File Content
         /// </summary>
         [DataMember(Order = 3)]
-        public int TotalSize { get; set; }
+        public byte[] FileContent { get; set; }
     }
 }

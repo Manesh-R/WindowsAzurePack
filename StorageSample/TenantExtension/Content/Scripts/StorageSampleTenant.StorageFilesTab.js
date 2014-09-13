@@ -5,7 +5,9 @@
     "use strict";
 
     var controller = global.StorageSampleTenantExtension.Controller,
-        constants  = global.StorageSampleTenantExtension.Constants,
+        constants = global.StorageSampleTenantExtension.Constants,
+        tabInitData,
+        tabRenderArea,
         observableGrid,
         selectedRow,
         statusIcons = {
@@ -19,36 +21,79 @@
         };
 
     function onRowSelected(row) {
-        if (row) {
-            selectedRow = row;
-            updateContextualCommands(row);
-        }
+        selectedRow = row;
+        updateContextualCommands(row);
     }
 
-    function updateContextualCommands(domain) {
+    function onUploadCommandInvoke() {
+        var _deferred = $.Deferred(),
+            formSelector = "#storageFileUploadForm";
+
+        global.Shell.UI.DialogPresenter.show({
+            extension: "StorageSampleTenantExtension",
+            name: "StorageFileUpload",
+            template: "FileUploadWizard",
+            data: {
+                data: tabInitData
+            },
+
+            init: function () {
+                global.Shell.UI.Validation.setValidationContainer(formSelector);
+            },
+
+            ok: function () {
+                if (!global.Shell.UI.Validation.validateContainer(formSelector)) {
+                    return false;
+                } else {
+                    var promise = controller.uploadFileAsync(formSelector);
+                    global.waz.interaction.showProgress(
+                        promise,
+                        {
+                            initialText: "Uploading image file.",
+                            successText: "Successfully uploaded image file to storage folder.",
+                            failureText: "Failed to upload file to storage folder."
+                        }
+                    );
+                    promise.done(function (result) {
+                        loadGrid(tabInitData.subscriptionId, tabInitData.containerId);
+                        _deferred.resolve(result);
+                    })
+                    .fail(function (result) {
+                        _deferred.fail(result);
+                    });
+                    $(formSelector).submit();
+                    return true;
+                }
+            }
+        });
+    }
+
+    function onDeleteCommandInvoke() {
+    }
+
+    function updateContextualCommands(row) {
+        var isOperable = global.waz.dataWrapper.isRowOperable(row);
+        Exp.UI.Commands.Global.clear();
         Exp.UI.Commands.Contextual.clear();
-        //Exp.UI.Commands.Contextual.add(new Exp.UI.Command("viewContainerInfo", "View Info", Exp.UI.CommandIconDescriptor.getWellKnown("viewinfo"), true, null, onViewInfo));
-        //Exp.UI.Commands.Contextual.add(new Exp.UI.Command("deleteContainer", "Delete", Exp.UI.CommandIconDescriptor.getWellKnown("delete"), true, null, onDelete));
+        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("Upload", "Upload", Exp.UI.CommandIconDescriptor.getWellKnown("upload"), true, null, onUploadCommandInvoke));
+        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("Delete", "Delete", Exp.UI.CommandIconDescriptor.getWellKnown("delete"), isOperable, null, onDeleteCommandInvoke));
         Exp.UI.Commands.update();
     }
 
-    // Public
-    function loadTab(extension, renderArea, initData) {
+    function loadGrid() {
         var columns = [
-                { name: "ID", field: "StorageFileId", sortable: false },
                 { name: "Name", field: "StorageFileName", sortable: false },
-                { name: "Size (KB)", field: "TotalSize", filterable: false, sortable: false },
-            ];
-
-        var promise = controller.getStorageFilesAsync(initData.subscriptionId, initData.containerId);
+                { name: "Size (Bytes)", field: "TotalSize", filterable: false, sortable: false },
+        ];
+        var promise = controller.getStorageFilesAsync(tabInitData.subscriptionId, tabInitData.containerId);
         promise.done(function (response) {
             if (response && response.data) {
-                observableGrid = renderArea.find(".gridContainer")
+                observableGrid = tabRenderArea.find(".gridContainer")
                                     .wazObservableGrid("destroy")
                                     .wazObservableGrid({
                                         lastSelectedRow: null,
                                         data: response.data,
-                                        keyField: "StorageFileId",
+                                        keyField: "StorageFileName",
                                         columns: columns,
                                         gridOptions: {
                                             rowSelect: onRowSelected
@@ -60,6 +105,13 @@
                                     });
             }
         });
+    }
+
+    // Public
+    function loadTab(extension, renderArea, initData) {
+        tabRenderArea = renderArea;
+        tabInitData = initData;
+        loadGrid();
     }
 
     function forceRefreshGridData() {

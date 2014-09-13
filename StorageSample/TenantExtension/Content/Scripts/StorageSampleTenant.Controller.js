@@ -64,12 +64,28 @@
         });
     }
 
+    function uploadFileAsync(formSelector) {
+        var _deferred = $.Deferred();
+        global.AppExtension.UI.fileUpload({
+            formSelector: formSelector,
+            url: baseUrl + "/UploadStorageFile",
+            onComplete: function (result) {
+                _deferred.resolve(result);
+            },
+            onError: function (result) {
+                _deferred.reject(result);
+            }
+        });
+        return _deferred.promise();
+    }
+
     global.StorageSampleTenantExtension = global.StorageSampleTenantExtension || {};
     global.StorageSampleTenantExtension.Controller = {
         getContainersDataSet: getContainersDataSet,
         createContainerAsync: createContainerAsync,
         deleteContainerAsync: deleteContainerAsync,
         getLocationsAsync: getLocationsAsync,
-        getStorageFilesAsync: getStorageFilesAsync
+        getStorageFilesAsync: getStorageFilesAsync,
+        uploadFileAsync: uploadFileAsync
     };
 })(jQuery, this);
