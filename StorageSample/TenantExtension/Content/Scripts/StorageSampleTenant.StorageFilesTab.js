@@ -76,7 +76,7 @@
         Exp.UI.Commands.Global.clear();
         Exp.UI.Commands.Contextual.clear();
         Exp.UI.Commands.Contextual.add(new Exp.UI.Command("Upload", "Upload", Exp.UI.CommandIconDescriptor.getWellKnown("upload"), true, null, onUploadCommandInvoke));
-        Exp.UI.Commands.Contextual.add(new Exp.UI.Command("Delete", "Delete", Exp.UI.CommandIconDescriptor.getWellKnown("delete"), isOperable, null, onDeleteCommandInvoke));
+        //Exp.UI.Commands.Contextual.add(new Exp.UI.Command("Delete", "Delete", Exp.UI.CommandIconDescriptor.getWellKnown("delete"), isOperable, null, onDeleteCommandInvoke));
         Exp.UI.Commands.update();
     }
 
