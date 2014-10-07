@@ -19,8 +19,8 @@ using System.Runtime.Serialization;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts
 {    
-    [CollectionDataContract(Name = "Containers", ItemName = "Container", Namespace = Constants.DataContractNamespaces.Default)]
-    public class ContainerList : List<Container>, IExtensibleDataObject
+    [CollectionDataContract(Name = "Folders", ItemName = "Folder", Namespace = Constants.DataContractNamespaces.Default)]
+    public class FolderList : List<Folder>, IExtensibleDataObject
     {
         /// <summary>
         /// Gets or sets the structure that contains extra data.

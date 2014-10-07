@@ -9,7 +9,7 @@
         SourceFile=".\Icons\Windows-Azure-Light-Blue.ico" />
   <Property Id="ARPPRODUCTICON"
             Value="Product.ico" />
-  <!-- Location -->
+  <!-- Share -->
   <SetProperty Id="ARPINSTALLLOCATION"
                Value="[INSTALLDIR]"
                After="CostFinalize" />

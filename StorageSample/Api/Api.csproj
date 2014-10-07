@@ -102,17 +102,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminSettingsController.cs" />
     <Compile Include="Controllers\StorageFilesController.cs" />
-    <Compile Include="Controllers\ContainersController.cs" />
-    <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\FoldersController.cs" />
+    <Compile Include="Controllers\SharesController.cs" />
     <Compile Include="Controllers\QuotaController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\UsageController.cs" />
     <Compile Include="DataProvider\DataValidationUtil.cs" />
-    <Compile Include="DataProvider\IContainerProvider.cs" />
-    <Compile Include="DataProvider\ILocationProvider.cs" />
+    <Compile Include="DataProvider\IFolderProvider.cs" />
+    <Compile Include="DataProvider\IShareProvider.cs" />
     <Compile Include="DataProvider\DataProviderFactory.cs" />
-    <Compile Include="DataProvider\InMemoryContainerProvider.cs" />
-    <Compile Include="DataProvider\InMemoryLocationProvider.cs" />
+    <Compile Include="DataProvider\InMemoryFolderProvider.cs" />
+    <Compile Include="DataProvider\InMemoryShareProvider.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

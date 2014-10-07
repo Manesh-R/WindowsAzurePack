@@ -87,7 +87,7 @@
     <Compile Include="ClientFactory.cs" />
     <Compile Include="Controllers\StorageSampleAdminController.cs" />
     <Compile Include="Models\EndpointModel.cs" />
-    <Compile Include="Models\LocationModel.cs" />
+    <Compile Include="Models\ShareModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +99,7 @@
     <Content Include="Content\Scripts\StorageSample.Actions.js" />
     <Content Include="Content\Scripts\StorageSample.Menu.js" />
     <Content Include="Content\Scripts\StorageSample.Controller.js" />
-    <Content Include="Content\Scripts\StorageSample.LocationsTab.js" />
+    <Content Include="Content\Scripts\StorageSample.SharesTab.js" />
     <Content Include="Content\Scripts\StorageSample.QuickStartTab.js" />
     <Content Include="Content\Scripts\StorageSample.SettingsTab.js" />
     <Content Include="Content\Scripts\StorageSample.Resources.js" />
@@ -107,9 +107,9 @@
     <Content Include="Content\Styles\StorageSampleAdmin.css" />
     <Content Include="Content\Styles\StorageSampleControls.css" />
     <Content Include="Content\Templates\Dialogs\RegisterEndpoint.html" />
-    <Content Include="Content\Templates\Menu\StorageSample.Menu.Location.QuickCreate.html" />
-    <Content Include="Content\Templates\Tabs\LocationsTab.html" />
-    <Content Include="Content\Templates\Tabs\LocationsTabEmpty.html" />
+    <Content Include="Content\Templates\Menu\StorageSample.Menu.Share.QuickCreate.html" />
+    <Content Include="Content\Templates\Tabs\SharesTab.html" />
+    <Content Include="Content\Templates\Tabs\SharesTabEmpty.html" />
     <Content Include="Content\Templates\Tabs\QuickStartTab.html" />
     <Content Include="Content\Templates\Tabs\QuickStartTabContent.html" />
     <Content Include="Content\Templates\Tabs\SettingsTab.html" />

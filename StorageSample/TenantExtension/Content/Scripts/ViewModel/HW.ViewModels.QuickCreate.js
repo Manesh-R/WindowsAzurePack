@@ -5,7 +5,7 @@
     // Variables    
     var subscriptions;
     var subscriptionId ;
-    var containerName;
+    var folderName;
     var size;
     var fileServerName;
 
@@ -13,8 +13,8 @@
         this.subscriptions = this.getSubscriptions();
         this.subscriptionId = this.subscriptions.length ? this.subscriptions[0].id : null;
         _selectors = {
-            container: "#hw-create-container-container",
-            containerName: "#containerName",
+            folder: "#hw-create-folder-folder",
+            folderName: "#folderName",
             size: "#size",
             subscriptions: "#subscriptions",
             fileServerName: "#fileServerName"
@@ -28,7 +28,7 @@
 
     // Public Methods
     function onOkClicked() {
-        global.StorageSampleTenantExtension.Controller.createContainer(this.subscriptionId, this.containerName, this.size, this.fileServerName);
+        global.StorageSampleTenantExtension.Controller.createFolder(this.subscriptionId, this.folderName, this.size, this.fileServerName);
     }
 
     function getSubscriptions() {

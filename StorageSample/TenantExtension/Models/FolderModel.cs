@@ -21,58 +21,58 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
     /// <summary>
     /// Data model for domain name tenant view
     /// </summary>    
-    public class ContainerModel
+    public class FolderModel
     {
         public const string RegisteredStatus = "Registered";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContainerModel" /> class.
+        /// Initializes a new instance of the <see cref="FolderModel" /> class.
         /// </summary>
-        public ContainerModel()
+        public FolderModel()
         {
-            this.Type = "Container";
+            this.Type = "Folder";
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileServerModel" /> class.
         /// </summary>
         /// <param name="ProductModel">The domain name from API.</param>
-        public ContainerModel(Container containerFromApi)
+        public FolderModel(Folder folderFromApi)
         {
-            this.ContainerName = containerFromApi.ContainerName;
-            this.SubscriptionId = containerFromApi.SubscriptionId;
-            this.LocationId = containerFromApi.LocationId;
-            this.URL = containerFromApi.URL;
-            this.ContainerId = containerFromApi.ContainerId;
-            this.id = containerFromApi.ContainerId;
-            this.Type = "Container";
+            this.FolderName = folderFromApi.FolderName;
+            this.SubscriptionId = folderFromApi.SubscriptionId;
+            this.ShareId = folderFromApi.ShareId;
+            this.URL = folderFromApi.URL;
+            this.FolderId = folderFromApi.FolderId;
+            this.id = folderFromApi.FolderId;
+            this.Type = "Folder";
         }
 
         /// <summary>
         /// Covert to the API object.
         /// </summary>
         /// <returns>The API DomainName data contract.</returns>
-        public Container ToApiObject()
+        public Folder ToApiObject()
         {
-            return new Container()
+            return new Folder()
             {
-                ContainerName = this.ContainerName,
-                LocationId = this.LocationId,
+                FolderName = this.FolderName,
+                ShareId = this.ShareId,
                 URL = this.URL,
                 SubscriptionId = this.SubscriptionId,
-                ContainerId = this.ContainerId
+                FolderId = this.FolderId
             };
         }
 
         /// <summary>
         /// Gets or sets the name.
         // </summary>
-        public string ContainerName { get; set; }
+        public string FolderName { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the display name of the file server 
         /// </summary>
-        public int LocationId { get; set; }
+        public int ShareId { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the subscription id
@@ -80,11 +80,11 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
         public string SubscriptionId { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the container size
+        /// Gets or sets the value of the folder size
         /// </summary>
         public string URL { get; set; }
 
-        public int ContainerId { get; set; }
+        public int FolderId { get; set; }
 
         public int id { get; set; }
 

@@ -2,15 +2,15 @@
     background-position: 0 -97px;
 }
 
-.hw-search-container {
+.hw-search-folder {
     width: 350px;
 }
 
-.hw-radio-container {
+.hw-radio-folder {
     margin-bottom: 10px;
 }
 
-    .hw-radio-container label {
+    .hw-radio-folder label {
         display: inline;
         font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
         font-size: 12px;
@@ -19,7 +19,7 @@
         vertical-align: middle;
     }
 
-    .hw-radio-container input {
+    .hw-radio-folder input {
         vertical-align: middle;
     }
 

@@ -9,7 +9,7 @@
         //validation = StorageSampleAdminExtension.Validation,
         controller = StorageSampleAdminExtension.Controller;
 
-    function createStorageLocation(name, totalSpace, networkSharePath) {
+    function createStorageShare(name, totalSpace, networkSharePath) {
         /// <summary>
         /// Creates the runbook using the provided parameter values.
         /// </summary>
@@ -26,30 +26,30 @@
         //validation.throwIfStringNullOrEmpty(name, "name");
 
         var data = { };
-        data.LocationName = name;
+        data.ShareName = name;
         data.TotalSpace = totalSpace;
         data.NetworkSharePath = networkSharePath;
-        var promise = StorageSampleAdminExtension.Controller.makeAjaxCall(StorageSampleAdminExtension.Controller.adminLocationCreateUrl, data);
+        var promise = StorageSampleAdminExtension.Controller.makeAjaxCall(StorageSampleAdminExtension.Controller.adminShareCreateUrl, data);
 
         global.waz.interaction.showProgress(
             promise,
             {
-                initialText: "Creating storage location '" + name + "'.",
-                successText: "Successfully created storage location '" + name + "'.",
-                failureText: "Failed to create storage location '" + name + "'."
+                initialText: "Creating storage share '" + name + "'.",
+                successText: "Successfully created storage share '" + name + "'.",
+                failureText: "Failed to create storage share '" + name + "'."
             }
         );
 
         promise.done(function () {
         });
         promise.always(function () {
-            StorageSampleAdminExtension.LocationsTab.forceRefreshLocationsData();
+            StorageSampleAdminExtension.SharesTab.forceRefreshSharesData();
         });
 
         return promise.promise();
     }
 
     shell.Namespace.define("StorageSampleAdminExtension.Actions", {
-        createStorageLocation: createStorageLocation
+        createStorageShare: createStorageShare
     });
 })(jQuery, this, Shell, Exp, StorageSampleAdminExtension.Resources, StorageSampleAdminExtension.Constants);

@@ -5,33 +5,33 @@
 (function ($, global, shell, exp, resources, undefined) {
     "use strict";
 
-    function showQuickCreateLocation() {
+    function showQuickCreateShare() {
         //exp.Drawer.openMenu("StorageSampleAdminExtension/QuickCreate");
     }
 
-    function getQuickCreateLocationMenuItem() {
+    function getQuickCreateShareMenuItem() {
         return {
             name: "QuickCreate",
-            displayName: "Location",
-            description: "Create a new storage location mapping to a network share",
-            template: "locationQuickCreate",
+            displayName: "Share",
+            description: "Create a new share mapping to a network share",
+            template: "shareQuickCreate",
             label: "CREATE",
             data: null,
             opening: function (object) {
             },
             open: function () {
-                shell.UI.Validation.setValidationContainer("#locationQuickCreateForm");
+                shell.UI.Validation.setValidationContainer("#shareQuickCreateForm");
             },
             ok: function (object) {
-                //if (!shell.UI.Validation.validateContainer("#locationQuickCreateForm")) {
+                //if (!shell.UI.Validation.validateContainer("#shareQuickCreateForm")) {
                 //    // This will prevent the drawer from closing. The user may then fix the errors or click the "Close" button instead.
                 //    return false;
                 //}
 
-                return StorageSampleAdminExtension.Actions.createStorageLocation(
-                            object.fields['locationName'],
-                            object.fields['locationTotalSpace'],
-                            object.fields['locationNetworkSharePath']
+                return StorageSampleAdminExtension.Actions.createStorageShare(
+                            object.fields['shareName'],
+                            object.fields['shareTotalSpace'],
+                            object.fields['shareNetworkSharePath']
                         )
                     .done(function () { return true; })
                     .fail(function () { return false; });
@@ -40,8 +40,8 @@
     }
 
     shell.Namespace.define("StorageSampleAdminExtension.Menu", {
-        getQuickCreateLocationMenuItem: getQuickCreateLocationMenuItem,
-        showQuickCreateLocation: showQuickCreateLocation
+        getQuickCreateShareMenuItem: getQuickCreateShareMenuItem,
+        showQuickCreateShare: showQuickCreateShare
     });
 
 })(jQuery, this, Shell, Exp, StorageSampleAdminExtension.Resources);

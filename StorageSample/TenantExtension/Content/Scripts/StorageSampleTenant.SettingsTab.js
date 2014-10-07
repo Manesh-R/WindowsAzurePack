@@ -6,10 +6,10 @@
     "use strict";
 
     var commandsEnabled,
-        tabContainer,
+        tabFolder,
         passwordChanged = false;
 
-    function renderPage(userInfo, container) {        
+    function renderPage(userInfo, folder) {        
     }
 
     function onSettingChanged() {
@@ -39,10 +39,10 @@
     }
 
     // Public
-    function loadTab(renderData, container) {
+    function loadTab(renderData, folder) {
         commandsEnabled = false;
 
-        Shell.UI.Validation.setValidationContainer("#hw-settings");  // Initialize validation container for subsequent calls to Shell.UI.Validation.validateContainer.
+        Shell.UI.Validation.setValidationContainer("#hw-settings");  // Initialize validation folder for subsequent calls to Shell.UI.Validation.validateContainer.
         $("#hw-settings").on("change.fxcontrol", onSettingChanged);
 
         $("#hw-password").on("keyup change", function () {

@@ -33,22 +33,22 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
         }
 
         [HttpGet]
-        public List<StorageFile> ListContainers(string subscriptionId = null, int containerId = 0)
+        public List<StorageFile> ListFolders(string subscriptionId = null, int folderId = 0)
         {
             if (string.IsNullOrWhiteSpace(subscriptionId))
             {
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.EmptySubscription);
             }
 
-            if (containerId <= 0)
+            if (folderId <= 0)
             {
-                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.InvalidContainerId);
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.InvalidFolderId);
             }
 
             // This is for demonstrating the sub-navigation. So returning dummy data always.
             
-            Container container = DataProviderFactory.ContainerInstance.GetContainer(subscriptionId, containerId);
-            string[] files = Directory.GetFiles(container.URL);
+            Folder folder = DataProviderFactory.FolderInstance.GetFolder(subscriptionId, folderId);
+            string[] files = Directory.GetFiles(folder.URL);
 
             List<StorageFile> storageFiles = new List<StorageFile>();
             foreach(string file in files)
@@ -61,20 +61,20 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
         }
 
         [HttpPost]
-        public void CreateFile(string subscriptionId, int containerId, StorageFile storageFile)
+        public void CreateFile(string subscriptionId, int folderId, StorageFile storageFile)
         {
             if (string.IsNullOrWhiteSpace(subscriptionId))
             {
                 throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.EmptySubscription);
             }
 
-            if (containerId <= 0)
+            if (folderId <= 0)
             {
-                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.InvalidContainerId);
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.InvalidFolderId);
             }
 
-            Container container = DataProviderFactory.ContainerInstance.GetContainer(subscriptionId, containerId);
-            string filePath = string.Format(@"{0}\{1}", container.URL, storageFile.StorageFileName);
+            Folder folder = DataProviderFactory.FolderInstance.GetFolder(subscriptionId, folderId);
+            string filePath = string.Format(@"{0}\{1}", folder.URL, storageFile.StorageFileName);
             File.WriteAllBytes(filePath, storageFile.FileContent);
         }
     }

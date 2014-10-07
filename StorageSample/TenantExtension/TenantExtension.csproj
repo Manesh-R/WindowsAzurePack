@@ -84,8 +84,8 @@
     <Compile Include="BearerMessageProcessingHandler.cs" />
     <Compile Include="ClientFactory.cs" />
     <Compile Include="Controllers\StorageSampleTenantController.cs" />
-    <Compile Include="Models\LocationModel.cs" />
-    <Compile Include="Models\ContainerModel.cs" />
+    <Compile Include="Models\ShareModel.cs" />
+    <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,18 +96,18 @@
     <Content Include="Content\StorageSampleTenant.png" />
     <Content Include="Content\StorageSampleTenantExtension.js" />
     <Content Include="Content\Scripts\StorageSampleTenant.Controller.js" />
-    <Content Include="Content\Scripts\StorageSampleTenant.ContainersTab.js" />
+    <Content Include="Content\Scripts\StorageSampleTenant.FoldersTab.js" />
     <Content Include="Content\Scripts\StorageSampleTenant.SettingsTab.js" />
     <Content Include="Content\Scripts\ViewModel\HW.ViewModels.QuickCreate.js" />
     <Content Include="Content\Styles\StorageSampleTenant.css" />
     <Content Include="Content\Templates\FileUploadWizard.html" />
-    <Content Include="Content\Templates\ContainerCreateDialog.html" />
-    <Content Include="Content\Templates\ContainerInfoDialog.html" />
-    <Content Include="Content\Templates\ContainerQuickCreateMenu.html" />
+    <Content Include="Content\Templates\FolderCreateDialog.html" />
+    <Content Include="Content\Templates\FolderInfoDialog.html" />
+    <Content Include="Content\Templates\FolderQuickCreateMenu.html" />
     <Content Include="Content\Templates\StorageFilesTab.html" />
-    <Content Include="Content\Templates\ContainersTab.html" />
+    <Content Include="Content\Templates\FoldersTab.html" />
     <Content Include="Content\Templates\StorageFilesTabEmpty.html" />
-    <Content Include="Content\Templates\ContainersTabEmpty.html" />
+    <Content Include="Content\Templates\FoldersTabEmpty.html" />
     <Content Include="Content\Templates\UsageTab.html" />
     <Content Include="Manifests\StorageSampleTenantUiManifest.xml" />
   </ItemGroup>

@@ -31,9 +31,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api
                defaults: new { controller = "AdminSettings" });
 
             config.Routes.MapHttpRoute(
-                name: "AdminLocations",
-                routeTemplate: "admin/locations",
-                defaults: new { controller = "Locations" });
+                name: "AdminShares",
+                routeTemplate: "admin/shares",
+                defaults: new { controller = "Shares" });
 
             config.Routes.MapHttpRoute(
                name: "StorageSampleQuota",
@@ -57,18 +57,18 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api
             // This means that tenant portal will send request to source uri template, and tenant api site will 
             // forward it to StorageSample API after transforming uri to target uri template.
             config.Routes.MapHttpRoute(
-                name: "TenantContainers",
-                routeTemplate: "subscriptions/{subscriptionId}/containers",
-                defaults: new { controller = "Containers" });
+                name: "TenantFolders",
+                routeTemplate: "subscriptions/{subscriptionId}/folders",
+                defaults: new { controller = "Folders" });
             config.Routes.MapHttpRoute(
                 name: "TenantStorageFiles",
-                routeTemplate: "subscriptions/{subscriptionId}/containers/{containerId}/files",
+                routeTemplate: "subscriptions/{subscriptionId}/folders/{folderId}/files",
                 defaults: new { controller = "StorageFiles" });
 
             config.Routes.MapHttpRoute(
-                name: "TenantLocations",
-                routeTemplate: "subscriptions/{subscriptionId}/locations",
-                defaults: new { controller = "Locations" });
+                name: "TenantShares",
+                routeTemplate: "subscriptions/{subscriptionId}/shares",
+                defaults: new { controller = "Shares" });
 
             config.Routes.MapHttpRoute(
                name: "Usage",

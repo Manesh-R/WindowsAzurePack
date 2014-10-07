@@ -34,11 +34,11 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         public const string RegisteredServiceName = "storagesample";
         public const string RegisteredPath = "services/" + RegisteredServiceName;
         public const string AdminSettings = RegisteredPath + "/settings";
-        public const string AdminLocations = RegisteredPath + "/locations";
+        public const string AdminShares = RegisteredPath + "/shares";
 
-        public const string TenantContainers = "{0}/" + RegisteredPath + "/containers";
-        public const string TenantLocations = "{0}/" + RegisteredPath + "/locations";
-        public const string TenantFilesInContainer = "{0}/" + RegisteredPath + "/containers/{1}/files";
+        public const string TenantFolders = "{0}/" + RegisteredPath + "/folders";
+        public const string TenantShares = "{0}/" + RegisteredPath + "/shares";
+        public const string TenantFilesInFolder = "{0}/" + RegisteredPath + "/folders/{1}/files";
 
         public Uri BaseEndpoint { get; set; }
         public HttpClient httpClient;
@@ -105,45 +105,45 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         }
 
         /// <summary>
-        /// GetLocationList return list of file servers hosted in Storage Sample Resource Provider
+        /// GetShareList return list of file servers hosted in Storage Sample Resource Provider
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Location>> GetLocationListAsync()
+        public async Task<List<Share>> GetShareListAsync()
         {
-            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.AdminLocations));
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.AdminShares));
 
             var response = await this.httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseContentRead);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsAsync<List<Location>>();
+            return await response.Content.ReadAsAsync<List<Share>>();
         }
 
         /// <summary>
-        /// UpdateLocation updates existing file server information in Storage Sample Resource Provider
+        /// UpdateShare updates existing file server information in Storage Sample Resource Provider
         /// </summary>        
-        public async Task UpdateLocationAsync(Location location)
+        public async Task UpdateShareAsync(Share share)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.AdminLocations);
-            var response = await this.httpClient.PutAsJsonAsync<Location>(requestUrl.ToString(), location);
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.AdminShares);
+            var response = await this.httpClient.PutAsJsonAsync<Share>(requestUrl.ToString(), share);
             response.EnsureSuccessStatusCode();
         }
 
         /// <summary>
-        /// AddLocation adds new file server in Storage Sample Resource Provider
+        /// AddShare adds new file server in Storage Sample Resource Provider
         /// </summary>        
-        public async Task AddLocationAsync(Location location)
+        public async Task AddShareAsync(Share share)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.AdminLocations);
-            var response = await this.httpClient.PutAsJsonAsync<Location>(requestUrl.ToString(), location);
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.AdminShares);
+            var response = await this.httpClient.PutAsJsonAsync<Share>(requestUrl.ToString(), share);
             response.EnsureSuccessStatusCode();
         }
 
         /// <summary>
         /// DeleteLocatio removes file server in Storage Sample Resource Provider
         /// </summary>        
-        public async Task DeleteLocationAsync(Location location)
+        public async Task DeleteShareAsync(Share share)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.AdminLocations);
-            var response = await this.httpClient.DeleteAsync(requestUrl.ToString() + "/" + location.LocationId);
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.AdminShares);
+            var response = await this.httpClient.DeleteAsync(requestUrl.ToString() + "/" + share.ShareId);
             response.EnsureSuccessStatusCode();
         }
 
@@ -152,12 +152,12 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         #region Tenant APIs
 
         /// <summary>
-        /// Get list of files with in a specific container.
+        /// Get list of files with in a specific folder.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<StorageFile>> GetFileListForTenantAsync(string subscriptionId, int containerId)
+        public async Task<List<StorageFile>> GetFileListForTenantAsync(string subscriptionId, int folderId)
         {
-            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFilesInContainer, subscriptionId, containerId));
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFilesInFolder, subscriptionId, folderId));
 
             var response = await this.httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseContentRead);
             response.EnsureSuccessStatusCode();
@@ -167,61 +167,61 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
         /// <summary>
         /// Upload file to storage folder.
         /// </summary>
-        public async Task UploadForTenantAsync(string subscriptionId, int containerId, string fileName, byte[] fileContent)
+        public async Task UploadForTenantAsync(string subscriptionId, int folderId, string fileName, byte[] fileContent)
         {
-            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFilesInContainer, subscriptionId, containerId));
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFilesInFolder, subscriptionId, folderId));
             StorageFile file = new StorageFile() { StorageFileName = fileName, FileContent = fileContent };
             await this.PostAsync<StorageFile>(requestUrl, file);
         }
 
         /// <summary>
-        /// GetLocationList return list of file servers hosted in Storage Sample Resource Provider
+        /// GetShareList return list of file servers hosted in Storage Sample Resource Provider
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Location>> GetLocationListForTenantAsync(string subscriptionId = null)
+        public async Task<List<Share>> GetShareListForTenantAsync(string subscriptionId = null)
         {
-            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantLocations, subscriptionId));
+            var requestUrl = this.CreateRequestUri(string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantShares, subscriptionId));
 
             var response = await this.httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseContentRead);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsAsync<List<Location>>();
+            return await response.Content.ReadAsAsync<List<Share>>();
         }
 
         /// <summary>
-        /// ListContainers supposed to return list of containers per subscription stored in Storage Sample Resource Provider 
-        /// Per subscription shares not implemented for this sample so its returning static common containers for all subscriptions
+        /// ListFolders supposed to return list of folders per subscription stored in Storage Sample Resource Provider 
+        /// Per subscription shares not implemented for this sample so its returning static common folders for all subscriptions
         /// </summary> 
-        public async Task<List<Container>> ListContainersAsync(string subscriptionId = null)
+        public async Task<List<Folder>> ListFoldersAsync(string subscriptionId = null)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
-            return await this.GetAsync<List<Container>>(requestUrl);            
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantFoldersUri(subscriptionId));
+            return await this.GetAsync<List<Folder>>(requestUrl);            
         }
         
         /// <summary>
-        /// CreateContainer allows to create new container for given subscription 
+        /// CreateFolder allows to create new folder for given subscription 
         /// </summary>        
-        public async Task CreateContainerAsync(string subscriptionId, Container containerNameToCreate)
+        public async Task CreateFolderAsync(string subscriptionId, Folder folderNameToCreate)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
-            await this.PostAsync<Container>(requestUrl, containerNameToCreate);            
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantFoldersUri(subscriptionId));
+            await this.PostAsync<Folder>(requestUrl, folderNameToCreate);            
         }
 
         /// <summary>
-        /// UpdateContainer allows to update existing container for given subscription 
+        /// UpdateFolder allows to update existing folder for given subscription 
         /// </summary>        
-        public async Task UpdateContainerAsync(string subscriptionId, Container container)
+        public async Task UpdateFolderAsync(string subscriptionId, Folder folder)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
-            await this.PutAsync<Container>(requestUrl, container);            
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantFoldersUri(subscriptionId));
+            await this.PutAsync<Folder>(requestUrl, folder);            
         }
 
         /// <summary>
-        /// CreateContainer allows to create new container for given subscription 
+        /// CreateFolder allows to create new folder for given subscription 
         /// </summary>        
-        public async Task DeleteContainerAsync(string subscriptionId, int containerId)
+        public async Task DeleteFolderAsync(string subscriptionId, int folderId)
         {
-            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantContainersUri(subscriptionId));
-            await this.httpClient.DeleteAsync(requestUrl.ToString() + "?containerId=" + containerId);
+            var requestUrl = this.CreateRequestUri(StorageSampleClient.CreateTenantFoldersUri(subscriptionId));
+            await this.httpClient.DeleteAsync(requestUrl.ToString() + "?folderId=" + folderId);
         }
         #endregion
 
@@ -274,9 +274,9 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient
             return uriBuilder.Uri;
         }
 
-        private static string CreateTenantContainersUri(string subscriptionId)
+        private static string CreateTenantFoldersUri(string subscriptionId)
         {
-            return string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantContainers, subscriptionId);
+            return string.Format(CultureInfo.InvariantCulture, StorageSampleClient.TenantFolders, subscriptionId);
         }
         #endregion
     }

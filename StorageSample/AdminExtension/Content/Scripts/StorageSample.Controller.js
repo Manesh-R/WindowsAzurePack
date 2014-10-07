@@ -6,8 +6,8 @@
         adminSettingsUrl = baseUrl + "/AdminSettings",
         adminProductsUrl = baseUrl + "/Products",
         adminFileServersUrl = baseUrl + "/FileServers",
-        adminLocationsUrl = baseUrl + "/Locations",
-        adminLocationCreateUrl = baseUrl + "/CreateLocation";
+        adminSharesUrl = baseUrl + "/Shares",
+        adminShareCreateUrl = baseUrl + "/CreateShare";
 
     function makeAjaxCall(url, data) {
         return Shell.Net.ajaxPost({
@@ -48,10 +48,10 @@
          });
     }
 
-    function getLocationsDataSetInfo() {
+    function getSharesDataSetInfo() {
         return {
-            url: adminLocationsUrl,
-            dataSetName: adminLocationsUrl
+            url: adminSharesUrl,
+            dataSetName: adminSharesUrl
         };
     }
 
@@ -61,13 +61,13 @@
         adminSettingsUrl: adminSettingsUrl,
         adminProductsUrl: adminProductsUrl,
         adminFileServersUrl: adminFileServersUrl,
-        adminLocationsUrl: adminLocationsUrl,
-        adminLocationCreateUrl: adminLocationCreateUrl,
+        adminSharesUrl: adminSharesUrl,
+        adminShareCreateUrl: adminShareCreateUrl,
         updateAdminSettings: updateAdminSettings,
         getCurrentAdminSettings: getCurrentAdminSettings,
         invalidateAdminSettingsCache: invalidateAdminSettingsCache,
         isResourceProviderRegistered: isResourceProviderRegistered,
-        getLocationsDataSetInfo: getLocationsDataSetInfo,
+        getSharesDataSetInfo: getSharesDataSetInfo,
         makeAjaxCall: makeAjaxCall
     };
 })(jQuery, this, Shell, Exp);

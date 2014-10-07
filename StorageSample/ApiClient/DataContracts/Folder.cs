@@ -23,34 +23,34 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContrac
     /// FileServer contains data contract of data which shows up in "File Shares" tab inside StorageSample Tenant Extension
     /// </summary>
     [DataContract(Namespace = Constants.DataContractNamespaces.Default)]
-    public class Container
+    public class Folder
     {
         /// <summary>
-        /// Id of the container
+        /// Id of the folder
         /// </summary>
         [DataMember(Order = 1)]
-        public int ContainerId { get; set; }
+        public int FolderId { get; set; }
 
         /// <summary>
-        /// Name of the container
+        /// Name of the folder
         /// </summary>
         [DataMember(Order = 2)]
-        public string ContainerName { get; set; }
+        public string FolderName { get; set; }
 
         /// <summary>
-        /// SubscriptionId of user who created this container
+        /// SubscriptionId of user who created this folder
         /// </summary>
         [DataMember(Order = 3)]
         public string SubscriptionId { get; set; }
 
         /// <summary>
-        /// Name of the file server where container resides
+        /// Name of the file server where folder resides
         /// </summary>
         [DataMember(Order = 4)]
-        public int LocationId { get; set; }
+        public int ShareId { get; set; }
 
         /// <summary>
-        /// Size of the container
+        /// Size of the folder
         /// </summary>
         [DataMember(Order = 5)]
         public string URL { get; set; }

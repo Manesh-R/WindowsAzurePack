@@ -80,7 +80,7 @@
     }
 
     // Public
-    function loadTab(renderData, container) {
+    function loadTab(renderData, folder) {
         commandsEnabled = false;
 
         // Intialize the local data update event handler
@@ -92,7 +92,7 @@
                 $(dataSet.data).trigger("propertyChange");
             });
 
-        Shell.UI.Validation.setValidationContainer("#hw-settings");  // Initialize validation container for subsequent calls to Shell.UI.Validation.validateContainer.
+        Shell.UI.Validation.setValidationContainer("#hw-settings");  // Initialize validation folder for subsequent calls to Shell.UI.Validation.validateContainer.
         $("#hw-settings").on("change.fxcontrol", onSettingChanged);
 
         $("#hw-password").on("keyup change", function () {

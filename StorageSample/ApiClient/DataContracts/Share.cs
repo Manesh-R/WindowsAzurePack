@@ -20,19 +20,19 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContrac
 {
     /// <summary>
     /// This is a data contract class between extensions and resource provider
-    /// Location contains data contract of data which shows up in "Locations" tab inside StorageSample Admin Extension
+    /// Share contains data contract of data which shows up in "Shares" tab inside StorageSample Admin Extension
     /// </summary>
     [DataContract(Namespace = Constants.DataContractNamespaces.Default)]
-    public class Location
+    public class Share
     {
         [DataMember(Order = 1)]
-        public int LocationId { get; set; }
+        public int ShareId { get; set; }
 
         /// <summary>
         /// Name of the file server
         /// </summary>
         [DataMember(Order = 2)]
-        public string LocationName { get; set; }
+        public string ShareName { get; set; }
 
         /// <summary>
         /// Total space in File Server (MB) 

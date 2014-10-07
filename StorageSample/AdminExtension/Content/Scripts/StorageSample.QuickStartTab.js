@@ -30,7 +30,7 @@
 
     function registerEndpoint(htmlResources, registerReseller, callback) {
         var promise,
-            wizardContainerSelector = ".hw-registerEndpoint";
+            wizardFolderSelector = ".hw-registerEndpoint";
 
         cdm.stepWizard({
             extension: "StorageSampleAdminExtension",
@@ -40,7 +40,7 @@
                     htmlResources: htmlResources,
                     data: { registerReseller: registerReseller },
                     onStepActivate: function () {
-                        Shell.UI.Validation.setValidationContainer(wizardContainerSelector);
+                        Shell.UI.Validation.setValidationContainer(wizardFolderSelector);
                     }
                 }
             ],
@@ -48,7 +48,7 @@
             onComplete: function () {
                 var newEndpointUrl, newUserName, newPassword, newResellerPortalUrl;
 
-                if (!Shell.UI.Validation.validateContainer(wizardContainerSelector)) {
+                if (!Shell.UI.Validation.validateContainer(wizardFolderSelector)) {
                     return false;
                 }
 
@@ -161,8 +161,8 @@
     }
 
     // Public
-    function loadTab(renderData, container) {
-        holder = container.find(".adminQuickStart")
+    function loadTab(renderData, folder) {
+        holder = folder.find(".adminQuickStart")
                 .html(global.StorageSampleAdminExtension.templates.quickStartTabContent.render(htmlResources));
 
         // Intialize the local data update event handler

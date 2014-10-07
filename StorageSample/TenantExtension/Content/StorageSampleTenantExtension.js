@@ -11,7 +11,7 @@
         StorageSampleTenantExtensionActivationInit,
         navigation,
         serviceName = constants.serviceName,
-        selectedContainerId,
+        selectedFolderId,
         selectedSubscriptionId;
 
     function onNavigateAway() {
@@ -24,39 +24,39 @@
         global.StorageSampleTenantExtension.SettingsTab.loadTab(renderData, renderArea);
     }
 
-    function loadContainersTab(extension, renderArea, renderData) {
-        global.StorageSampleTenantExtension.ContainersTab.loadTab(renderData, renderArea);
+    function loadFoldersTab(extension, renderArea, renderData) {
+        global.StorageSampleTenantExtension.FoldersTab.loadTab(renderData, renderArea);
     }
 
     function loadStorageFilesTab(extension, renderArea, renderData) {
         var initData = {};
         initData.subscriptionId = selectedSubscriptionId;
-        initData.containerId = selectedContainerId;
+        initData.folderId = selectedFolderId;
 
         global.StorageSampleTenantExtension.StorageFilesTab.loadTab(extension, renderArea, initData);
     }
 
     // This method is responsible for populating the left items seen when sub-tab is loaded.
-    function loadContainersNavigationItemsDataFunction(data, originalPath, extension) {
-        var items = $.map(global.StorageSampleTenantExtension.Controller.getContainersDataSet().data,
+    function loadFoldersNavigationItemsDataFunction(data, originalPath, extension) {
+        var items = $.map(global.StorageSampleTenantExtension.Controller.getFoldersDataSet().data,
               function (value) {
                   return $.extend(value, {
-                      name: value.ContainerId,  // This is the id of object.
-                      displayName: value.ContainerName,
-                      uniqueId: value.ContainerId,
+                      name: value.FolderId,  // This is the id of object.
+                      displayName: value.FolderName,
+                      uniqueId: value.FolderId,
                       navigationPath: {
                           type: value.Type,     // This is the type of object, you need to set this as a property in JSON data model.
-                          name: value.ContainerId
+                          name: value.FolderId
                       }
                   });
               }
           );
 
-        // Note: The following way of finding the subscription id for specific container id is not ideal.
+        // Note: The following way of finding the subscription id for specific folder id is not ideal.
         // This is done more as a hack. 
         var i, itemCount;
         for (i = 0, itemCount = items.length; i < itemCount; i++) {
-            if (items[i] && items[i].ContainerId == selectedContainerId) {
+            if (items[i] && items[i].FolderId == selectedFolderId) {
                 selectedSubscriptionId = items[i].SubscriptionId;
                 break;
             }
@@ -67,7 +67,7 @@
             backNavigation: {
                 // This should be the id of the tab registered in navigation.
                 // Note most of these matching are case-sensitive, yes **SENSITIVE**
-                view: "containers" 
+                view: "folders" 
             }
         };
     }
@@ -75,10 +75,10 @@
     function onNavigating(context) {
         var destinationItem = context.destination.item;
 
-        // We are navigating to drill downs for a container
+        // We are navigating to drill downs for a folder
         if (destinationItem) {
-            if (destinationItem.type === "Container") { // This is the Type property value of JSON object.
-                selectedContainerId = destinationItem.name;
+            if (destinationItem.type === "Folder") { // This is the Type property value of JSON object.
+                selectedFolderId = destinationItem.name;
             }
         }
     }
@@ -86,16 +86,16 @@
     navigation = {
         tabs: [
             {
-                id: "containers",
-                displayName: "containers",
-                template: "ContainersTab",
-                activated: loadContainersTab
+                id: "folders",
+                displayName: "folders",
+                template: "FoldersTab",
+                activated: loadFoldersTab
             }
         ],
         types: [
             {
-                name: "Container", // This is the type name of the object.
-                dataFunction: loadContainersNavigationItemsDataFunction,
+                name: "Folder", // This is the type name of the object.
+                dataFunction: loadFoldersNavigationItemsDataFunction,
                 tabs: [
                         {
                             id: "Files",
@@ -122,18 +122,18 @@
             return false; // Don't want to activate? Just bail
         }
 
-        global.StorageSampleTenantExtension.Controller.getContainersDataSet(true);
+        global.StorageSampleTenantExtension.Controller.getFoldersDataSet(true);
 
         $.extend(storageSampleExtension, {
-            viewModelUris: [storageSampleExtension.Controller.containerListUrl],
+            viewModelUris: [storageSampleExtension.Controller.folderListUrl],
             displayName: constants.serviceDisplayName,
             navigationalViewModelUri: {
-                uri: storageSampleExtension.Controller.containerListUrl,
+                uri: storageSampleExtension.Controller.folderListUrl,
                 ajaxData: function () {
                     return global.Exp.Rdfe.getSubscriptionIdsRegisteredToService(serviceName);
                 }
             },
-            displayStatus: global.waz.interaction.statusIconHelper(global.StorageSampleTenantExtension.ContainersTab.statusIcons, "Status"),
+            displayStatus: global.waz.interaction.statusIconHelper(global.StorageSampleTenantExtension.FoldersTab.statusIcons, "Status"),
             menuItems: [
                 {
                     name: "StorageSampleMenuItem",
@@ -147,7 +147,7 @@
                         }
                     },
                     subMenu: [
-                        getQuickCreateContainerMenuItem()
+                        getQuickCreateFolderMenuItem()
                     ]
                 }
             ],
@@ -171,47 +171,47 @@
         $.extend(global.StorageSampleTenantExtension, Shell.Extensions.activate(storageSampleExtension));
     };
 
-    function getQuickCreateContainerMenuItem() {
+    function getQuickCreateFolderMenuItem() {
         return {
-            name: "QuickCreateContainer",
-            displayName: "Create Container",
-            description: "Create new container",
-            template: "ContainerQuickCreateMenu",
+            name: "QuickCreateFolder",
+            displayName: "Create Folder",
+            description: "Create new folder",
+            template: "FolderQuickCreateMenu",
             label: "CREATE",
 
             opening: function () {
             },
 
             open: function () {
-                var promise = controller.getLocationsAsync();
+                var promise = controller.getSharesAsync();
                 promise.done(function (response) {
-                    var listOfLocations = response.data;
-                    var locationDropDown = $('#hw-qc-share-server');
-                    var options = $.templates("<option value=\"{{>LocationId}}\">{{>LocationName}}</option>").render(listOfLocations);
-                    locationDropDown.append(options);
+                    var listOfShares = response.data;
+                    var shareDropDown = $('#hw-qc-share');
+                    var options = $.templates("<option value=\"{{>ShareId}}\">{{>ShareName}}</option>").render(listOfShares);
+                    shareDropDown.append(options);
                 });
 
                 // TODO: Ideally if there is only one subscription, user shouldn't be prompted.
                 var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService(serviceName);
-                var subscriptionDropDown = $('#hw-qc-container-subscription');
+                var subscriptionDropDown = $('#hw-qc-subscription');
                 var subscriptionOptions = $.templates("<option value=\"{{>id}}\">{{>OfferFriendlyName}}</option>").render(subscriptionRegisteredToService);
                 subscriptionDropDown.append(subscriptionOptions);
             },
 
             ok: function (object) {
-                var name = object.fields['containerName'];
-                var promise = controller.createContainerAsync(object.fields['selectedSubscription'], name, object.fields['selectedLocation']);
+                var name = object.fields['folderName'];
+                var promise = controller.createFolderAsync(object.fields['selectedSubscription'], name, object.fields['selectedShare']);
                 global.waz.interaction.showProgress(
                     promise,
                     {
-                        initialText: "Creating container '" + name + "'.",
-                        successText: "Successfully created container '" + name + "'.",
-                        failureText: "Failed to create container '" + name + "'."
+                        initialText: "Creating folder '" + name + "'.",
+                        successText: "Successfully created folder '" + name + "'.",
+                        failureText: "Failed to create folder '" + name + "'."
                     }
                 );
 
                 promise.done(function () {
-                    StorageSampleTenantExtension.Controller.getContainersDataSet(true);
+                    StorageSampleTenantExtension.Controller.getFoldersDataSet(true);
                     return true;
                 });
                 promise.fail(function () {
@@ -228,6 +228,6 @@
     Shell.Namespace.define("StorageSampleTenantExtension", {
         serviceName: serviceName,
         init: StorageSampleTenantExtensionActivationInit,
-        getQuickCreateContainerMenuItem: getQuickCreateContainerMenuItem
+        getQuickCreateFolderMenuItem: getQuickCreateFolderMenuItem
     });
 })(jQuery, this);

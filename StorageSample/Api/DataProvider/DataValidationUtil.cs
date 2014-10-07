@@ -30,18 +30,18 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
             return Directory.Exists(path);
         }
 
-        internal static bool IsNetworkAlreadyMapped(string path, List<Location> locations)
+        internal static bool IsNetworkAlreadyMapped(string path, List<Share> shares)
         {
-            var existingLocation = (from s in locations where s.NetworkSharePath.ToLower() == path.ToLower() select s).FirstOrDefault();
-            return existingLocation != null;
+            var existingShare = (from s in shares where s.NetworkSharePath.ToLower() == path.ToLower() select s).FirstOrDefault();
+            return existingShare != null;
         }
 
-        internal static bool IsLocationValid(Location location)
+        internal static bool IsShareValid(Share share)
         {
-            if (location == null ||
-                location.TotalSpace <= 0 ||
-                string.IsNullOrWhiteSpace(location.NetworkSharePath) ||
-                string.IsNullOrWhiteSpace(location.LocationName))
+            if (share == null ||
+                share.TotalSpace <= 0 ||
+                string.IsNullOrWhiteSpace(share.NetworkSharePath) ||
+                string.IsNullOrWhiteSpace(share.ShareName))
             {
                 return false;
             }

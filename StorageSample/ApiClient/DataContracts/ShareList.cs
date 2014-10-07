@@ -19,8 +19,8 @@ using System.Runtime.Serialization;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts
 {    
-    [CollectionDataContract(Name = "Locations", ItemName = "Location", Namespace = Constants.DataContractNamespaces.Default)]
-    public class LocationList : List<Location>, IExtensibleDataObject
+    [CollectionDataContract(Name = "Shares", ItemName = "Share", Namespace = Constants.DataContractNamespaces.Default)]
+    public class ShareList : List<Share>, IExtensibleDataObject
     {
         /// <summary>
         /// Gets or sets the structure that contains extra data.

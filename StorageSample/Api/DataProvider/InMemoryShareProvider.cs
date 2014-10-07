@@ -25,59 +25,59 @@ using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 {
     /// <summary>
-    /// Location data provider with process memory as storage. If we restart IIS, information is lost.
+    /// Share data provider with process memory as storage. If we restart IIS, information is lost.
     /// </summary>
-    public class InMemoryLocationProvider : ILocationProvider
+    public class InMemoryShareProvider : IShareProvider
     {
         // We will start ID with 1000+, so that it looks good on UI.
-        private static int CurrentMaxLocationId = 1000;
+        private static int CurrentMaxShareId = 1000;
 
-        private static InMemoryLocationProvider instance = new InMemoryLocationProvider();
+        private static InMemoryShareProvider instance = new InMemoryShareProvider();
 
-        public static List<Location> locations = new List<Location>();
+        public static List<Share> locations = new List<Share>();
 
-        public static ILocationProvider Instance
+        public static IShareProvider Instance
         {
             get { return instance; }
         }
 
-        List<Location> ILocationProvider.GetLocations(string subscriptionId)
+        List<Share> IShareProvider.GetShares(string subscriptionId)
         {
             return locations;
         }
 
-        void ILocationProvider.CreateLocation(Location location)
+        void IShareProvider.CreateShare(Share location)
         {
-            CurrentMaxLocationId++;
-            locations.Add(new Location
+            CurrentMaxShareId++;
+            locations.Add(new Share
             {
-                LocationId = CurrentMaxLocationId,
-                LocationName = location.LocationName,
+                ShareId = CurrentMaxShareId,
+                ShareName = location.ShareName,
                 TotalSpace = location.TotalSpace,
                 FreeSpace = location.TotalSpace,   // When we start, all space is free.
                 NetworkSharePath = location.NetworkSharePath
             });
         }
 
-        void ILocationProvider.UpdateLocation(Location location)
+        void IShareProvider.UpdateShare(Share location)
         {
-            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).First();
-            existingLocation.TotalSpace = location.TotalSpace;
-            existingLocation.FreeSpace = location.FreeSpace;
+            var existingShare = (from s in locations where s.ShareId == location.ShareId select s).First();
+            existingShare.TotalSpace = location.TotalSpace;
+            existingShare.FreeSpace = location.FreeSpace;
 
             // For now, we only allow updating free and total space. 
             // We do not allow the location name or path to be edited, as files will be already written there.
-            ////existingLocation.LocationName = location.LocationName;
-            ////existingLocation.NetworkSharePath = location.NetworkSharePath;
+            ////existingShare.ShareName = location.ShareName;
+            ////existingShare.NetworkSharePath = location.NetworkSharePath;
         }
 
-        void ILocationProvider.DeleteLocation(Location location)
+        void IShareProvider.DeleteShare(Share location)
         {
             // Call will come here only if the location is valid.
-            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).First();
-            if (existingLocation != null)
+            var existingShare = (from s in locations where s.ShareId == location.ShareId select s).First();
+            if (existingShare != null)
             {
-                locations.Remove(existingLocation);
+                locations.Remove(existingShare);
             }
         }
     }

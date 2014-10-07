@@ -21,48 +21,48 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Model
     /// <summary>
     /// Data model for domain name tenant view
     /// </summary>    
-    public class LocationModel
+    public class ShareModel
     {
         public const string RegisteredStatus = "Registered";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocationModel" /> class.
+        /// Initializes a new instance of the <see cref="ShareModel" /> class.
         /// </summary>
-        public LocationModel()
+        public ShareModel()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LocationModel" /> class.
+        /// Initializes a new instance of the <see cref="ShareModel" /> class.
         /// </summary>
         /// <param name="ProductModel">The domain name from API.</param>
-        public LocationModel(Location locationFromApi)
+        public ShareModel(Share locationFromApi)
         {
-            this.LocationId = locationFromApi.LocationId;
-            this.LocationName = locationFromApi.LocationName;
+            this.ShareId = locationFromApi.ShareId;
+            this.ShareName = locationFromApi.ShareName;
         }
 
         /// <summary>
         /// Covert to the API object.
         /// </summary>
         /// <returns>The API DomainName data contract.</returns>
-        public Location ToApiObject()
+        public Share ToApiObject()
         {
-            return new Location()
+            return new Share()
             {
-                LocationId = this.LocationId,
-                LocationName = this.LocationName
+                ShareId = this.ShareId,
+                ShareName = this.ShareName
             };
         }
 
         /// <summary>
         /// Gets or sets the name.
         // </summary>
-        public int LocationId { get; set; }
+        public int ShareId { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the display name of the file server 
         /// </summary>
-        public string LocationName { get; set; }
+        public string ShareName { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <!-- Source Locations -->
+  <!-- Source Shares -->
   <?ifndef TenantExtensionRoot ?>
   <?define TenantExtensionRoot="..\TenantExtension" ?>
   <?endif?>
@@ -62,11 +62,11 @@
               KeyPath="yes"
               Source="$(var.TenantExtensionRoot)\Content\Scripts\StorageSampleTenant.Controller.js" />
       </Component>
-      <Component Id="T_StorageSampleTenant.ContainersTab.js"
+      <Component Id="T_StorageSampleTenant.FoldersTab.js"
                  Guid="{003E169B-1867-4A14-82F6-576156A3B604}">
-        <File Id="T_StorageSampleTenant.ContainersTab.js"
+        <File Id="T_StorageSampleTenant.FoldersTab.js"
               KeyPath="yes"
-              Source="$(var.TenantExtensionRoot)\Content\Scripts\StorageSampleTenant.ContainersTab.js" />
+              Source="$(var.TenantExtensionRoot)\Content\Scripts\StorageSampleTenant.FoldersTab.js" />
       </Component>
       <Component Id="T_StorageSampleTenant.StorageFilesTab.js"
            Guid="{003E169B-1867-4A14-82F6-576156A3B615}">
@@ -101,35 +101,35 @@
     </Directory>
     <Directory Id="T_Templates"
                Name="Templates">
-      <Component  Id="T_ContainerCreateDialog.html"
+      <Component  Id="T_FolderCreateDialog.html"
                   Guid="{23990529-9E15-4EA5-9FB0-DBDDC70709A4}">
-        <File Id="T_ContainerCreateDialog.html"
+        <File Id="T_FolderCreateDialog.html"
               KeyPath="yes"
-              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainerCreateDialog.html" />
+              Source="$(var.TenantExtensionRoot)\Content\Templates\FolderCreateDialog.html" />
       </Component>
-      <Component Id="T_ContainerInfoDialog.html"
+      <Component Id="T_FolderInfoDialog.html"
                  Guid="{4BCA96AE-9CA5-4DA7-8546-2198EB21105F}">
-        <File Id="T_ContainerInfoDialog.html"
+        <File Id="T_FolderInfoDialog.html"
               KeyPath="yes"
-              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainerInfoDialog.html" />
+              Source="$(var.TenantExtensionRoot)\Content\Templates\FolderInfoDialog.html" />
       </Component>
-      <Component Id="T_ContainerQuickCreateMenu.html"
+      <Component Id="T_FolderQuickCreateMenu.html"
                    Guid="{7D5182AB-F023-45EB-968F-4AD26A862120}">
-        <File Id="T_ContainerQuickCreateMenu.html"
+        <File Id="T_FolderQuickCreateMenu.html"
               KeyPath="yes"
-              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainerQuickCreateMenu.html" />
+              Source="$(var.TenantExtensionRoot)\Content\Templates\FolderQuickCreateMenu.html" />
       </Component>
-      <Component Id="T_ContainersTab.html"
+      <Component Id="T_FoldersTab.html"
                  Guid="{16379994-9799-4885-9699-B043E2CDF2C6}">
-        <File Id="T_ContainersTab.html"
+        <File Id="T_FoldersTab.html"
               KeyPath="yes"
-              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainersTab.html" />
+              Source="$(var.TenantExtensionRoot)\Content\Templates\FoldersTab.html" />
       </Component>
-      <Component Id="T_ContainersTabEmpty.html"
+      <Component Id="T_FoldersTabEmpty.html"
                  Guid="{C2ED945D-2867-487D-B712-1EBF6D919906}">
-        <File Id="T_ContainersTabEmpty.html"
+        <File Id="T_FoldersTabEmpty.html"
               KeyPath="yes"
-              Source="$(var.TenantExtensionRoot)\Content\Templates\ContainersTabEmpty.html" />
+              Source="$(var.TenantExtensionRoot)\Content\Templates\FoldersTabEmpty.html" />
       </Component>
       <Component Id="T_StorageFilesTab.html"
            Guid="{16379994-9799-4885-9699-B043E2CDF2D6}">
@@ -174,16 +174,16 @@
     <ComponentRef Id="T_StorageSampleTenantExtension.js" />
     <ComponentRef Id="T_StorageSampleTenant.Constants.js" />
     <ComponentRef Id="T_StorageSampleTenant.Controller.js" />
-    <ComponentRef Id="T_StorageSampleTenant.ContainersTab.js" />
+    <ComponentRef Id="T_StorageSampleTenant.FoldersTab.js" />
     <ComponentRef Id="T_StorageSampleTenant.StorageFilesTab.js" />
     <ComponentRef Id="T_StorageSampleTenant.SettingsTab.js" />
     <ComponentRef Id="T_HW.ViewModels.QuickCreate.js" />
     <ComponentRef Id="T_StorageSampleTenant.css" />
-    <ComponentRef Id="T_ContainerCreateDialog.html" />
-    <ComponentRef Id="T_ContainerInfoDialog.html" />
-    <ComponentRef Id="T_ContainerQuickCreateMenu.html" />
-    <ComponentRef Id="T_ContainersTab.html" />
-    <ComponentRef Id="T_ContainersTabEmpty.html" />
+    <ComponentRef Id="T_FolderCreateDialog.html" />
+    <ComponentRef Id="T_FolderInfoDialog.html" />
+    <ComponentRef Id="T_FolderQuickCreateMenu.html" />
+    <ComponentRef Id="T_FoldersTab.html" />
+    <ComponentRef Id="T_FoldersTabEmpty.html" />
     <ComponentRef Id="T_StorageFilesTab.html" />
     <ComponentRef Id="T_StorageFilesTabEmpty.html" />
     <ComponentRef Id="T_FileUploadWizard.html" />

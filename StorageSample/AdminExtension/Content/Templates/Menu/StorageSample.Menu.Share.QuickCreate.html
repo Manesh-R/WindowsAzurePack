@@ -1,11 +1,11 @@
 ﻿<div>
-    <div id="locationQuickCreateForm">
+    <div id="shareQuickCreateForm">
         <div class="drawer-form-item">
-            <label for="location-name">Name</label>
+            <label for="share-name">Name</label>
             <div>
-                <input id="locationName" name="locationName" type="text" data-val="true"
+                <input id="shareName" name="shareName" type="text" data-val="true"
                        data-val-waznospecialchars="The field must not contain special characters"
-                       data-val-required="Please provide location name"
+                       data-val-required="Please provide share name"
                        data-val-length="The field must be a string between 3 and 64 characters"
                        data-val-length-max="64"
                        data-val-length-min="3" />
@@ -13,10 +13,10 @@
         </div>
 
         <div class="drawer-form-item">
-            <label for="location-totalspace">Total Space IN GB</label>
+            <label for="share-totalspace">Total Space IN GB</label>
             <div>
-                <input id="locationTotalSpace" name="locationTotalSpace" type="text" data-val="true"
-                       data-val-required="Please provide size of storage location in GB"
+                <input id="shareTotalSpace" name="shareTotalSpace" type="text" data-val="true"
+                       data-val-required="Please provide size of storage share in GB"
                        data-val-number="The value must be a number"
                        data-val-range="The value must be between 1 and 2000000"
                        data-val-range-min="1"
@@ -25,11 +25,11 @@
         </div>
 
         <div class="drawer-form-item">
-            <label for="location-networksharepath">Network Share Path</label>
+            <label for="share-networksharepath">Network Share Path</label>
             <div>
-                <input id="locationNetworkSharePath" name="locationNetworkSharePath" type="text" data-val="true"
+                <input id="shareNetworkSharePath" name="shareNetworkSharePath" type="text" data-val="true"
                        data-val-required="Please provide shared file server path"
-                       data-val-regex="The container is either not in the correct format or has special characters"
+                       data-val-regex="The folder is either not in the correct format or has special characters"
                        data-val-regex-pattern="^\\(\\[^\s\\\/:*?<>|&quot;]+)+(\\)?$"
                        data-val-length="The field must be a string between 3 and 128 characters"
                        data-val-length-max="128"

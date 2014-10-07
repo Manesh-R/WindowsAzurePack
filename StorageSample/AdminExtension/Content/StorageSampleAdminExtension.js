@@ -44,8 +44,8 @@
         global.StorageSampleAdminExtension.ControlsTab.loadTab(renderData, renderArea);
     }
 
-    function loadLocationsTab(extension, renderArea, renderData) {
-        global.StorageSampleAdminExtension.LocationsTab.loadTab(renderData, renderArea);
+    function loadSharesTab(extension, renderArea, renderData) {
+        global.StorageSampleAdminExtension.SharesTab.loadTab(renderData, renderArea);
     }
 
     global.storageSampleExtension = global.StorageSampleAdminExtension || {};
@@ -59,10 +59,10 @@
                     activated: loadQuickStart
                 },
                 {
-                    id: "locations",
-                    displayName: "locations",
-                    template: "locationsTab",
-                    activated: loadLocationsTab
+                    id: "shares",
+                    displayName: "shares",
+                    template: "sharesTab",
+                    activated: loadSharesTab
                 },
                 {
                     id: "settings",
@@ -102,7 +102,7 @@
                         }
                     },
                     subMenu: [
-                        StorageSampleAdminExtension.Menu.getQuickCreateLocationMenuItem()
+                        StorageSampleAdminExtension.Menu.getQuickCreateShareMenuItem()
                     ]
                 }
             ],

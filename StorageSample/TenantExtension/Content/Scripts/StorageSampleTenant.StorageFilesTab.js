@@ -55,7 +55,7 @@
                         }
                     );
                     promise.done(function (result) {
-                        loadGrid(tabInitData.subscriptionId, tabInitData.containerId);
+                        loadGrid(tabInitData.subscriptionId, tabInitData.folderId);
                         _deferred.resolve(result);
                     })
                     .fail(function (result) {
@@ -85,10 +85,10 @@
                 { name: "Name", field: "StorageFileName", sortable: false },
                 { name: "Size (Bytes)", field: "TotalSize", filterable: false, sortable: false },
         ];
-        var promise = controller.getStorageFilesAsync(tabInitData.subscriptionId, tabInitData.containerId);
+        var promise = controller.getStorageFilesAsync(tabInitData.subscriptionId, tabInitData.folderId);
         promise.done(function (response) {
             if (response && response.data) {
-                observableGrid = tabRenderArea.find(".gridContainer")
+                observableGrid = tabRenderArea.find(".gridFolder")
                                     .wazObservableGrid("destroy")
                                     .wazObservableGrid({
                                         lastSelectedRow: null,
@@ -121,7 +121,7 @@
         } catch (e) {
             // When the grid fails to refresh, we still need to refresh the underlying dataset to make sure it has latest data; otherwise will cause data inconsistent.
             // TODO: When we send request to tenant, we need to provide subscription id as well.
-            // Exp.Data.forceRefresh(StorageSampleTenantExtension.Controller.getLocationsDataSetInfo().dataSetName);
+            // Exp.Data.forceRefresh(StorageSampleTenantExtension.Controller.getSharesDataSetInfo().dataSetName);
         }
     }
 

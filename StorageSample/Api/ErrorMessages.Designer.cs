@@ -61,38 +61,38 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Container {0} already exists.
+        ///   Looks up a localized string similar to Folder {0} already exists.
         /// </summary>
-        internal static string ContainerAlreadyExists {
+        internal static string FolderAlreadyExists {
             get {
-                return ResourceManager.GetString("ContainerAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("FolderAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Container cannot be null.
+        ///   Looks up a localized string similar to Folder cannot be null.
         /// </summary>
-        internal static string ContainerEmpty {
+        internal static string FolderEmpty {
             get {
-                return ResourceManager.GetString("ContainerEmpty", resourceCulture);
+                return ResourceManager.GetString("FolderEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Container has files in it..
+        ///   Looks up a localized string similar to Folder has files in it..
         /// </summary>
-        internal static string ContainerNotEmpty {
+        internal static string FolderNotEmpty {
             get {
-                return ResourceManager.GetString("ContainerNotEmpty", resourceCulture);
+                return ResourceManager.GetString("FolderNotEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Container {0} not found.
+        ///   Looks up a localized string similar to Folder {0} not found.
         /// </summary>
-        internal static string ContainerNotFound {
+        internal static string FolderNotFound {
             get {
-                return ResourceManager.GetString("ContainerNotFound", resourceCulture);
+                return ResourceManager.GetString("FolderNotFound", resourceCulture);
             }
         }
         
@@ -115,11 +115,11 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Container is not valid.
+        ///   Looks up a localized string similar to Folder is not valid.
         /// </summary>
-        internal static string InvalidContainerId {
+        internal static string InvalidFolderId {
             get {
-                return ResourceManager.GetString("InvalidContainerId", resourceCulture);
+                return ResourceManager.GetString("InvalidFolderId", resourceCulture);
             }
         }
         
@@ -142,29 +142,29 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location {0} already exists.
+        ///   Looks up a localized string similar to Share {0} already exists.
         /// </summary>
-        internal static string LocationAlreadyExist {
+        internal static string ShareAlreadyExist {
             get {
-                return ResourceManager.GetString("LocationAlreadyExist", resourceCulture);
+                return ResourceManager.GetString("ShareAlreadyExist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location can not be null.
+        ///   Looks up a localized string similar to Share can not be null.
         /// </summary>
-        internal static string LocationEmpty {
+        internal static string ShareEmpty {
             get {
-                return ResourceManager.GetString("LocationEmpty", resourceCulture);
+                return ResourceManager.GetString("ShareEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location {0} not found.
+        ///   Looks up a localized string similar to Share {0} not found.
         /// </summary>
-        internal static string LocationNotFound {
+        internal static string ShareNotFound {
             get {
-                return ResourceManager.GetString("LocationNotFound", resourceCulture);
+                return ResourceManager.GetString("ShareNotFound", resourceCulture);
             }
         }
         

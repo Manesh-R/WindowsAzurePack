@@ -120,14 +120,14 @@
   <data name="EmptySubscription" xml:space="preserve">
     <value>Subscription cannot be null</value>
   </data>
-  <data name="ContainerAlreadyExists" xml:space="preserve">
-    <value>Container {0} already exists</value>
+  <data name="FolderAlreadyExists" xml:space="preserve">
+    <value>Folder {0} already exists</value>
   </data>
-  <data name="ContainerEmpty" xml:space="preserve">
-    <value>Container cannot be null</value>
+  <data name="FolderEmpty" xml:space="preserve">
+    <value>Folder cannot be null</value>
   </data>
-  <data name="ContainerNotFound" xml:space="preserve">
-    <value>Container {0} not found</value>
+  <data name="FolderNotFound" xml:space="preserve">
+    <value>Folder {0} not found</value>
   </data>
   <data name="InvalidBatchSize" xml:space="preserve">
     <value>Batch size must be 0 or larger.</value>
@@ -138,14 +138,14 @@
   <data name="InvalidSubscriptionFormat" xml:space="preserve">
     <value>Subscription '{0}' is not in a valid subscription format. Subscriptions must be in GUID format.</value>
   </data>
-  <data name="LocationAlreadyExist" xml:space="preserve">
-    <value>Location {0} already exists</value>
+  <data name="ShareAlreadyExist" xml:space="preserve">
+    <value>Share {0} already exists</value>
   </data>
-  <data name="LocationEmpty" xml:space="preserve">
-    <value>Location can not be null</value>
+  <data name="ShareEmpty" xml:space="preserve">
+    <value>Share can not be null</value>
   </data>
-  <data name="LocationNotFound" xml:space="preserve">
-    <value>Location {0} not found</value>
+  <data name="ShareNotFound" xml:space="preserve">
+    <value>Share {0} not found</value>
   </data>
   <data name="NullInput" xml:space="preserve">
     <value>Null Input Encountered</value>
@@ -156,10 +156,10 @@
   <data name="NetworkShareAlreadyMapped" xml:space="preserve">
     <value>Network share {0} is already mapped.</value>
   </data>
-  <data name="ContainerNotEmpty" xml:space="preserve">
-    <value>Container has files in it.</value>
+  <data name="FolderNotEmpty" xml:space="preserve">
+    <value>Folder has files in it.</value>
   </data>
-  <data name="InvalidContainerId" xml:space="preserve">
-    <value>Container is not valid</value>
+  <data name="InvalidFolderId" xml:space="preserve">
+    <value>Folder is not valid</value>
   </data>
 </root>

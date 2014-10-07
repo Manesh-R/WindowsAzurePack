@@ -20,19 +20,19 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Models
 {
     /// <summary>
     /// This is a model class which contains data contract we send to Controller which then shows up in UI
-    /// LocationModel contains data contract of data which shows up in "File Servers" tab inside StorageSample Admin Extension
+    /// ShareModel contains data contract of data which shows up in "File Servers" tab inside StorageSample Admin Extension
     /// </summary>
-    public class LocationModel
+    public class ShareModel
     {
         /// <summary>
         /// This is hidden in UI but can be used to identify individual file server records in grid
         /// </summary>
-        public int LocationId { get; set; }
+        public int ShareId { get; set; }
 
         /// <summary>
-        /// LocationName maps to "Name" column in "File Servers" tab
+        /// ShareName maps to "Name" column in "File Servers" tab
         /// </summary>
-        public string LocationName { get; set; }
+        public string ShareName { get; set; }
 
         /// <summary>
         /// TotalSpace maps to "Total Space" column in "File Servers" tab
@@ -50,10 +50,10 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Models
         /// </summary>
         public string NetworkSharePath { get; set; }
 
-        public LocationModel(Location location)
+        public ShareModel(Share location)
         {
-            this.LocationId = location.LocationId;
-            this.LocationName = location.LocationName;
+            this.ShareId = location.ShareId;
+            this.ShareName = location.ShareName;
             this.TotalSpace = location.TotalSpace;
             this.FreeSpace = location.FreeSpace;
             this.NetworkSharePath = location.NetworkSharePath;

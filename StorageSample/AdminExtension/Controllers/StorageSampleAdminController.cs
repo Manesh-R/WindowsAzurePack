@@ -173,25 +173,25 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
         }
 
         /// <summary>
-        /// Gets all Locations.
+        /// Gets all Shares.
         /// </summary>
         /// <remarks>
-        /// Think of location as 'Region' for storage. This is for demonstration only.
+        /// Think of share as 'Region' for storage. This is for demonstration only.
         /// </remarks>
         [HttpPost]
-        [ActionName("Locations")]
-        public async Task<JsonResult> GetAllLocations()
+        [ActionName("Shares")]
+        public async Task<JsonResult> GetAllShares()
         {
             try
             {
-                var localtions = await ClientFactory.StorageSampleClient.GetLocationListAsync();
-                var result = localtions.Select(d => new LocationModel(d)).ToList();
+                var localtions = await ClientFactory.StorageSampleClient.GetShareListAsync();
+                var result = localtions.Select(d => new ShareModel(d)).ToList();
                 return this.JsonDataSet(result);
             }
             catch (HttpRequestException ex)
             {
                 // Returns an empty collection if the HTTP request to the API fails
-                return this.JsonDataSet(new LocationList());
+                return this.JsonDataSet(new ShareList());
             }
         }
 
@@ -199,12 +199,12 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.AdminExtension.Contro
         /// Gets all File Servers.
         /// </summary>
         [HttpPost]
-        [ActionName("CreateLocation")]
-        public async Task<JsonResult> CreateLocation(Location location)
+        [ActionName("CreateShare")]
+        public async Task<JsonResult> CreateShare(Share share)
         {
             try
             {
-                await ClientFactory.StorageSampleClient.AddLocationAsync(location);
+                await ClientFactory.StorageSampleClient.AddShareAsync(share);
                 return this.JsonDataSet(new object());
             }
             catch (HttpRequestException ex)

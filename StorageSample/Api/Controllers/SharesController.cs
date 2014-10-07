@@ -24,67 +24,67 @@ using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
 {
-    public class LocationsController : ApiController
+    public class SharesController : ApiController
     {
         [HttpGet]
-        public List<Location> GetLocationList(string subscriptionId = null)
+        public List<Share> GetShareList(string subscriptionId = null)
         {
-            return DataProviderFactory.LocationInstance.GetLocations();
+            return DataProviderFactory.ShareInstance.GetShares();
         }
 
         [HttpPut]
-        public void UpdateLocation(Location location)
+        public void UpdateShare(Share location)
         {
             if (location == null)
             {
-                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.LocationEmpty);
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.ShareEmpty);
             }
 
             // TODO: Fix issue around HTTP POST method.
-            if (location.LocationId == 0)
+            if (location.ShareId == 0)
             {
-                // Treat this as Add Location
-                InMemoryLocationProvider.Instance.CreateLocation(location);
+                // Treat this as Add Share
+                InMemoryShareProvider.Instance.CreateShare(location);
                 return;
             }
 
-            var locations = DataProviderFactory.LocationInstance.GetLocations();
-            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).FirstOrDefault();
+            var locations = DataProviderFactory.ShareInstance.GetShares();
+            var existingShare = (from s in locations where s.ShareId == location.ShareId select s).FirstOrDefault();
 
-            if (existingLocation == null)
+            if (existingShare == null)
             {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.LocationName);
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.ShareNotFound, location.ShareName);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
-            DataProviderFactory.LocationInstance.UpdateLocation(location);
+            DataProviderFactory.ShareInstance.UpdateShare(location);
         }
 
         [HttpPost]
-        public void AddLocation(Location location)
+        public void AddShare(Share location)
         {
             if (location == null)
             {
-                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.LocationEmpty);
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.ShareEmpty);
             }
 
-            if (!DataValidationUtil.IsLocationValid(location))
+            if (!DataValidationUtil.IsShareValid(location))
             {
                 string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.NullInput);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
-            var locations = DataProviderFactory.LocationInstance.GetLocations();
-            var existingLocation = (from s in locations where s.LocationName.ToLower() == location.LocationName.ToLower() select s).FirstOrDefault();
-            if (existingLocation != null)
+            var locations = DataProviderFactory.ShareInstance.GetShares();
+            var existingShare = (from s in locations where s.ShareName.ToLower() == location.ShareName.ToLower() select s).FirstOrDefault();
+            if (existingShare != null)
             {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationAlreadyExist, location.LocationName);
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.ShareAlreadyExist, location.ShareName);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             };
 
             if (!DataValidationUtil.IsNetworkShareReachable(location.NetworkSharePath))
             {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.NetworkSharePath);
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.ShareNotFound, location.NetworkSharePath);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
@@ -96,27 +96,27 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.Controllers
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
-            DataProviderFactory.LocationInstance.CreateLocation(location);
+            DataProviderFactory.ShareInstance.CreateShare(location);
         }
 
         [HttpPost]
-        public void DeleteLocation(Location location)
+        public void DeleteShare(Share location)
         {
-            if (location == null || location.LocationId == 0)
+            if (location == null || location.ShareId == 0)
             {
-                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.LocationEmpty);
+                throw Utility.ThrowResponseException(this.Request, System.Net.HttpStatusCode.BadRequest, ErrorMessages.ShareEmpty);
             }
 
-            var locations = DataProviderFactory.LocationInstance.GetLocations();
-            var existingLocation = (from s in locations where s.LocationId == location.LocationId select s).FirstOrDefault();
+            var locations = DataProviderFactory.ShareInstance.GetShares();
+            var existingShare = (from s in locations where s.ShareId == location.ShareId select s).FirstOrDefault();
 
-            if (existingLocation == null)
+            if (existingShare == null)
             {
-                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.LocationNotFound, location.LocationName);
+                string message = string.Format(CultureInfo.CurrentCulture, ErrorMessages.ShareNotFound, location.ShareName);
                 throw Utility.ThrowResponseException(null, System.Net.HttpStatusCode.BadRequest, message);
             }
 
-            DataProviderFactory.LocationInstance.DeleteLocation(location);
+            DataProviderFactory.ShareInstance.DeleteShare(location);
         }
     }
 }

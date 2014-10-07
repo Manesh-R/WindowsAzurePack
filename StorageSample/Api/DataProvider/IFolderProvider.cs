@@ -19,14 +19,16 @@ using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 {
-    public interface ILocationProvider
+    public interface IFolderProvider
     {
-        List<Location> GetLocations(string subscriptionId = null);
+        List<Folder> GetFolders(string subscriptionId = null);
 
-        void CreateLocation(Location location);
+        Folder GetFolder(string subscriptionId, int folderId);
 
-        void UpdateLocation(Location location);
+        void CreateFolder(string subscriptionId, Folder folder);
 
-        void DeleteLocation(Location location);
+        void UpdateFolder(string subscriptionId, Folder folder);
+
+        void DeleteFolder(string subscriptionId, int folderId);
     }
 }

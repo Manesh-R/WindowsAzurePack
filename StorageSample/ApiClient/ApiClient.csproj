@@ -58,13 +58,13 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="DataContracts\AdminSettings.cs" />
-    <Compile Include="DataContracts\Container.cs" />
+    <Compile Include="DataContracts\Folder.cs" />
     <Compile Include="DataContracts\StorageFileList.cs" />
     <Compile Include="DataContracts\StorageFile.cs" />
-    <Compile Include="DataContracts\LocationList.cs" />
-    <Compile Include="DataContracts\ContainerList.cs" />
+    <Compile Include="DataContracts\ShareList.cs" />
+    <Compile Include="DataContracts\FolderList.cs" />
     <Compile Include="DataContracts\StorageSampleErrorResource.cs" />
-    <Compile Include="DataContracts\Location.cs" />
+    <Compile Include="DataContracts\Share.cs" />
     <Compile Include="DataContracts\Subscription.cs" />
     <Compile Include="StorageSampleClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

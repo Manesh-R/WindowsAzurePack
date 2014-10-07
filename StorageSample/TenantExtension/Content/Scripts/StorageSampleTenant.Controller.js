@@ -3,13 +3,13 @@
     "use strict";
 
     var baseUrl = "/StorageSampleTenant",
-        containerListUrl = baseUrl + "/ListContainers",
+        folderListUrl = baseUrl + "/ListFolders",
         constants = global.StorageSampleTenantExtension.Constants;
 
-    function getContainersDataSet(triggerRefreshing) {
+    function getFoldersDataSet(triggerRefreshing) {
         if (triggerRefreshing) {
             Exp.Data.getData({
-                url: containerListUrl,
+                url: folderListUrl,
                 ajaxData: {
                     subscriptionIds: Exp.Rdfe.getSubscriptionIdsRegisteredToService(constants.serviceName).subscriptionIds
                 },
@@ -17,48 +17,48 @@
             });
         }
 
-        return Exp.Data.getLocalDataSet(containerListUrl);
+        return Exp.Data.getLocalDataSet(folderListUrl);
     }
 
-    function createContainerAsync(subscriptionId, containerName, locationId) {
+    function createFolderAsync(subscriptionId, folderName, shareId) {
         var data = {};
         data.subscriptionId = subscriptionId;
 
-        data.container = {};
-        data.container.ContainerName = containerName;
-        data.container.LocationId = locationId;
+        data.folder = {};
+        data.folder.FolderName = folderName;
+        data.folder.ShareId = shareId;
 
         return Shell.Net.ajaxPost({
             data: data,
-            url: baseUrl + "/CreateContainer"
+            url: baseUrl + "/CreateFolder"
         });
     }
 
-    function deleteContainerAsync(subscriptionId, containerId) {
+    function deleteFolderAsync(subscriptionId, folderId) {
         return Shell.Net.ajaxPost({
                 data: {
                     subscriptionId: subscriptionId,
-                    containerId: containerId
+                    folderId: folderId
                 },
-                url: baseUrl + "/DeleteContainer"
+                url: baseUrl + "/DeleteFolder"
             });
     }
 
-    function getLocationsAsync() {
+    function getSharesAsync() {
         var subscriptionRegisteredToService = global.Exp.Rdfe.getSubscriptionsRegisteredToService(constants.serviceName);
         return Shell.Net.ajaxPost({
-            url: baseUrl + "/ListLocations",
+            url: baseUrl + "/ListShares",
             data: {
                 subscriptionIds: subscriptionRegisteredToService[0].id
             }
         });
     }
 
-    function getStorageFilesAsync(subscriptionId, containerId) {
+    function getStorageFilesAsync(subscriptionId, folderId) {
         return Shell.Net.ajaxPost({
             data: {
                 subscriptionId: subscriptionId,
-                containerId: containerId
+                folderId: folderId
             },
             url: baseUrl + "/ListStorageFiles"
         });
@@ -81,10 +81,10 @@
 
     global.StorageSampleTenantExtension = global.StorageSampleTenantExtension || {};
     global.StorageSampleTenantExtension.Controller = {
-        getContainersDataSet: getContainersDataSet,
-        createContainerAsync: createContainerAsync,
-        deleteContainerAsync: deleteContainerAsync,
-        getLocationsAsync: getLocationsAsync,
+        getFoldersDataSet: getFoldersDataSet,
+        createFolderAsync: createFolderAsync,
+        deleteFolderAsync: deleteFolderAsync,
+        getSharesAsync: getSharesAsync,
         getStorageFilesAsync: getStorageFilesAsync,
         uploadFileAsync: uploadFileAsync
     };

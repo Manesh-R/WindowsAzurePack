@@ -31,16 +31,16 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
     public sealed class StorageSampleTenantController : ExtensionController
     {   
         /// <summary>
-        /// List containers belong to subscription
+        /// List folders belong to subscription
         /// NOTE: For this sample dummy entries will be displayed
         /// </summary>
         /// <param name="subscriptionIds"></param>
         /// <returns></returns>
         [HttpPost]        
-        public async Task<JsonResult> ListContainers(string[] subscriptionIds)
+        public async Task<JsonResult> ListFolders(string[] subscriptionIds)
         {
             // Make the requests sequentially for simplicity
-            var containers = new List<ContainerModel>();
+            var folders = new List<FolderModel>();
 
             if (subscriptionIds == null || subscriptionIds.Length == 0)
             {
@@ -49,72 +49,72 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
 
             foreach (var subId in subscriptionIds)
             {
-                var containersFromApi = await ClientFactory.StorageSampleClient.ListContainersAsync(subId);
-                containers.AddRange(containersFromApi.Select(d => new ContainerModel(d)));
+                var foldersFromApi = await ClientFactory.StorageSampleClient.ListFoldersAsync(subId);
+                folders.AddRange(foldersFromApi.Select(d => new FolderModel(d)));
             }
 
-            return this.JsonDataSet(containers);
+            return this.JsonDataSet(folders);
         }
 
         /// <summary>
-        /// List containers belong to subscription
+        /// List folders belong to subscription
         /// NOTE: For this sample dummy entries will be displayed
         /// </summary>
         /// <param name="subscriptionIds"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult> ListLocations(string subscriptionIds)
+        public async Task<JsonResult> ListShares(string subscriptionIds)
         {
             // Make the requests sequentially for simplicity
-            var locations = new List<LocationModel>();
+            var shares = new List<ShareModel>();
 
-            var locationsFromApi = await ClientFactory.StorageSampleClient.GetLocationListForTenantAsync(subscriptionIds);
-            locations.AddRange(locationsFromApi.Select(l => new LocationModel(l)));
+            var sharesFromApi = await ClientFactory.StorageSampleClient.GetShareListForTenantAsync(subscriptionIds);
+            shares.AddRange(sharesFromApi.Select(l => new ShareModel(l)));
 
-            return this.JsonDataSet(locations);
+            return this.JsonDataSet(shares);
         }
 
         /// <summary>
-        /// Create new container for subscription
+        /// Create new folder for subscription
         /// </summary>
         /// <param name="subscriptionId"></param>
-        /// <param name="containerToCreate"></param>
+        /// <param name="folderToCreate"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult>  CreateContainer(string subscriptionId, ContainerModel container)
+        public async Task<JsonResult>  CreateFolder(string subscriptionId, FolderModel folder)
         {
-            await ClientFactory.StorageSampleClient.CreateContainerAsync(subscriptionId, container.ToApiObject());
-            return this.Json(container);
+            await ClientFactory.StorageSampleClient.CreateFolderAsync(subscriptionId, folder.ToApiObject());
+            return this.Json(folder);
         }
 
         /// <summary>
-        /// Create new container for subscription
+        /// Create new folder for subscription
         /// </summary>
         /// <param name="subscriptionId"></param>
-        /// <param name="containerToCreate"></param>
+        /// <param name="folderToCreate"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult> DeleteContainer(string subscriptionId, int containerId)
+        public async Task<JsonResult> DeleteFolder(string subscriptionId, int folderId)
         {
-            await ClientFactory.StorageSampleClient.DeleteContainerAsync(subscriptionId, containerId);
+            await ClientFactory.StorageSampleClient.DeleteFolderAsync(subscriptionId, folderId);
             return this.Json(new object());
         }
 
         /// <summary>
-        /// List files in a specific container.
+        /// List files in a specific folder.
         /// </summary>
         /// <param name="subscriptionId"></param>
-        /// <param name="containerId"></param>
+        /// <param name="folderId"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult> ListStorageFiles(string subscriptionId, int containerId)
+        public async Task<JsonResult> ListStorageFiles(string subscriptionId, int folderId)
         {
             if (string.IsNullOrEmpty(subscriptionId))
             {
                 throw new HttpException("Subscription Id is not valid");
             }
 
-            var files = await ClientFactory.StorageSampleClient.GetFileListForTenantAsync(subscriptionId, containerId);
+            var files = await ClientFactory.StorageSampleClient.GetFileListForTenantAsync(subscriptionId, folderId);
             return this.JsonDataSet(files);
         }
 
@@ -122,10 +122,10 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
         /// Upload file to a storage folder.
         /// </summary>
         /// <param name="subscriptionId"></param>
-        /// <param name="containerId"></param>
+        /// <param name="folderId"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult> UploadStorageFile(HttpPostedFileWrapper uploadImageFile, string subscriptionId, int containerId)
+        public async Task<JsonResult> UploadStorageFile(HttpPostedFileWrapper uploadImageFile, string subscriptionId, int folderId)
         {
             if (string.IsNullOrEmpty(subscriptionId))
             {
@@ -145,7 +145,7 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.TenantExtension.Contr
             inStream.Read(fileData, 0, uploadImageFile.ContentLength);
 
 
-            await ClientFactory.StorageSampleClient.UploadForTenantAsync(subscriptionId, containerId, fileName, fileData);
+            await ClientFactory.StorageSampleClient.UploadForTenantAsync(subscriptionId, folderId, fileName, fileData);
             return this.JsonDataSet(new object());
         }
     }

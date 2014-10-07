@@ -19,16 +19,14 @@ using Terawe.WindowsAzurePack.StarterKit.StorageSample.ApiClient.DataContracts;
 
 namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
 {
-    public interface IContainerProvider
+    public interface IShareProvider
     {
-        List<Container> GetContainers(string subscriptionId = null);
+        List<Share> GetShares(string subscriptionId = null);
 
-        Container GetContainer(string subscriptionId, int containerId);
+        void CreateShare(Share location);
 
-        void CreateContainer(string subscriptionId, Container container);
+        void UpdateShare(Share location);
 
-        void UpdateContainer(string subscriptionId, Container container);
-
-        void DeleteContainer(string subscriptionId, int containerId);
+        void DeleteShare(Share location);
     }
 }

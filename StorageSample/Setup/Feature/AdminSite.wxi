@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <!-- Source Locations -->
+  <!-- Source Shares -->
   <?ifndef AdminExtensionRoot ?>
   <?define AdminExtensionRoot="..\AdminExtension" ?>  
   <?endif?>
@@ -101,11 +101,11 @@
               KeyPath="yes"
               Source="$(var.AdminExtensionRoot)\Content\Scripts\StorageSample.Actions.js" />
       </Component>
-      <Component Id="A_StorageSample.LocationsTab.js"
+      <Component Id="A_StorageSample.SharesTab.js"
                  Guid="{575E3B2A-3C69-43A9-AC08-008C43C28EB2}">
-        <File Id="A_StorageSample.LocationsTab.js"
+        <File Id="A_StorageSample.SharesTab.js"
               KeyPath="yes"
-              Source="$(var.AdminExtensionRoot)\Content\Scripts\StorageSample.LocationsTab.js" />
+              Source="$(var.AdminExtensionRoot)\Content\Scripts\StorageSample.SharesTab.js" />
       </Component>
       <Component Id="A_StorageSample.QuickStartTab.js"
                  Guid="{82867C63-52CE-4A42-B61E-8A0F8646C7AC}">
@@ -148,17 +148,17 @@
       </Directory>
       <Directory Id="A_Tabs"
                  Name="Tabs">
-        <Component Id="A_LocationsTab.html"
+        <Component Id="A_SharesTab.html"
                    Guid="{E4C423FA-85C1-41E3-9F2D-B53FAAEB890B}">
-          <File Id="A_LocationsTab.html"
+          <File Id="A_SharesTab.html"
                 KeyPath="yes"
-                Source="$(var.AdminExtensionRoot)\Content\Templates\Tabs\LocationsTab.html" />
+                Source="$(var.AdminExtensionRoot)\Content\Templates\Tabs\SharesTab.html" />
         </Component>
-        <Component Id="A_LocationsTabEmpty.html"
+        <Component Id="A_SharesTabEmpty.html"
                    Guid="{FCBA83D2-0111-4451-B182-CB0D1E483CD5}">
-          <File Id="A_LocationsTabEmpty.html"
+          <File Id="A_SharesTabEmpty.html"
                 KeyPath="yes"
-                Source="$(var.AdminExtensionRoot)\Content\Templates\Tabs\LocationsTabEmpty.html" />
+                Source="$(var.AdminExtensionRoot)\Content\Templates\Tabs\SharesTabEmpty.html" />
         </Component>
         <Component Id="A_QuickStartTab.html"
                    Guid="{5B00D137-9325-4B88-9EE9-93EF13D4C2B4}">
@@ -181,11 +181,11 @@
       </Directory>
       <Directory Id="A_Menu"
                  Name="Menu">
-        <Component Id="A_LocationQuickCreateMenu.html"
+        <Component Id="A_ShareQuickCreateMenu.html"
                    Guid="{83BC26ED-7A00-4CD1-A7B9-C4D9D181907D}">
-          <File Id="A_LocationQuickCreateMenu.html"
+          <File Id="A_ShareQuickCreateMenu.html"
                 KeyPath="yes"
-                Source="$(var.AdminExtensionRoot)\Content\Templates\Menu\StorageSample.Menu.Location.QuickCreate.html" />
+                Source="$(var.AdminExtensionRoot)\Content\Templates\Menu\StorageSample.Menu.Share.QuickCreate.html" />
         </Component>
       </Directory>
     </Directory>    
@@ -222,19 +222,19 @@
     <ComponentRef Id="A_StorageSample.Controller.js" />
     <ComponentRef Id="A_StorageSample.Menu.js" />
     <ComponentRef Id="A_StorageSample.Actions.js" />
-    <ComponentRef Id="A_StorageSample.LocationsTab.js" />
+    <ComponentRef Id="A_StorageSample.SharesTab.js" />
     <ComponentRef Id="A_StorageSample.QuickStartTab.js" />
     <ComponentRef Id="A_StorageSample.SettingsTab.js" />
     <ComponentRef Id="A_StorageSampleAdmin.css" />
     <ComponentRef Id="A_StorageSampleControls.css" />
     <ComponentRef Id="A_RegisterEndpoint.html" />
-    <ComponentRef Id="A_LocationsTab.html" />
-    <ComponentRef Id="A_LocationsTabEmpty.html" />
+    <ComponentRef Id="A_SharesTab.html" />
+    <ComponentRef Id="A_SharesTabEmpty.html" />
     <ComponentRef Id="A_QuickStartTab.html" />
     <ComponentRef Id="A_QuickStartTabContent.html" />
     <ComponentRef Id="A_SettingsTab.html" />
     <ComponentRef Id="A_StorageSampleAdminUiManifest.xml" />
     <ComponentRef Id="A_StorageSampleOffer.cshtml" />
-    <ComponentRef Id="A_LocationQuickCreateMenu.html" />
+    <ComponentRef Id="A_ShareQuickCreateMenu.html" />
   </ComponentGroup>
 </Include>

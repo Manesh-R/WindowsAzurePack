@@ -27,14 +27,14 @@ namespace Terawe.WindowsAzurePack.StarterKit.StorageSample.Api.DataProvider
     /// </summary>
     public class DataProviderFactory
     {
-        public static IContainerProvider ContainerInstance
+        public static IFolderProvider FolderInstance
         {
-            get { return InMemoryContainerProvider.Instance; }
+            get { return InMemoryFolderProvider.Instance; }
         }
 
-        public static ILocationProvider LocationInstance
+        public static IShareProvider ShareInstance
         {
-            get { return InMemoryLocationProvider.Instance; }
+            get { return InMemoryShareProvider.Instance; }
         }
     }
 }
