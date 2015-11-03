@@ -4,7 +4,7 @@ Starter Kit for Windows Azure Pack from [Terawe] (http://terawe.com/WhatWeDo.htm
 
 Features
 -------
-To understand the current features, check out the following blog posts.
+An overview of the features is shared below:
 * v0.1 - [Initial version with in-memory data store] (https://github.com/terawe/WindowsAzurePack/blob/master/WAP Storage Sample Overview.docx)
 
 Questions on Sample?
